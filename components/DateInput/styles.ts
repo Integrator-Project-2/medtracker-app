@@ -15,7 +15,8 @@ export const StyledTextInput = styled.TextInput<StyledTextInputProps>`
 export const Label = styled.Text`
     font-size: 16px;
     color: black; 
-    margin-bottom: 5px; 
+    margin-bottom: 5px;
+    font-family: 'Poppins-Regular'; 
 `;
 
 export const IconWrapper = styled.View`
