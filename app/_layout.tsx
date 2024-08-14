@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -21,9 +22,11 @@ export default function RootLayout() {
   }
 
   return (
+    <PaperProvider>
     <Stack>
       <Stack.Screen name="index" />
     </Stack>
+    </PaperProvider>
   );
 }
 
