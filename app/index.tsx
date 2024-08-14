@@ -1,3 +1,4 @@
+import DateInput from "@/components/DateInput";
 import { Text, View } from "react-native";
 
 export default function Index() {
@@ -9,7 +10,8 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+      <DateInput label='Date of birth' width={316}/>
+  
     </View>
   );
 }
