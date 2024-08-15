@@ -1,5 +1,6 @@
 import DateInput from "@/components/DateInput";
-import { Text, View } from "react-native";
+import { NameInput } from "@/components/NameInput";
+import { View } from "react-native";
 
 export default function Index() {
   return (
@@ -10,7 +11,9 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <DateInput label='Date of birth' width={316}/>
+      <DateInput label='Date of birth' width={316} />
+      <NameInput label='Name' placeholder='John Doe'/>
+      <NameInput label='Name' placeholder='John Doe'/>
   
     </View>
   );

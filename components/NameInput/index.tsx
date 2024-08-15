@@ -1,24 +1,17 @@
 import React from "react";
 import { View } from "react-native";
-import {  StyledNameInput } from "./style";
-import { TextInput } from "react-native-paper";
+import { StyledNameInput } from "./style";
 import { LabelComponent } from "../Label";
+import { colors, theme } from "@/global/styles/theme";
 
 interface NameInputProps {
     label: string;
     placeholder: string;
 }
 
-export const NameInput:React.FC<NameInputProps> = ({ label, placeholder }) => {
+export const NameInput: React.FC<NameInputProps> = ({ label, placeholder }) => {
     const [text, setText] = React.useState('');
-    const theme = {
-      roundness: 10,
-      colors: { 
-          primary: '#354DB0', 
-          underlineColor: 'transparent',
-    }
-  }
-  
+
     return (
       <View>
         <LabelComponent text={label} />
@@ -27,13 +20,12 @@ export const NameInput:React.FC<NameInputProps> = ({ label, placeholder }) => {
           placeholder={placeholder}
           value={text}
           onChangeText={setText}
-          placeholderTextColor="#99A4D6"
-          outlineColor="#99A4D6"
-          theme={theme}
+          placeholderTextColor={colors.lightPurple} 
+          outlineColor={colors.lightPurple} 
           width={316}
-          textColor="#212C5B"
+          textColor={colors.darkBlue}
+          theme={theme}
         />
       </View>
     );
-  };
-  
+};
