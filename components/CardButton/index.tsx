@@ -20,7 +20,7 @@ export function CardButton({ title, description, iconName, iconLib }: CardButton
             </TextButtonContainer>
             {
                 iconLib === "font-awesome" ?  
-                    <FontAwesomeIcon name={iconName} size={40} color="#354DB0" />
+                    <FontAwesomeIcon name='notes-medical' size={40} color="#354DB0" />
                 :
                     <FontistoIcon name='pills' size={32} color="#354DB0" />
             }

@@ -30,13 +30,13 @@ export const TextButtonContainer = styled(View)`
 `;
 
 export const TitleText = styled(Text)`
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     color: #354DB0;
 `;
 
 export const DescriptionText = styled(Text)`
-    font-size: 10px;
+    font-size: 12px;
     color: #99A4D6;
 `;
 
