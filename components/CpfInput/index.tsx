@@ -1,8 +1,8 @@
 import { View } from "react-native";
-import { StyledCpfInput } from "./styles";
 import { LabelComponent } from "../Label";
 import { colors, theme } from "@/global/styles/theme";
 import { useState } from "react";
+import { StyledTextInput } from "@/global/styles/StyledTextInput";
 
 interface CpfInputProps {
     label: string;
@@ -16,7 +16,7 @@ const CpfInput: React.FC<CpfInputProps> = ({ label, placeholder, width }) => {
     return (
         <View>
             <LabelComponent text={label} />
-            <StyledCpfInput
+            <StyledTextInput
                 mode="outlined"
                 placeholder={placeholder}
                 value={cpf}

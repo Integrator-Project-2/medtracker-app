@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { LabelComponent } from "../Label";
 import { colors, theme } from "@/global/styles/theme";
-import { StyledEmailInput } from "./styles";
+import { StyledTextInput } from "@/global/styles/StyledTextInput";
 
 interface EmailInputProps {
     label: string;
@@ -16,7 +16,7 @@ export const EmailInput: React.FC<EmailInputProps> = ({ label, placeholder, widt
     return (
       <View>
         <LabelComponent text={label} />
-        <StyledEmailInput
+        <StyledTextInput
           mode="outlined"
           placeholder={placeholder}
           value={text}

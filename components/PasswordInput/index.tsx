@@ -1,9 +1,9 @@
 import { colors, theme } from '@/global/styles/theme';
 import { TextInput } from 'react-native-paper';
-import { StyledPasswordInput } from './styles';
 import { View } from 'react-native';
 import { LabelComponent } from '../Label';
 import { useState } from 'react';
+import { StyledTextInput } from '@/global/styles/StyledTextInput';
 
 interface PasswordInputProps {
   label: string;
@@ -21,7 +21,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ label, placeholder }) => 
   return (
     <View>
       <LabelComponent text={label} />
-      <StyledPasswordInput
+      <StyledTextInput
         secureTextEntry={!isPasswordVisible}
         right={
           <TextInput.Icon

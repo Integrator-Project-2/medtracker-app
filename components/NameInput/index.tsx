@@ -1,8 +1,8 @@
 import React from "react";
 import { View } from "react-native";
-import { StyledNameInput } from "./style";
 import { LabelComponent } from "../Label";
 import { colors, theme } from "@/global/styles/theme";
+import { StyledTextInput } from "@/global/styles/StyledTextInput";
 
 interface NameInputProps {
     label: string;
@@ -16,7 +16,7 @@ export const NameInput: React.FC<NameInputProps> = ({ label, placeholder, width 
     return (
       <View>
         <LabelComponent text={label} />
-        <StyledNameInput
+        <StyledTextInput
           mode="outlined"
           placeholder={placeholder}
           value={text}

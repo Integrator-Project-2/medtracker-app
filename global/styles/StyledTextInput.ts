@@ -1,11 +1,11 @@
 import { TextInput } from 'react-native-paper';
 import styled from 'styled-components/native';
 
-interface StyledCpfInputProps {
+interface StyledTextInputProps {
   width?: number;
 }
 
-export const StyledCpfInput = styled(TextInput)<StyledCpfInputProps>`
+export const StyledTextInput = styled(TextInput)<StyledTextInputProps>`
   padding: 10px;
   font-size: 16px;
   height: 32px;
