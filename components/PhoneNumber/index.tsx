@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { LabelComponent } from "../Label";
-import { colors, theme } from "@/global/styles/theme";
+import { theme } from "@/global/styles/theme";
 import { StyledTextInput } from "@/global/styles/StyledTextInput";
 
 
@@ -22,9 +22,9 @@ export const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ label, place
           placeholder={placeholder}
           value={phoneNumber}
           onChangeText={setPhoneNumber}
-          placeholderTextColor={colors.lightPurple} 
-          outlineColor={colors.lightPurple} 
-          textColor={colors.darkBlue}
+          placeholderTextColor={theme.colors.lightPurple} 
+          outlineColor={theme.colors.lightPurple} 
+          textColor={theme.colors.darkBlue}
           theme={theme}
           width={width}
           keyboardType="phone-pad" 
