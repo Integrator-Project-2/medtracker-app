@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { IconButton } from 'react-native-paper';
 import {
   StyledCard,
   CardContent,
@@ -12,6 +11,7 @@ import {
   AdditionalInfoPrimaryText,
   AdditionalInfoSecondaryText,
 } from './styles';
+import MenuButton from '../MenuButton';
 
 interface CardComponentProps {
   title: string;
@@ -28,26 +28,12 @@ interface CardComponentProps {
   additionalInfoPrimary?: string;
   additionalInfoSecondary?: string;
   additionalInfoPrimaryColor?: string;
-  additionalInfoSecondaryColor?: string; 
+  additionalInfoSecondaryColor?: string;
+  menuOptions?: { label: string; onPress: () => void }[];
 }
 
-export default function CardComponent({
-  title,
-  subtitle,
-  icon,
-  button,
-  height,
-  width,
-  roundness,
-  bgColor,
-  titleColor,
-  subtitleColor,
-  border,
-  additionalInfoPrimary,
-  additionalInfoSecondary, 
-  additionalInfoPrimaryColor,
-  additionalInfoSecondaryColor,
-}: CardComponentProps) {
+const CardComponent: React.FC<CardComponentProps> = ({
+  title, subtitle, icon, button, height, width, roundness, bgColor, titleColor, subtitleColor, border, additionalInfoPrimary, additionalInfoSecondary, additionalInfoPrimaryColor, additionalInfoSecondaryColor, menuOptions }) => {
   return (
     <StyledCard
       height={height}
@@ -79,9 +65,11 @@ export default function CardComponent({
         )}
 
         <RightSection>
-          {button || <IconButton icon="dots-horizontal" iconColor={titleColor} onPress={() => {}} />}
+          {button || (menuOptions && <MenuButton options={menuOptions} iconColor={titleColor} />)}
         </RightSection>
       </CardContent>
     </StyledCard>
   );
-}
+};
+
+export default CardComponent;

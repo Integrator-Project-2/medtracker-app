@@ -1,0 +1,65 @@
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { LabelComponent } from '../Label';
+import MenuComponent from '../MenuComponent';
+import StyledButton from './styles';
+
+
+interface SelectInputProps {
+  label: string;
+  options: string[];
+  selectedValue?: string;
+  width?: number;
+  height?: number;
+  borderColor?: string;
+  borderRadius?: number;
+}
+
+export const SelectGenderInput: React.FC<SelectInputProps> = ({
+  label,
+  options,
+  selectedValue,
+  width,
+  height,
+  borderColor,
+  borderRadius,
+}) => {
+  const [visible, setVisible] = useState(false);
+  const [selected, setSelected] = useState(selectedValue || '');
+
+  const showMenu = () => setVisible(true);
+  const hideMenu = () => setVisible(false);
+
+  const handleSelect = (value: string) => {
+    setSelected(value);
+    hideMenu();
+  };
+
+  const menuOptions = options.map(option => ({
+    label: option,
+    onPress: () => handleSelect(option),
+  }));
+
+  return (
+    <View>
+      <LabelComponent text={label} />
+      <MenuComponent
+        options={menuOptions}
+        visible={visible}
+        onDismiss={hideMenu}
+        anchor={
+          <StyledButton
+            mode="outlined"
+            onPress={showMenu}
+            width={width}
+            height={height}
+            borderColor={borderColor}
+            borderRadius={borderRadius}
+          >
+            {selected || 'Select...'}
+          </StyledButton>
+        }
+      />
+    </View>
+  );
+};
