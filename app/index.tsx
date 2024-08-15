@@ -1,3 +1,4 @@
+import CpfInput from "@/components/CpfInput";
 import DateInput from "@/components/DateInput";
 import { EmailInput } from "@/components/EmailInput";
 import { NameInput } from "@/components/NameInput";
@@ -17,6 +18,7 @@ export default function Index() {
       <NameInput label='Name' placeholder='John Doe'/>
       <EmailInput label='Email' placeholder="johndoe@email.com"/>
       <PasswordInput label='Password' placeholder='********'/>
+      <CpfInput label='Cpf' placeholder="000.000.000-"/>
   
     </View>
   );

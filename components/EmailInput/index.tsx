@@ -7,9 +7,10 @@ import { StyledEmailInput } from "./styles";
 interface EmailInputProps {
     label: string;
     placeholder: string;
+    width?: number;
 }
 
-export const EmailInput: React.FC<EmailInputProps> = ({ label, placeholder }) => {
+export const EmailInput: React.FC<EmailInputProps> = ({ label, placeholder, width }) => {
     const [text, setText] = React.useState('');
 
     return (
@@ -24,6 +25,7 @@ export const EmailInput: React.FC<EmailInputProps> = ({ label, placeholder }) =>
           outlineColor={colors.lightPurple} 
           textColor={colors.darkBlue}
           theme={theme}
+          width={width}
         />
       </View>
     );

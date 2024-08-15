@@ -7,9 +7,10 @@ import { colors, theme } from "@/global/styles/theme";
 interface NameInputProps {
     label: string;
     placeholder: string;
+    width?: number;
 }
 
-export const NameInput: React.FC<NameInputProps> = ({ label, placeholder }) => {
+export const NameInput: React.FC<NameInputProps> = ({ label, placeholder, width }) => {
     const [text, setText] = React.useState('');
 
     return (
@@ -24,6 +25,7 @@ export const NameInput: React.FC<NameInputProps> = ({ label, placeholder }) => {
           outlineColor={colors.lightPurple} 
           textColor={colors.darkBlue}
           theme={theme}
+          width={width}
         />
       </View>
     );
