@@ -4,12 +4,12 @@ import { LabelComponent } from "../Label";
 import { colors, theme } from "@/global/styles/theme";
 import { StyledEmailInput } from "./styles";
 
-interface EmailInput {
+interface EmailInputProps {
     label: string;
     placeholder: string;
 }
 
-export const EmailInput: React.FC<EmailInput> = ({ label, placeholder }) => {
+export const EmailInput: React.FC<EmailInputProps> = ({ label, placeholder }) => {
     const [text, setText] = React.useState('');
 
     return (
