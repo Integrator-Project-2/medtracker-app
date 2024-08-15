@@ -1,21 +1,21 @@
 import React from "react";
 import { View } from "react-native";
-import { StyledNameInput } from "./style";
 import { LabelComponent } from "../Label";
 import { colors, theme } from "@/global/styles/theme";
+import { StyledEmailInput } from "./styles";
 
-interface NameInputProps {
+interface EmailInput {
     label: string;
     placeholder: string;
 }
 
-export const NameInput: React.FC<NameInputProps> = ({ label, placeholder }) => {
+export const EmailInput: React.FC<EmailInput> = ({ label, placeholder }) => {
     const [text, setText] = React.useState('');
 
     return (
       <View>
         <LabelComponent text={label} />
-        <StyledNameInput
+        <StyledEmailInput
           mode="outlined"
           placeholder={placeholder}
           value={text}
