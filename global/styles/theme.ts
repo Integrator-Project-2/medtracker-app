@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { DefaultTheme } from 'react-native-paper';
 
 
@@ -18,6 +17,11 @@ const theme = {
     text: colors.darkBlue,
     background: '#FFF',
     underlineColor: 'transparent',
+    white: '#ffff',
+    lightPurple: '#99A4D6',
+    navy: '#354DB0',
+    lightBlue: '#4D80F9',
+    cardLightColor: '#F5F6FB'
   },
 };
 
