@@ -1,5 +1,5 @@
-import { PrimaryButton } from "@/components/PrimaryButton";
-import { View, Image } from "react-native";
+import { CardButton } from "@/components/CardButton";
+import { View } from "react-native";
 
 export default function Index() {
   return (
@@ -11,7 +11,20 @@ export default function Index() {
         gap: 10
       }}
     >
-      
+
+      <CardButton
+        title="My prescpriptions"
+        description="Check your medical prescriptions"
+        iconName="notes-medical"
+        iconLib="font-awesome"
+      />
+
+      <CardButton
+        title="My medications"
+        description="Check all your medications"
+        iconName="notes-medical"
+        iconLib="fontisto"
+      /> 
     </View>
   );
 }

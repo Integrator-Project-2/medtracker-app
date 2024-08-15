@@ -1,4 +1,4 @@
-import { GestureResponderEvent, Image } from "react-native";
+import { GestureResponderEvent } from "react-native";
 import { StyledPrimaryButton, StyledTextButton } from "./styles";
 
 interface PrimaryButtonProps {
