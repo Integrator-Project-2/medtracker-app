@@ -1,6 +1,8 @@
 import { View } from "react-native";
 
 export default function Index() {
+  
+
   return (
     <View
       style={{
@@ -8,6 +10,7 @@ export default function Index() {
         justifyContent: "center",
         alignItems: "center",
         gap:10
+        gap: 10
       }}
     >
   
