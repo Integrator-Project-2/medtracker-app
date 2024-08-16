@@ -5,7 +5,7 @@ import { EmailInput } from "@/components/EmailInput";
 import { NameInput } from "@/components/NameInput";
 import PasswordInput from "@/components/PasswordInput";
 import { PhoneNumberInput } from "@/components/PhoneNumber";
-import { SelectGenderInput } from "@/components/SelectGenderInput";
+import { SelectInput } from "@/components/SelectInput";
 import { theme } from "@/global/styles/theme";
 import { View } from "react-native";
 import { PaperProvider } from "react-native-paper";
@@ -29,7 +29,7 @@ export default function Inputs() {
     <PasswordInput label='Password' placeholder='********'/>
     <CpfInput label='Cpf' placeholder="000.000.000-"/>
     <PhoneNumberInput label='Phone Number' placeholder='(00) 0000-0000'/>
-    <SelectGenderInput
+    <SelectInput
     label="Gender"
     options={['Female', 'Male', 'Non-Binary']}/> 
   

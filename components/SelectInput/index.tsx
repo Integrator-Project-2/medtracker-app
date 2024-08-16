@@ -15,7 +15,7 @@ interface SelectInputProps {
   borderRadius?: number;
 }
 
-export const SelectGenderInput: React.FC<SelectInputProps> = ({
+export const SelectInput: React.FC<SelectInputProps> = ({
   label,
   options,
   selectedValue,

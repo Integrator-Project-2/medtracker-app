@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import { Provider as PaperProvider } from 'react-native-paper';
+import { theme } from '@/global/styles/theme';
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -10,7 +11,6 @@ export default function RootLayout() {
     'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
     'Poppins-Medium': require('../assets/fonts/Poppins-Medium.ttf'),
     'Poppins-Semibold': require('../assets/fonts/Poppins-SemiBold.ttf'),
-    'Poppins-Thin': require('../assets/fonts/Poppins-Thin.ttf'),
   });
 
   if (!fontsLoaded) {
@@ -22,10 +22,10 @@ export default function RootLayout() {
   }
 
   return (
-    <PaperProvider>
-    <Stack>
-      <Stack.Screen name="index" />
-    </Stack>
+    <PaperProvider theme={theme}>
+      <Stack>
+        <Stack.Screen name="index" />
+      </Stack>
     </PaperProvider>
   );
 }

@@ -3,10 +3,11 @@ import { Label } from './style';
 
 interface LabelProps {
   text: string;
+  color?: string;
 }
 
-export const LabelComponent: React.FC<LabelProps> = ({ text }) => {
+export const LabelComponent: React.FC<LabelProps> = ({ text, color }) => {
   return (
-      <Label>{text}</Label>
+      <Label color={color}>{text}</Label>
   )
 };

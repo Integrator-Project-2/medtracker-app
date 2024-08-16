@@ -7,11 +7,12 @@ import { LabelComponent } from "../Label";
 
 
 interface DateInputProps {
-    label: string;
+    label?: string;
     width: number;
+    color?: string;
 }
 
-const DateInput: React.FC<DateInputProps> = ({ label, width }) => {
+const DateInput: React.FC<DateInputProps> = ({ label = "", width, color }) => {
     const [ date, setDate ] = useState<Date>(new Date())
     const [ show, setShow ] = useState<boolean>(false)
     const [isFocused, setIsFocused] = useState<boolean>(false)
@@ -31,7 +32,7 @@ const DateInput: React.FC<DateInputProps> = ({ label, width }) => {
 
     return (
         <View>
-            <LabelComponent text={label} />
+            <LabelComponent color={color} text={label} />
             <TouchableOpacity onPress={showDatePicker}>
                 <StyledTextInput  
                     value={date.toLocaleDateString()}

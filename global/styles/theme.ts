@@ -21,6 +21,7 @@ const theme = {
     white: '#ffff',
     lightPurple: '#99A4D6',
     navy: '#354DB0',
+    lightNavy: 'rgba(53, 77, 176, 0.14)',
     lightBlue: '#4D80F9',
     cardLightColor: '#F5F6FB',
     darkBlue: '#212C5B',

@@ -1,3 +1,4 @@
+import { BottomSheet } from "@/components/BottomSheet";
 import { View } from "react-native";
 
 export default function Index() {
@@ -13,6 +14,7 @@ export default function Index() {
       }}
     >
   
+      <BottomSheet />
     </View>
   );
 }
