@@ -8,7 +8,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SelectInput } from '../SelectInput';
 import DateInput from '../DateInput';
 import { theme } from '@/global/styles/theme';
-import { BottomSheetContainer, BottomSheetViewContainer, Container } from './styles';
+import { BottomSheetContainer, BottomSheetViewContainer, Container, StyledText, TextContainer } from './styles';
 import { PrimaryButton } from '../PrimaryButton';
 
 export const BottomSheet = () => {
@@ -41,8 +41,13 @@ export const BottomSheet = () => {
                     snapPoints={snapPoints}
                     onChange={handleSheetChanges}
                 >
-                <Text>Filters</Text>
+
+                <TextContainer>
+                  <StyledText>Filters</StyledText>
+                </TextContainer>
+                
                 <BottomSheetViewContainer>
+
                   <SelectInput 
                     label='Filter by doctor'
                     options={['Dr. Drake Ramoray', 'Dr. Mitchell', 'Dr. Michael']}
