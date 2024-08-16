@@ -13,9 +13,9 @@ interface StyledButtonProps {
 const StyledButton = styled(PaperButton)<StyledButtonProps>`
   width: ${(props) => (props.width ? `${props.width}px` : '316px')};
   height: ${(props) => (props.height ? `${props.height}px` : '52px')};
-  border-color: ${(props) => (props.borderColor ? props.borderColor : theme.colors.lightPurple)};
   border-radius: ${(props) => (props.borderRadius ? `${props.borderRadius}px` : '10px')};
   border-width: ${({ isFocused }) => (isFocused ? '2px' : '1px')};
+  border-color: ${({ isFocused, borderColor }) => (isFocused ? theme.colors.navy || borderColor: theme.colors.lightPurple)};
   justify-content: center;
   align-items: center;
   padding: 0;

@@ -3,7 +3,14 @@ import { View } from "react-native";
 
 export default function Home() {
     return (
-        <View>
+        <View
+            style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 10
+            }}
+        >
             <CardButton
                 title="My prescpriptions"
                 description="Check your medical prescriptions"

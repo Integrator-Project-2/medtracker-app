@@ -6,7 +6,6 @@ import { theme } from '@/global/styles/theme';
 interface StyledCardProps {
   height?: number;
   width?: number;
-  roundness?: number;
   bgColor?: string;
   border?: boolean;
 }
@@ -17,7 +16,7 @@ export const StyledCard = styled(Card)<StyledCardProps>`
   padding: 14px;
   margin: 10px;
   justify-content: center;
-  border-radius: ${(props) => `${props.roundness || 14}px`};
+  border-radius: 14px;
   background-color: ${(props) => props.bgColor || theme.colors.white};
 
   ${(props) =>

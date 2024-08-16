@@ -55,6 +55,7 @@ export const SelectInput: React.FC<SelectInputProps> = ({
             height={height}
             borderColor={borderColor}
             borderRadius={borderRadius}
+            isFocused={visible}
           >
             {selected || 'Select...'}
           </StyledButton>

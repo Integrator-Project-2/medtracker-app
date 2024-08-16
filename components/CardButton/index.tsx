@@ -7,12 +7,13 @@ interface CardButtonProps {
     description: string;
     iconName: string;
     iconLib: string;
+    onPress?: () => void;
 }
 
 
-export function CardButton({ title, description, iconName, iconLib }: CardButtonProps) {
+export function CardButton({ title, description, iconName, iconLib, onPress}: CardButtonProps) {
     return (
-        <Button>
+        <Button onPress={onPress}>
             
             <TextButtonContainer>
                 <TitleText>{title}</TitleText>    
