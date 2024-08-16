@@ -1,4 +1,5 @@
 import { InputRadio } from "@/components/InputRadio";
+import IntegerInput from "@/components/IntegerInput";
 import { useState } from "react";
 import { View } from "react-native";
 
@@ -30,6 +31,9 @@ export default function CreateReminder() {
                 value="manageMedicationStock"
                 onPress={handlePress}
             />
+            <IntegerInput label="Amount" width={160}/>
+            <IntegerInput label="Times a day" width={316}/>
+
         </View>
     )
 }

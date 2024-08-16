@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import { Provider as PaperProvider } from 'react-native-paper';
+import { theme } from '@/global/styles/theme';
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -22,7 +23,7 @@ export default function RootLayout() {
   }
 
   return (
-    <PaperProvider>
+    <PaperProvider theme={theme}>
     <Stack>
       <Stack.Screen name="index"  options={{headerShown:false}}/>
       <Stack.Screen name="(tabs)" options={{headerShown:false}}/>
