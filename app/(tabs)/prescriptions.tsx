@@ -1,9 +1,8 @@
 import CardComponent from "@/components/Card";
 import { theme } from "@/global/styles/theme";
 import { View } from "react-native";
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { IconButton, PaperProvider } from "react-native-paper";
+
 
 export default function Cards() {
   return (
@@ -20,15 +19,11 @@ export default function Cards() {
         <CardComponent
         title="Aspirine"
         subtitle="Tablet"
-        icon={<MaterialCommunityIcons
-              name="pill"
-              size={24}
-              color={theme.colors.lightBlue}
-        />} 
-          additionalInfoPrimary="Amount"
-          additionalInfoSecondary="10"
+        additionalInfoPrimary="Amount"
+        additionalInfoSecondary="10"
+        iconName="tablet"
         height={120}
-        border={true}
+        border
         additionalInfoSecondaryColor={theme.colors.lightBlue}
         additionalInfoPrimaryColor={theme.colors.lightPurple}
         menuOptions={[
@@ -40,13 +35,9 @@ export default function Cards() {
         <CardComponent
         title="Amoxicilina"
         subtitle="1 capsule 50 mg"
-        icon={<MaterialCommunityIcons
-          name="pill"
-          size={24}
-          color={theme.colors.lightBlue}
-          />} 
-          additionalInfoPrimary="10:00"
-          border={true}
+        additionalInfoPrimary="10:00"
+        iconName="pill"
+        border
         menuOptions={[
           { label: 'Option 1', onPress: () => console.log('Option 1 pressed') },
           { label: 'Option 2', onPress: () => console.log('Option 2 pressed') }
@@ -55,25 +46,17 @@ export default function Cards() {
         <CardComponent
         title="Dermatologist"
         subtitle="Dr. John Doe"
-        icon={<FontAwesome5
-          name="notes-medical"
-          size={24}
-          color={theme.colors.lightBlue}
-    />} 
         additionalInfoPrimary="Mon, 23 Nov"
+        iconName="prescription"
         bgColor={theme.colors.cardLightColor}
-        button={<IconButton icon="download" iconColor={theme.colors.lightBlue} onPress={() => {}} />
-      }
+        dowloadButton
       />
 
         <CardComponent
         title="Dipirona"
         subtitle="1 capsule 50 mg"
-        icon={<MaterialCommunityIcons
-          name="pill"
-          size={24}
-          color="white" />} 
         additionalInfoPrimary="12:30"
+        iconName="injection"
         bgColor={theme.colors.navy}
         titleColor={theme.colors.white}
         subtitleColor={theme.colors.white}
