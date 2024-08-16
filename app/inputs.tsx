@@ -30,7 +30,7 @@ export default function Inputs() {
     <CpfInput label='Cpf' placeholder="000.000.000-"/>
     <PhoneNumberInput label='Phone Number' placeholder='(00) 0000-0000'/>
     <SelectGenderInput
-    label="Select an option"
+    label="Gender"
     options={['Female', 'Male', 'Non-Binary']}/> 
   
     </View>

@@ -31,6 +31,7 @@ const MenuComponent: React.FC<MenuComponentProps> = ({ options, visible, onDismi
             onDismiss();
           }}
           title={option.label}
+          titleStyle={{fontFamily: 'Poppins-Medium'}}
         />
       ))}
     </Menu>
