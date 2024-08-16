@@ -8,7 +8,7 @@ export default function CreateReminder() {
     const handlePress = (value: string) => {
         setCheckedValue(value);
     };
-    
+
     return (
         <View
             style={{
@@ -17,14 +17,14 @@ export default function CreateReminder() {
                 alignItems: "center",
                 gap: 10
             }}>
-            <InputRadio 
+            <InputRadio
                 text="Take my medications"
                 selected={checkedValue === 'takeMyMedications'}
                 value="takeMyMedications"
                 onPress={handlePress}
             />
 
-            <InputRadio 
+            <InputRadio
                 text="Manage medication stock"
                 selected={checkedValue === 'manageMedicationStock'}
                 value="manageMedicationStock"

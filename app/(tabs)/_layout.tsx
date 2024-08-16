@@ -19,7 +19,7 @@ export default function TabLayout() {
                         fontFamily: 'Poppins-Semibold',
                         fontSize: 12,
                         paddingBottom: 8,
-                        color:  theme.colors.lightPurple
+                        color: theme.colors.lightPurple
                     },
                     tabBarStyle: {
                         height: 70,
@@ -41,7 +41,7 @@ export default function TabLayout() {
                             />
                         )
                     }}
-                    
+
                 />
 
                 <Tabs.Screen
@@ -87,9 +87,9 @@ export default function TabLayout() {
                     }}
                 />
             </Tabs>
-        
-            <FloatingButton/>
-          
+
+            <FloatingButton />
+
         </View>
     );
 }

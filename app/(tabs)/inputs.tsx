@@ -1,4 +1,3 @@
-import CardComponent from "@/components/Card";
 import CpfInput from "@/components/CpfInput";
 import DateInput from "@/components/DateInput";
 import { EmailInput } from "@/components/EmailInput";
@@ -14,26 +13,26 @@ export default function Inputs() {
   return (
     <PaperProvider theme={theme}>
 
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor:"white"
-      }}
-    >
-     
-    <DateInput label='Date of birth' width={316} />
-    <NameInput label='Name' placeholder='John Doe'/>
-    <EmailInput label='Email' placeholder="johndoe@email.com"/>
-    <PasswordInput label='Password' placeholder='********'/>
-    <CpfInput label='Cpf' placeholder="000.000.000-"/>
-    <PhoneNumberInput label='Phone Number' placeholder='(00) 0000-0000'/>
-    <SelectGenderInput
-    label="Gender"
-    options={['Female', 'Male', 'Non-Binary']}/> 
-  
-    </View>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "white"
+        }}
+      >
+
+        <DateInput label='Date of birth' width={316} />
+        <NameInput label='Name' placeholder='John Doe' />
+        <EmailInput label='Email' placeholder="johndoe@email.com" />
+        <PasswordInput label='Password' placeholder='********' />
+        <CpfInput label='Cpf' placeholder="000.000.000-" />
+        <PhoneNumberInput label='Phone Number' placeholder='(00) 0000-0000' />
+        <SelectGenderInput
+          label="Gender"
+          options={['Female', 'Male', 'Non-Binary']} />
+
+      </View>
     </PaperProvider>
   );
 }
