@@ -10,7 +10,6 @@ export default function Index() {
         justifyContent: "center",
         alignItems: "center",
         gap:10
-        gap: 10
       }}
     >
   
