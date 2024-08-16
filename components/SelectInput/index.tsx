@@ -15,7 +15,7 @@ interface SelectInputProps {
   borderRadius?: number;
 }
 
-export const SelectGenderInput: React.FC<SelectInputProps> = ({
+export const SelectInput: React.FC<SelectInputProps> = ({
   label,
   options,
   selectedValue,
@@ -55,6 +55,7 @@ export const SelectGenderInput: React.FC<SelectInputProps> = ({
             height={height}
             borderColor={borderColor}
             borderRadius={borderRadius}
+            isFocused={visible}
           >
             {selected || 'Select...'}
           </StyledButton>
