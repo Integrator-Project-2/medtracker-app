@@ -11,7 +11,7 @@ interface StyledCardProps {
 }
 
 export const StyledCard = styled(Card)<StyledCardProps>`
-  height: ${(props) => `${props.height || 100}px`};
+  height: ${(props) => `${props.height || 80}px`};
   width: ${(props) => `${props.width || 350}px`};
   padding: 14px;
   margin: 10px;

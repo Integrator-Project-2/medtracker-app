@@ -9,7 +9,7 @@ export const Button = styled(TouchableOpacity)`
     justify-content: space-evenly;
     background-color: transparent;
     border-radius: 10px;
-    border: 1px solid #354DB0;
+    border: 1.5px solid #354DB0;
     gap: 29px;
     min-width: 314px;
     min-height: 116px;
@@ -26,18 +26,19 @@ export const ButtonContainer = styled(View)`
 
 export const TextButtonContainer = styled(View)`
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 `;
 
 export const TitleText = styled(Text)`
     font-size: 18px;
-    font-weight: bold;
     color: #354DB0;
+    font-family: Poppins-Semibold;
 `;
 
 export const DescriptionText = styled(Text)`
     font-size: 12px;
     color: #99A4D6;
+    font-family: Poppins-Semibold;
 `;
 
 export const FontAwesomeIcon = styled(FontAwesome5)`
