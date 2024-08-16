@@ -11,8 +11,8 @@ interface StyledCardProps {
 }
 
 export const StyledCard = styled(Card)<StyledCardProps>`
-  height: ${(props) => `${props.height || 80}px`};
-  width: ${(props) => `${props.width || 350}px`};
+  min-height: ${(props) => `${props.height || 80}px`};
+  min-width: ${(props) => `${props.width || 316}px`};
   padding: 14px;
   margin: 10px;
   justify-content: center;

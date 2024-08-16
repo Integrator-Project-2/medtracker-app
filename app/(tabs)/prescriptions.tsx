@@ -43,14 +43,6 @@ export default function Cards() {
             { label: 'Option 2', onPress: () => console.log('Option 2 pressed') }
           ]}
         />
-        <CardComponent
-          title="Dermatologist"
-          subtitle="Dr. John Doe"
-          additionalInfoPrimary="Mon, 23 Nov"
-          iconName="prescription"
-          bgColor={theme.colors.cardLightColor}
-          dowloadButton
-        />
 
         <CardComponent
           title="Dipirona"
@@ -61,6 +53,16 @@ export default function Cards() {
           titleColor={theme.colors.white}
           subtitleColor={theme.colors.white}
           additionalInfoPrimaryColor={theme.colors.white}
+        />
+        
+        <CardComponent
+          title="Dermatologist"
+          subtitle="Dr. John Doe"
+          additionalInfoPrimary="Mon, 23 Nov"
+          iconName="prescription"
+          bgColor={theme.colors.cardLightColor}
+          dowloadButton
+          width={350}
         />
 
       </View>

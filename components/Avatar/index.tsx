@@ -11,9 +11,9 @@ const AvatarComponent: React.FC<AvatarComponentProps> = ({ name, photoUrl }) => 
   return (
     <View>
       {photoUrl ? (
-        <Avatar.Image size={60} source={{ uri: photoUrl }} />
+        <Avatar.Image size={50} source={{ uri: photoUrl }} />
       ) : (
-        <Avatar.Text size={60} label={getInitials(name)} />
+        <Avatar.Text size={50} label={getInitials(name)} />
       )}
     </View>
   );

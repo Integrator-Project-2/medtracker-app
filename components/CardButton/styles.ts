@@ -11,12 +11,11 @@ export const Button = styled(TouchableOpacity)`
     border-radius: 10px;
     border: 1.5px solid #354DB0;
     gap: 29px;
-    min-width: 314px;
-    min-height: 116px;
+    min-width: 316px;
+    height: 116px;
 `;
 
 export const ButtonContainer = styled(View)`
-    width: 268px;
     height: 60px;
     display: flex;
     flex-direction: row;
