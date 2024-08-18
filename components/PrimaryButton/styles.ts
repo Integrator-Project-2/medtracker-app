@@ -20,6 +20,6 @@ export const StyledPrimaryButton = styled(TouchableOpacity)<{
 
 export const StyledTextButton = styled(Text)<{ color?: string }>`
   color: ${({ color }) => color || '#ffffff'};
-  font-size: 14px;
-  font-family: 'Poppins-Medium';
+  font-size: 16px;
+  font-family: Poppins-Medium;
 `;

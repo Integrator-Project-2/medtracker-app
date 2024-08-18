@@ -33,7 +33,7 @@ export function PrimaryButton({
             {icon && icon}
 
             <StyledTextButton
-                color={textColor}    
+                color={textColor} 
             >
                     {text}
             </StyledTextButton>

@@ -11,7 +11,7 @@ export function WelcomeScreen() {
     const router = useRouter();
 
     function handlePress() {
-        router.push('/(tabs)');
+        router.push('/registry');
     }
     
     return (
