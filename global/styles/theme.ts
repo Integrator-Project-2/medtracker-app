@@ -20,6 +20,7 @@ const theme = {
     underlineColor: 'transparent',
     white: '#ffff',
     lightPurple: '#99A4D6',
+    lightPurpleWitOpacity: 'rgba(153, 164, 214, 0.14)',
     navy: '#354DB0',
     lightNavy: 'rgba(53, 77, 176, 0.14)',
     lightBlue: '#4D80F9',
