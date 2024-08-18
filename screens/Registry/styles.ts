@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 export const FormContainer = styled(View)`
     margin-bottom: 20px;
-    gap: 4px;
+    gap: 30px;
 `;
 
 export const FormButtonContainer = styled(View)`
