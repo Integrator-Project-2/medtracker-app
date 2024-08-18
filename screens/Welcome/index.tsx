@@ -4,14 +4,13 @@ import { useRouter } from "expo-router";
 import { View } from "react-native";
 import { AppDescription, ButtonContainer, ContentContainer, ImageContainer, StyledDetail } from "./styles";
 import Title from "@/components/Title";
-import { Detail } from "@/assets/images/svg/Detail";
 import { theme } from "@/global/styles/theme";
 
 export function WelcomeScreen() {
     const router = useRouter();
 
     function handlePress() {
-        router.push('/registry');
+        router.push('/authentication');
     }
     
     return (
@@ -20,7 +19,8 @@ export function WelcomeScreen() {
                 flex: 1,
                 justifyContent: "center",
                 alignItems: "center",
-                gap: 10
+                gap: 10,
+                backgroundColor:theme.colors.white
             }}
         >
             <ImageContainer>

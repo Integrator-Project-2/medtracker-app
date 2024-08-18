@@ -11,10 +11,7 @@ import CompleteSignUpForm from "./completeSignUpForm";
 import SignInForm from "./signInForm";
 import { useState } from "react";
 
-
-
-
-export default function RegistryScreen() {
+export default function AuthenticationScreen() {
     const [step, setStep] = useState(1)
     const router = useRouter();
 
