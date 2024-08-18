@@ -6,7 +6,8 @@ import { CardButton } from "@/components/CardButton";
 import Subtitle from "@/components/Subtitle";
 import Title from "@/components/Title";
 import { theme } from "@/global/styles/theme";
-import { CardButtonsContainer, CardContainer, Container, Header } from "./styles";
+import { CardButtonsContainer, CardContainer } from "./styles";
+import { Container, Header } from "@/global/styles/globalStyles";
 
 export default function HomeScreen() {
     return (
