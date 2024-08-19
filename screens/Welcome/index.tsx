@@ -9,8 +9,13 @@ import { theme } from "@/global/styles/theme";
 export function WelcomeScreen() {
     const router = useRouter();
 
-    function handlePress() {
-        router.push('/authentication');
+
+    function handleGetStartedPress() {
+        router.push('/authentication'); 
+    }
+
+    function handleAlreadyHaveAccountPress() {
+        router.push('/authentication?step=3');
     }
     
     return (
@@ -46,7 +51,7 @@ export function WelcomeScreen() {
                         bgColor="#354DB0"
                         width={316} 
                         height={52}
-                        onPress={handlePress}
+                        onPress={handleGetStartedPress}
                     />
 
                     <PrimaryButton
@@ -56,24 +61,10 @@ export function WelcomeScreen() {
                         height={52}
                         textColor="#4D80F9"
                         border="1px solid #4D80F9"
-                        onPress={() => console.log('Button Pressed')}
+                        onPress={handleAlreadyHaveAccountPress}
                     />
                 </ButtonContainer>
             </ContentContainer>
-
-
-            {/* <PrimaryButton
-                text="Sign up with Google"
-                bgColor="transparent"
-                width={316} 
-                height={52}
-                textColor="#4D80F9"
-            icon={
-                <Image source={require('../assets/images/devicon_google.png')} style={{ marginRight: 10 }} />
-            }
-                border="1px solid #4D80F9"
-                onPress={() => console.log('Button Pressed')}
-            /> */}
         </View>
     )
 }

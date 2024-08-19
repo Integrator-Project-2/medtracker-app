@@ -1,7 +1,7 @@
 import AuthenticationScreen from "@/screens/Authentication";
 import { ScrollView, StyleSheet } from "react-native";
 
-export default function Registry() {
+export default function Authentication() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <AuthenticationScreen />

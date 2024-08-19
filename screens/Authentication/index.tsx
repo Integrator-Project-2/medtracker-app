@@ -1,6 +1,6 @@
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { theme } from "@/global/styles/theme";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import Title from "@/components/Title";
 import { Image } from 'react-native';
 import { Container, FormButtonContainer, FormContainer, Header } from "@/global/styles/globalStyles";
@@ -8,20 +8,27 @@ import Divider from "@/components/Divider";
 import SignUpForm from "./signUpForm";
 import CompleteSignUpForm from "./completeSignUpForm";
 import SignInForm from "./signInForm";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function AuthenticationScreen() {
-    const [step, setStep] = useState(1)
+    const params = useLocalSearchParams<{ step?: string }>();
+    const [step, setStep] = useState(1);
+
+    useEffect(() => {
+        if (params.step) {
+            setStep(parseInt(params.step, 10));
+        }
+    }, [params.step]);
+
     const router = useRouter();
 
     function handleSignUpComplete() {
-        setStep(3)
+        setStep(3);
     }
 
     function handleSignIn() {
         router.push('/(tabs)');
     }
-
 
     return (
         <Container>
@@ -81,7 +88,6 @@ export default function AuthenticationScreen() {
                         border="1px solid #4D80F9"
                         onPress={() => console.log('Button Pressed')}
                     />
-
                 )}
 
                 {step === 3 && (
@@ -97,11 +103,9 @@ export default function AuthenticationScreen() {
                         border="1px solid #4D80F9"
                         onPress={() => console.log('Button Pressed')}
                     />
-
                 )}
 
             </FormButtonContainer>
         </Container>
-    )
-
+    );
 }
