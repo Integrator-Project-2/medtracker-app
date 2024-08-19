@@ -6,6 +6,8 @@ import Subtitle from "@/components/Subtitle";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { useRouter } from "expo-router";
 import CardComponent from "@/components/Card";
+import Search from "@/components/Search";
+
 
 export default function SelectMedicationScreen() {
     const [selectedMedication, setSelectedMedication] = useState<string | null>(null);
@@ -25,6 +27,7 @@ export default function SelectMedicationScreen() {
                 <Subtitle text='Select a medication' size={16} />
             </SubtitleContainer>
 
+            <Search/>
             <FormContainer marginTop={50}>
                 <CardComponent
                     title="Amoxicilina"
@@ -32,9 +35,9 @@ export default function SelectMedicationScreen() {
                     iconName="pill"
                     border
                     select
-                    value="amoxicilina"
-                    selected={selectedMedication === "amoxicilina"}
-                    onPress={() => handlePress("amoxicilina")}
+                    value="Amoxicilina"
+                    selected={selectedMedication === "Amoxicilina"}
+                    onPress={() => handlePress("Amoxicilina")}
                 />
 
                 <CardComponent
@@ -43,9 +46,9 @@ export default function SelectMedicationScreen() {
                     iconName="tablet"
                     border
                     select
-                    value="ibuprofeno"
-                    selected={selectedMedication === "ibuprofeno"}
-                    onPress={() => handlePress("ibuprofeno")}
+                    value="Ibuprofeno"
+                    selected={selectedMedication === "Ibuprofeno"}
+                    onPress={() => handlePress("Ibuprofeno")}
                 />
 
                 <CardComponent
@@ -54,13 +57,13 @@ export default function SelectMedicationScreen() {
                     iconName="injection"
                     border
                     select
-                    selected={selectedMedication === "dipirona"}
-                    onPress={() => handlePress("dipirona")}
-                    value="dipirona"
+                    value="Dipirona"
+                    selected={selectedMedication === "Dipirona"}
+                    onPress={() => handlePress("Dipirona")}
                 />
             </FormContainer>
 
-            <FormButtonContainer row marginTop={100}>
+            <FormButtonContainer row >
                 <PrimaryButton
                     text='Cancel'
                     bgColor={theme.colors.lightNavy}
