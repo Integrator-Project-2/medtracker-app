@@ -14,7 +14,6 @@ export const StyledCard = styled(Card)<StyledCardProps>`
   min-height: ${(props) => `${props.height || 80}px`};
   min-width: ${(props) => `${props.width || 316}px`};
   padding: 14px;
-  margin: 10px;
   justify-content: center;
   border-radius: 14px;
   background-color: ${(props) => props.bgColor || theme.colors.white};

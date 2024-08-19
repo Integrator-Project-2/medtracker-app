@@ -14,7 +14,8 @@ import {
 import MenuButton from '../MenuButton';
 import { FontAwesome5, Fontisto, MaterialCommunityIcons } from '@expo/vector-icons';
 import { theme } from '@/global/styles/theme';
-import { IconButton } from 'react-native-paper';
+import { IconButton, RadioButton } from 'react-native-paper';
+import { TouchableOpacity } from 'react-native';
 
 interface CardComponentProps {
   title: string;
@@ -32,66 +33,100 @@ interface CardComponentProps {
   additionalInfoSecondaryColor?: string;
   menuOptions?: { label: string; onPress: () => void }[];
   iconName?: string;
+  select?: boolean;
+  selected?: boolean;
+  onPress?: (value: string) => void;
+  value?: string;
 }
 
 const CardComponent: React.FC<CardComponentProps> = ({
-  title, subtitle, dowloadButton, height, width, bgColor, titleColor, subtitleColor, border, additionalInfoPrimary, additionalInfoSecondary, additionalInfoPrimaryColor, additionalInfoSecondaryColor, menuOptions, iconName }) => {
+  title,
+  subtitle,
+  dowloadButton,
+  height,
+  width,
+  bgColor,
+  border,
+  titleColor,
+  subtitleColor,
+  additionalInfoPrimary,
+  additionalInfoSecondary,
+  additionalInfoPrimaryColor,
+  additionalInfoSecondaryColor,
+  menuOptions,
+  iconName,
+  select = false,
+  selected = false,
+  onPress,
+  value
+}) => {
 
-    const renderIcon = () => {
-      const iconColor = titleColor || theme.colors.lightBlue;
+  const renderIcon = () => {
+    const iconColor = titleColor || theme.colors.lightBlue;
 
-      if (iconName === 'tablet') {
-        return <Fontisto name="tablets" size={24} color={iconColor} />;
-      }
-      if (iconName === 'pill') {
-        return <MaterialCommunityIcons name="pill" size={24} color={iconColor} />;
-      }
-      if (iconName === 'injection') {
-        return <FontAwesome5 name="syringe" size={24} color={iconColor} />;
-      }
-      if (iconName === 'prescription') {
-        return <FontAwesome5 name="notes-medical" size={24} color={theme.colors.lightBlue} />;
-      }
+    if (iconName === 'tablet') {
+      return <Fontisto name="tablets" size={24} color={iconColor} />;
     }
+    if (iconName === 'pill') {
+      return <MaterialCommunityIcons name="pill" size={24} color={iconColor} />;
+    }
+    if (iconName === 'injection') {
+      return <FontAwesome5 name="syringe" size={24} color={iconColor} />;
+    }
+    if (iconName === 'prescription') {
+      return <FontAwesome5 name="notes-medical" size={24} color={theme.colors.lightBlue} />;
+    }
+  };
+
   return (
-    <StyledCard
-      height={height}
-      width={width}
-      bgColor={bgColor}
-      border={border}
+    <TouchableOpacity
+      activeOpacity={1}
+      onPress={() => select && onPress && value && onPress(value)}
     >
-      <CardContent>
+      <StyledCard
+        height={height}
+        width={width}
+        bgColor={bgColor}
+        border={border}
+      >
+        <CardContent>
+          <LeftSection>{renderIcon()}</LeftSection>
 
-        <LeftSection>{renderIcon()}
-        </LeftSection>
+          <CenterSection>
+            <Title color={titleColor}>{title}</Title>
+            <Subtitle color={subtitleColor}>{subtitle}</Subtitle>
+          </CenterSection>
 
-        <CenterSection>
-          <Title color={titleColor}>{title}</Title>
-          <Subtitle color={subtitleColor}>{subtitle}</Subtitle>
-        </CenterSection>
+          {(additionalInfoPrimary || additionalInfoSecondary) && (
+            <AdditionalInfoContainer>
+              {additionalInfoPrimary && (
+                <AdditionalInfoPrimaryText color={additionalInfoPrimaryColor}>
+                  {additionalInfoPrimary}
+                </AdditionalInfoPrimaryText>
+              )}
+              {additionalInfoSecondary && (
+                <AdditionalInfoSecondaryText color={additionalInfoSecondaryColor}>
+                  {additionalInfoSecondary}
+                </AdditionalInfoSecondaryText>
+              )}
+            </AdditionalInfoContainer>
+          )}
 
-        {(additionalInfoPrimary || additionalInfoSecondary) && (
-          <AdditionalInfoContainer>
-            {additionalInfoPrimary && (
-              <AdditionalInfoPrimaryText color={additionalInfoPrimaryColor}>
-                {additionalInfoPrimary}
-              </AdditionalInfoPrimaryText>
+          <RightSection>
+            {select ? (
+              <RadioButton
+                value={value || ''}
+                status={selected ? 'checked' : 'unchecked'}
+                color={theme.colors.lightBlue}
+              />
+            ) : (
+              (dowloadButton && <IconButton icon="download" iconColor={theme.colors.lightBlue} onPress={() => { }} />) ||
+              (menuOptions && <MenuButton options={menuOptions} iconColor={titleColor} />)
             )}
-            {additionalInfoSecondary && (
-              <AdditionalInfoSecondaryText color={additionalInfoSecondaryColor}>
-                {additionalInfoSecondary}
-              </AdditionalInfoSecondaryText>
-            )}
-          </AdditionalInfoContainer>
-        )}
-
-        <RightSection>
-          { 
-            (dowloadButton && <IconButton icon="download" iconColor={theme.colors.lightBlue} onPress={() => {}} />)|| (menuOptions && <MenuButton options={menuOptions} iconColor={titleColor} />)
-          }
-        </RightSection>
-      </CardContent>
-    </StyledCard>
+          </RightSection>
+        </CardContent>
+      </StyledCard>
+    </TouchableOpacity>
   );
 };
 
