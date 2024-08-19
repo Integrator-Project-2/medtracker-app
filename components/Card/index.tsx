@@ -20,7 +20,7 @@ import { TouchableOpacity } from 'react-native';
 interface CardComponentProps {
   title: string;
   subtitle: string;
-  dowloadButton?: boolean;
+  downloadButton?: boolean;
   height?: number;
   width?: number;
   bgColor?: string;
@@ -42,7 +42,7 @@ interface CardComponentProps {
 const CardComponent: React.FC<CardComponentProps> = ({
   title,
   subtitle,
-  dowloadButton,
+  downloadButton,
   height,
   width,
   bgColor,
@@ -120,7 +120,7 @@ const CardComponent: React.FC<CardComponentProps> = ({
                 color={theme.colors.lightBlue}
               />
             ) : (
-              (dowloadButton && <IconButton icon="download" iconColor={theme.colors.lightBlue} onPress={() => { }} />) ||
+              (downloadButton && <IconButton icon="download" iconColor={theme.colors.lightBlue} onPress={() => { }} />) ||
               (menuOptions && <MenuButton options={menuOptions} iconColor={titleColor} />)
             )}
           </RightSection>

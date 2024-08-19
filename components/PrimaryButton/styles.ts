@@ -6,6 +6,7 @@ export const StyledPrimaryButton = styled(TouchableOpacity)<{
     width?: number | string;
     height?: number | string;
     border?: string;
+    borderRadius?: number;
  }>`
   background-color: ${({ bgColor }) => bgColor || '#354DB0'};
   padding: 10px 20px;
@@ -16,10 +17,11 @@ export const StyledPrimaryButton = styled(TouchableOpacity)<{
   height: ${({ height }) => (typeof height === 'string' ? height : `${height}px`)};
   flex-direction: row;
   border: ${({ border }) => border || 'none'};
+  border-radius: ${({ borderRadius }) => `${borderRadius}px` || 'none'};
 `;
 
-export const StyledTextButton = styled(Text)<{ color?: string }>`
+export const StyledTextButton = styled(Text)<{ color?: string; fontSize?: number}>`
   color: ${({ color }) => color || '#ffffff'};
-  font-size: 16px;
+  font-size: ${({ fontSize }) => `${fontSize}px`};
   font-family: Poppins-Medium;
 `;

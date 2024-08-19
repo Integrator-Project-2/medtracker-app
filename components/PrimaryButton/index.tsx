@@ -9,6 +9,8 @@ interface PrimaryButtonProps {
     width?: number | string;
     height?: number | string;
     border?: string;
+    borderRadius?: number;
+    fontSize?: number;
     onPress: (event: GestureResponderEvent) => void;
   }
 
@@ -20,6 +22,8 @@ export function PrimaryButton({
     width,
     height,
     border,
+    borderRadius = 10,
+    fontSize = 16,
     onPress,
  }: PrimaryButtonProps) {
     return (
@@ -29,11 +33,13 @@ export function PrimaryButton({
             height={height} 
             border={border}
             onPress={onPress}
+            borderRadius={borderRadius}
         >
             {icon && icon}
 
             <StyledTextButton
                 color={textColor} 
+                fontSize={fontSize} 
             >
                     {text}
             </StyledTextButton>
