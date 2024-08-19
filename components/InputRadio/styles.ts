@@ -14,8 +14,8 @@ export const InputContainer = styled(TouchableOpacity)`
 
 export const InputRadioText = styled(Text)`
     color: #4D80F9;
-    font-weight: bold;
     font-size: 14px;
+    font-family: Poppins-Semibold;
 `;
 
 export const RadioButton = styled.TouchableOpacity<{ selected: boolean }>`

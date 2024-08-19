@@ -1,11 +1,18 @@
 import { View } from "react-native";
 import styled from "styled-components";
 
-export const Header = styled(View)`
+interface HeaderProps {
+    column?: boolean;
+}
+export const Header = styled(View)<HeaderProps>`
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
     margin: 24px 0;
+
+      ${(props) => (
+        props.column ?
+        `flex-direction: column` : `flex-direction: row; align-items: center;`
+    )}
 `;
 
 export const Container = styled(View)`
@@ -31,7 +38,6 @@ interface FormButtonContainerProps {
 }
 
 export const FormButtonContainer = styled(View)<FormButtonContainerProps>`
-    margin-top: 100px;
     gap: 20px;
     margin-top: ${(props) => props.marginTop || 20}px;
     ${(props) => (

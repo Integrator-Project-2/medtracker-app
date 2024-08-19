@@ -1,15 +1,18 @@
+import { useRouter } from "expo-router";
 import { StyledFloatingButton, Container } from "./style";
 
 export default function FloatingButton(){
+    const router = useRouter();
+
+    function handlePress() {
+        router.push('/selectMedication')
+    }
     return (
-        <Container>  
+        <Container> 
             <StyledFloatingButton
                 icon="plus"
                 color="white"
-                onPress={() => {
-
-                    console.log('Botão flutuante pressionado');
-                }}/>
+                onPress={handlePress}/>
         </Container>
     )
 }
