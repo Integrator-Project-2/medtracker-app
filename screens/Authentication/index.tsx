@@ -37,9 +37,9 @@ export default function AuthenticationScreen() {
             </Header>
 
             <FormContainer>
-                {step === 1 && <SignUpForm />}
-                {step === 2 && <CompleteSignUpForm />}
-                {step === 3 && <SignInForm />}
+                {step === 1 && <SignUpForm key='signUpForm'/>}
+                {step === 2 && <CompleteSignUpForm key='completeSignUpForm' />}
+                {step === 3 && <SignInForm  key='signIpForm' />}
             </FormContainer>
 
             <FormButtonContainer>
