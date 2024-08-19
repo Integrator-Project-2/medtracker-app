@@ -17,7 +17,7 @@ export default function HomeScreen() {
                 <AvatarComponent name="Michael Scott" />
             </Header>
 
-            <Subtitle text="Upcoming Reminder" size={16} />
+            <Subtitle text="Upcoming Reminder" size={16} marginBottom={10}/>
             <CardContainer>
                 <CardComponent
                     title="Aspirine"
@@ -32,7 +32,7 @@ export default function HomeScreen() {
                 />
             </CardContainer>
 
-            <Subtitle text="More" size={16} />
+            <Subtitle text="More" size={16} marginBottom={10}/>
             <CardButtonsContainer>
                 <CardButton
                     title="My prescriptions"
