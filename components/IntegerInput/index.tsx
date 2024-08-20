@@ -7,9 +7,10 @@ import { View } from "react-native";
 interface IntegerInputProps {
     label: string;
     width?: number;
+    fontSize?: number;
 }
 
-export default function IntegerInput({ label, width }: IntegerInputProps) {
+export default function IntegerInput({ label, width, fontSize }: IntegerInputProps) {
     const [value, setValue] = useState<number>(0);
 
     const increment = () => setValue(value + 1);
@@ -24,7 +25,7 @@ export default function IntegerInput({ label, width }: IntegerInputProps) {
 
     return (
         <View>   
-            <LabelComponent text={label} />
+            <LabelComponent text={label} fontSize={fontSize}/>
             <Container width={width}>
                 <StyledButton mode="text" onPress={decrement}>
                     <ButtonText>-</ButtonText>

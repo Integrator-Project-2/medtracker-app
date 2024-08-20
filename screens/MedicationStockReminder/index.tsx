@@ -1,4 +1,3 @@
-import { InputRadio } from "@/components/InputRadio";
 import Title from "@/components/Title";
 import { Container, FormButtonContainer, FormContainer, Header, SubtitleContainer } from "@/global/styles/globalStyles";
 import { theme } from "@/global/styles/theme";

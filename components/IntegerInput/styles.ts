@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { theme } from "@/global/styles/theme";
 
 export const StyledButton = styled(Button)`
-    flex: 1;
     align-items: center;
     justify-content: center;
 `;
@@ -17,24 +16,22 @@ interface ContainerProps {
     width?: number;
 }
 
-export const Container = styled(View)<ContainerProps>`
+export const Container = styled(View) <ContainerProps>`
     flex-direction: row;
     justify-content: center;
     align-items: center;
     border: 1px;
     border-radius: 10px;
-    padding: 0 10px;
     height: 52px;
     border-color: ${theme.colors.lightBlue};
-    width: ${(props) => props.width || 316}px;
+    width: ${(props) => props.width || 316}px; 
 `;
 
-  
 export const StyledIntegerInput = styled(TextInput)`
     font-size: 16px;
     background-color: transparent;
     height: 32px;
     font-family: 'Poppins-Medium';
     color: #354DB0;
-    text-align: center;
+    width: 40px;
 `;

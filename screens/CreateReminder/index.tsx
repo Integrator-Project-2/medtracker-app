@@ -18,8 +18,8 @@ export default function CreateReminderScreen() {
     };
 
     function handleNext(){
-        if (checkedValue === 'takemyMedications'){
-            router.push('/takeMedicationreminder')
+        if (checkedValue === 'takeMyMedications'){
+            router.push(`/takeMedicationReminder?medication=${encodeURIComponent(medication)}`)
         } else if (checkedValue === 'manageMedicationStock'){
             router.push(`/medicationStockReminder?medication=${encodeURIComponent(medication)}`)
         }
