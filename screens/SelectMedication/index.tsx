@@ -69,26 +69,28 @@ export default function SelectMedicationScreen() {
                 </FormContainer>
                 </StyledScrollView>
 
-                <FormButtonContainer row >
-                    <PrimaryButton
-                        text='Cancel'
-                        bgColor={theme.colors.lightNavy}
-                        textColor={theme.colors.navy}
-                        onPress={() => router.back()}
-                        width={148}
-                    />
+            <FormButtonContainer row >
+                <PrimaryButton
+                    text='Cancel'
+                    bgColor={theme.colors.lightNavy}
+                    textColor={theme.colors.navy}
+                    onPress={() => router.back()}
+                    width={148}
+                    height={52}
+                />
 
-                    <PrimaryButton
-                        text='Next'
-                        bgColor={theme.colors.navy}
-                        onPress={() => {
-                            if (selectedMedication) {
-                                router.push(`/createReminder?medication=${encodeURIComponent(selectedMedication)}`);
-                            }
-                        }}
-                        width={148}
-                    />
-                </FormButtonContainer>
+                <PrimaryButton
+                    text='Next'
+                    bgColor={theme.colors.navy}
+                    onPress={() => {
+                        if (selectedMedication) {
+                            router.push(`/createReminder?medication=${encodeURIComponent(selectedMedication)}`);
+                        }
+                    }}
+                    width={148}
+                    height={52}
+                />
+            </FormButtonContainer>
         </Container>
     )
 }
