@@ -1,18 +1,16 @@
-import { View } from "react-native";
+import { FlatList, FlatListProps, View } from "react-native";
 import styled from "styled-components";
 
 interface HeaderProps {
     column?: boolean;
+    width?: string;
 }
 export const Header = styled(View)<HeaderProps>`
-    flex-direction: row;
+    flex-direction: ${(props) => (props.column ? 'column' : 'row')};
     justify-content: space-between;
+    align-items: ${(props) => (props.column ? 'flex-start' : 'center')};
     margin: 24px 0;
-
-      ${(props) => (
-        props.column ?
-        `flex-direction: column` : `flex-direction: row; align-items: center;`
-    )}
+    width: ${(props) => props.width || '100%'};
 `;
 
 export const Container = styled(View)`
