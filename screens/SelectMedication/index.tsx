@@ -70,6 +70,7 @@ export default function SelectMedicationScreen() {
                     textColor={theme.colors.navy}
                     onPress={() => router.back()}
                     width={148}
+                    height={52}
                 />
 
                 <PrimaryButton
@@ -81,6 +82,7 @@ export default function SelectMedicationScreen() {
                         }
                     }}
                     width={148}
+                    height={52}
                 />
             </FormButtonContainer>
         </Container>

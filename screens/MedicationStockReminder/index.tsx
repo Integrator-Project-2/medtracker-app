@@ -41,6 +41,7 @@ export default function MedicationStockReminderScreen() {
                     textColor={theme.colors.navy}
                     onPress={() => router.back()}
                     width={148}
+                    height={52}
                 />
                 
                 <PrimaryButton
@@ -48,6 +49,7 @@ export default function MedicationStockReminderScreen() {
                     bgColor={theme.colors.navy}
                     onPress={handleNext} 
                     width={148}
+                    height={52}
                 />
             </FormButtonContainer>
         </Container>
