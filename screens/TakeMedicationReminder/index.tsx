@@ -37,10 +37,10 @@ export default function TakeMedicationReminderScreen() {
 
     function handleBack() {
         if (step === 3) {
-            if (checkedValue === 'dailyReminder') {
-                setStep(2); // volta para 2 se for dailyReminder
-            } else {
+            if (checkedValue === 'uniqueReminder') {
                 setStep(1); // volta para 1 se for uniqueReminder
+            } else {
+                setStep(2); // volta para 2 se for dailyReminder 
             }
         } else if (step === 2) {
             setStep(1);
