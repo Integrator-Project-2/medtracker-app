@@ -31,7 +31,7 @@ export default function TakeMedicationReminderScreen() {
         } else if (step === 2) {
             setStep(3);
         } else if (step === 3) {
-            router.push('/listReminders');
+            router.push('/medications');
         }
     }
 

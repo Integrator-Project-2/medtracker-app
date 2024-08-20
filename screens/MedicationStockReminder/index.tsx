@@ -12,7 +12,7 @@ export default function MedicationStockReminderScreen() {
     const medication = params.medication;
 
     function handleNext(){
-        router.push('/listReminders')
+        router.push('/medications')
     }
 
     return (

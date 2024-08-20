@@ -1,4 +1,5 @@
 import CardComponent from "@/components/Card";
+import Search from "@/components/Search";
 import Title from "@/components/Title";
 import { Container, Header, ListContainer } from "@/global/styles/globalStyles";
 import { theme } from "@/global/styles/theme";
@@ -22,7 +23,7 @@ const cardData = [
     {
         title: "Amoxicilina",
         subtitle: "1 capsule 50 mg",
-        additionalInfoPrimary: "10:00",
+         height: 120,
         iconName: "pill",
         border: true,
         menuOptions: [
@@ -33,7 +34,7 @@ const cardData = [
     {
         title: "Amoxicilina",
         subtitle: "1 capsule 50 mg",
-        additionalInfoPrimary: "10:00",
+        height: 120,
         iconName: "pill",
         border: true,
         menuOptions: [
@@ -52,7 +53,8 @@ export function MedicationsScreen() {
                 />
             </Header>
 
-
+            <Search />
+            
             <ListContainer>
                 {cardData.map((card, index) => (
                     <CardComponent
