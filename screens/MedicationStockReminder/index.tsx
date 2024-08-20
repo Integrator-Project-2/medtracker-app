@@ -10,34 +10,29 @@ import CustomSnackbar from "@/components/SnackBar";
 
 export default function MedicationStockReminderScreen() {
     const router = useRouter();
-    const params = useLocalSearchParams<{ medication: string }>(); 
+    const params = useLocalSearchParams<{ medication: string }>();
     const medication = params.medication;
-    
+
     const [snackbarVisible, setSnackbarVisible] = useState(false);
 
     function handleNext() {
-        setSnackbarVisible(true);
-        setTimeout(() => {
-            router.push('/medications');
-        }, 400);
-    }
 
-    function handleSnackbarDismiss() {
-        setSnackbarVisible(false);
+        router.push('/medications');
+
     }
 
     return (
         <Container>
             <Header column>
                 <Title text="Create Reminder" color={theme.colors.darkBlue} size={24} />
-                <Subtitle text="Manage Medication Stock" size={16} color={theme.colors.lightPurple}/>
-                <Subtitle text={`${medication}`} size={16} color={theme.colors.lightBlue}/>
+                <Subtitle text="Manage Medication Stock" size={16} color={theme.colors.lightPurple} />
+                <Subtitle text={`${medication}`} size={16} color={theme.colors.lightBlue} />
             </Header>
 
 
             <FormContainer marginTop={50}>
-                <IntegerInput label='Current Stock'/>
-                <IntegerInput label='Remind Me When I Have'/>
+                <IntegerInput label='Current Stock' />
+                <IntegerInput label='Remind Me When I Have' />
             </FormContainer>
 
             <FormButtonContainer row marginTop={100}>
@@ -49,21 +44,15 @@ export default function MedicationStockReminderScreen() {
                     width={148}
                     height={52}
                 />
-                
+
                 <PrimaryButton
                     text='Next'
                     bgColor={theme.colors.navy}
-                    onPress={handleNext} 
+                    onPress={handleNext}
                     width={148}
                     height={52}
                 />
             </FormButtonContainer>
-
-            <CustomSnackbar
-                visible={snackbarVisible}
-                text="Reminder created successfully!"
-                onDismiss={handleSnackbarDismiss}
-            />
         </Container>
     )
 }

@@ -17,7 +17,6 @@ export default function TakeMedicationReminderScreen() {
 
     const [checkedValue, setCheckedValue] = useState('uniqueReminder');
     const [step, setStep] = useState(1);
-    const [snackbarVisible, setSnackbarVisible] = useState(false);
 
     function handlePress(value: string) {
         setCheckedValue(value);
@@ -33,7 +32,7 @@ export default function TakeMedicationReminderScreen() {
         } else if (step === 2) {
             setStep(3);
         } else if (step === 3) {
-            setSnackbarVisible(true);
+            router.push('/medications');
         }
     }
 
@@ -49,11 +48,6 @@ export default function TakeMedicationReminderScreen() {
         } else {
             router.back();
         }
-    }
-
-    function handleSnackbarDismiss() {
-        setSnackbarVisible(false);
-        router.push('/medications');
     }
 
     function renderForm() {
@@ -111,11 +105,6 @@ export default function TakeMedicationReminderScreen() {
                 />
             </FormButtonContainer>
 
-            <CustomSnackbar
-                visible={snackbarVisible}
-                text="Reminder created successfully!"
-                onDismiss={handleSnackbarDismiss}
-            />
         </Container>
     );
 }
