@@ -2,9 +2,10 @@ import { FilterIcon } from "@/assets/images/svg/FilterIcon";
 import CardComponent from "@/components/Card";
 import Title from "@/components/Title";
 import { theme } from "@/global/styles/theme";
-import { View } from "react-native";
 import { PaperProvider } from "react-native-paper";
-import { FilterButton, FilterButtonText } from "./styles";
+import { FilterButton, FilterButtonText, ListContainer } from "./styles";
+import { Container, Header } from "@/global/styles/globalStyles";
+import { View } from "react-native";
 
 // esse array será removido quando for implementada a integração com o backend
 const cardData = [
@@ -14,7 +15,7 @@ const cardData = [
         additionalInfoPrimary: "Mon, 23 Nov",
         iconName: "prescription",
         bgColor: theme.colors.cardLightColor,
-        width: 350,
+        width: 316,
     },
     {
         title: "Cardiologist",
@@ -22,7 +23,7 @@ const cardData = [
         additionalInfoPrimary: "Tue, 24 Nov",
         iconName: "prescription",
         bgColor: theme.colors.cardLightColor,
-        width: 350,
+        width: 316,
     },
     {
         title: "Pediatrician",
@@ -30,7 +31,7 @@ const cardData = [
         additionalInfoPrimary: "Wed, 25 Nov",
         iconName: "prescription",
         bgColor: theme.colors.cardLightColor,
-        width: 350,
+        width: 316,
     },
 ];
 
@@ -39,39 +40,40 @@ const cardData = [
 export function Prescriptions() {
     return (
         <PaperProvider theme={theme}>
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "white"
-                }}
-            >
-
-                <Title 
-                    text="Prescriptions"
-                />
-                <FilterButton>
-                    <FilterIcon />
-                    <FilterButtonText>
-                        Filters
-                    </FilterButtonText>
-                </FilterButton>
-
-                {cardData.map((card, index) => (
-                    <CardComponent
-                        key={index}
-                        title={card.title}
-                        subtitle={card.subtitle}
-                        additionalInfoPrimary={card.additionalInfoPrimary}
-                        iconName={card.iconName}
-                        bgColor={card.bgColor}
-                        downloadButton
-                        width={card.width}
+            <Container>
+                <Header>
+                    <Title 
+                        text="Prescriptions"
                     />
-                ))}
+                    <FilterButton>
+                        <FilterIcon />
+                        <FilterButtonText>
+                            Filters
+                        </FilterButtonText>
+                    </FilterButton>
+                </Header>
 
-            </View>
+                <ListContainer>
+                    {cardData.map((card, index) => (
+                        <CardComponent
+                            key={index}
+                            title={card.title}
+                            subtitle={card.subtitle}
+                            subTitlefontSize={11}
+                            titlefontSize={13}
+                            additionalInfoPrimaryfontSize={11}
+                            additionalInfoPrimary={card.additionalInfoPrimary}
+                            iconName={card.iconName}
+                            bgColor={card.bgColor}
+                            downloadButton
+                            width={card.width}
+                        />
+                    ))}
+                </ListContainer>
+            </Container>
+
+                
+
         </PaperProvider>
     )
 }

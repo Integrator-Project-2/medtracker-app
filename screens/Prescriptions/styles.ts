@@ -1,5 +1,5 @@
 import { theme } from "@/global/styles/theme";
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity, Text, View } from "react-native";
 import styled from "styled-components/native";
 
 export const FilterButton = styled(TouchableOpacity)`
@@ -19,3 +19,9 @@ export const FilterButtonText = styled(Text)`
     font-family: 'Poppins-Medium';
     color: ${theme.colors.lightBlue};
 `; 
+
+export const ListContainer = styled(View)`
+    width: 100%;
+    align-items: center;
+    gap: 30px;
+`;
