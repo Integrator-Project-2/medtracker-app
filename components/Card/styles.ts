@@ -41,20 +41,22 @@ export const CenterSection = styled.View`
 
 interface TitleProps {
   color?: string;
+  fontSize?: number;
 }
 
 export const Title = styled.Text<TitleProps>`
-  font-size: 16px;
+  font-size: ${(props) => props.fontSize || 16}px;
   font-family: 'Poppins-Semibold';
   color: ${(props) => props.color || theme.colors.lightBlue};
 `;
 
 interface SubtitleProps {
   color?: string;
+  fontSize?: number;
 }
 
 export const Subtitle = styled.Text<SubtitleProps>`
-  font-size: 16px;
+  font-size: ${(props) => props.fontSize || 16}px;
   color: ${(props) => props.color || theme.colors.lightPurple};
   font-family: 'Poppins-Medium';
 `;
@@ -67,10 +69,11 @@ export const AdditionalInfoContainer = styled.View`
 
 interface AdditionalInfoTextProps {
   color?: string;
+  fontSize?: number;
 }
 
 export const AdditionalInfoPrimaryText = styled.Text<AdditionalInfoTextProps>`
-  font-size: 14px;
+  font-size: ${(props) => props.fontSize || 14}px;
   font-family: 'Poppins-Semibold';
   color: ${(props) => props.color || theme.colors.lightBlue};
   margin-bottom: 2px;

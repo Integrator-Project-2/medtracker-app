@@ -25,6 +25,9 @@ interface CardComponentProps {
   width?: number;
   bgColor?: string;
   border?: boolean;
+  titlefontSize?: number;
+  subTitlefontSize?: number;
+  additionalInfoPrimaryfontSize?: number;
   titleColor?: string;
   subtitleColor?: string;
   additionalInfoPrimary?: string;
@@ -47,6 +50,9 @@ const CardComponent: React.FC<CardComponentProps> = ({
   width,
   bgColor,
   border,
+  titlefontSize,
+  subTitlefontSize,
+  additionalInfoPrimaryfontSize,
   titleColor,
   subtitleColor,
   additionalInfoPrimary,
@@ -93,14 +99,14 @@ const CardComponent: React.FC<CardComponentProps> = ({
           <LeftSection>{renderIcon()}</LeftSection>
 
           <CenterSection>
-            <Title color={titleColor}>{title}</Title>
-            <Subtitle color={subtitleColor}>{subtitle}</Subtitle>
+            <Title fontSize={titlefontSize} color={titleColor}>{title}</Title>
+            <Subtitle fontSize={subTitlefontSize} color={subtitleColor}>{subtitle}</Subtitle>
           </CenterSection>
 
           {(additionalInfoPrimary || additionalInfoSecondary) && (
             <AdditionalInfoContainer>
               {additionalInfoPrimary && (
-                <AdditionalInfoPrimaryText color={additionalInfoPrimaryColor}>
+                <AdditionalInfoPrimaryText fontSize={additionalInfoPrimaryfontSize} color={additionalInfoPrimaryColor}>
                   {additionalInfoPrimary}
                 </AdditionalInfoPrimaryText>
               )}
