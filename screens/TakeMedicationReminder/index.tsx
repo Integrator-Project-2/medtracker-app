@@ -1,13 +1,14 @@
-import Title from "@/components/Title";
+import React, { useState } from "react";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { Container, FormButtonContainer, FormContainer, Header, SubtitleContainer } from "@/global/styles/globalStyles";
 import { theme } from "@/global/styles/theme";
+import Title from "@/components/Title";
 import Subtitle from "@/components/Subtitle";
 import { PrimaryButton } from "@/components/PrimaryButton";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
 import ReminderTypeForm from "./reminderTypeForm";
 import UniqueReminderForm from "./uniqueReminderForm";
 import DailyReminderForm from "./dailyReminderForm";
+import CustomSnackbar from "@/components/SnackBar";
 
 export default function TakeMedicationReminderScreen() {
     const router = useRouter();
@@ -16,6 +17,7 @@ export default function TakeMedicationReminderScreen() {
 
     const [checkedValue, setCheckedValue] = useState('uniqueReminder');
     const [step, setStep] = useState(1);
+    const [snackbarVisible, setSnackbarVisible] = useState(false);
 
     function handlePress(value: string) {
         setCheckedValue(value);
@@ -31,7 +33,7 @@ export default function TakeMedicationReminderScreen() {
         } else if (step === 2) {
             setStep(3);
         } else if (step === 3) {
-            router.push('/medications');
+            setSnackbarVisible(true);
         }
     }
 
@@ -47,6 +49,11 @@ export default function TakeMedicationReminderScreen() {
         } else {
             router.back();
         }
+    }
+
+    function handleSnackbarDismiss() {
+        setSnackbarVisible(false);
+        router.push('/medications');
     }
 
     function renderForm() {
@@ -103,6 +110,12 @@ export default function TakeMedicationReminderScreen() {
                     height={52}
                 />
             </FormButtonContainer>
+
+            <CustomSnackbar
+                visible={snackbarVisible}
+                text="Reminder created successfully!"
+                onDismiss={handleSnackbarDismiss}
+            />
         </Container>
     );
 }
