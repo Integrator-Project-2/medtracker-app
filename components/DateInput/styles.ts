@@ -4,11 +4,16 @@ import styled from 'styled-components/native';
 interface StyledTextInputProps {
     width: number;
     isFocused: boolean;
+    borderColor?: string;
 }
 
 export const StyledTextInput = styled.TextInput<StyledTextInputProps>`
     border-width: ${({ isFocused }) => (isFocused ? '2px' : '1px')};
-    border-color: ${({ isFocused }) => (isFocused ? '#354DB0' : '#99A4D6')}; 
+     border-color: ${({ isFocused, borderColor }) => 
+        isFocused 
+        ? '#354DB0' 
+        : (borderColor || '#99A4D6')
+    }; 
     border-radius: 10px;
     padding: 10px;
     font-size: 16px; 

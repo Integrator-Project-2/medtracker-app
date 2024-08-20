@@ -10,9 +10,10 @@ interface DateInputProps {
     label?: string;
     width: number;
     color?: string;
+    borderColor?: string;
 }
 
-const DateInput: React.FC<DateInputProps> = ({ label = "", width, color }) => {
+const DateInput: React.FC<DateInputProps> = ({ label = "", width, color, borderColor }) => {
     const [ date, setDate ] = useState<Date>(new Date())
     const [ show, setShow ] = useState<boolean>(false)
     const [isFocused, setIsFocused] = useState<boolean>(false)
@@ -39,6 +40,7 @@ const DateInput: React.FC<DateInputProps> = ({ label = "", width, color }) => {
                     editable={false}
                     width={width}
                     isFocused={isFocused}
+                    borderColor={borderColor}
                 />
                 <IconWrapper>
                     <Icon name="calendar-month-outline" size={20} color="#99A4D6" />
