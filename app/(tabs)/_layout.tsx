@@ -59,7 +59,7 @@ export default function TabLayout() {
                     }}
                 />
                 <Tabs.Screen
-                    name='listReminders'
+                    name='medications'
                     options={{
                         headerShown: false,
                         title: 'Medications',

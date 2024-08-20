@@ -47,3 +47,9 @@ export const FormButtonContainer = styled(View)<FormButtonContainerProps>`
 export const SubtitleContainer = styled(View)`
     margin-top: 40px;
 `
+
+export const ListContainer = styled(View)`
+    width: 100%;
+    align-items: center;
+    gap: 30px;
+`;

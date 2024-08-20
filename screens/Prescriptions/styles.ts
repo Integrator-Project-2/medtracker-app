@@ -19,9 +19,3 @@ export const FilterButtonText = styled(Text)`
     font-family: 'Poppins-Medium';
     color: ${theme.colors.lightBlue};
 `; 
-
-export const ListContainer = styled(View)`
-    width: 100%;
-    align-items: center;
-    gap: 30px;
-`;

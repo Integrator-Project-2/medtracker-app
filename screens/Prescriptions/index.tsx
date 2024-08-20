@@ -3,9 +3,8 @@ import CardComponent from "@/components/Card";
 import Title from "@/components/Title";
 import { theme } from "@/global/styles/theme";
 import { PaperProvider } from "react-native-paper";
-import { FilterButton, FilterButtonText, ListContainer } from "./styles";
-import { Container, Header } from "@/global/styles/globalStyles";
-import { View } from "react-native";
+import { FilterButton, FilterButtonText } from "./styles";
+import { Container, Header, ListContainer } from "@/global/styles/globalStyles";
 
 // esse array será removido quando for implementada a integração com o backend
 const cardData = [
