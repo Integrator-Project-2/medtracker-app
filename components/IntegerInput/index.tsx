@@ -8,9 +8,10 @@ interface IntegerInputProps {
     label: string;
     width?: number;
     fontSize?: number;
+    labelColor?: string;
 }
 
-export default function IntegerInput({ label, width, fontSize }: IntegerInputProps) {
+export default function IntegerInput({ label, width, fontSize, labelColor }: IntegerInputProps) {
     const [value, setValue] = useState<number>(0);
 
     const increment = () => setValue(value + 1);
@@ -25,7 +26,11 @@ export default function IntegerInput({ label, width, fontSize }: IntegerInputPro
 
     return (
         <View>   
-            <LabelComponent text={label} fontSize={fontSize}/>
+            <LabelComponent 
+                text={label} 
+                fontSize={fontSize}
+                color={labelColor}    
+            />
             <Container width={width}>
                 <StyledButton mode="text" onPress={decrement}>
                     <ButtonText>-</ButtonText>

@@ -5,15 +5,16 @@ import { Avatar } from 'react-native-paper';
 interface AvatarComponentProps {
   name: string;
   photoUrl?: string | null;
+  size?: number
 }
 
-const AvatarComponent: React.FC<AvatarComponentProps> = ({ name, photoUrl }) => {
+const AvatarComponent: React.FC<AvatarComponentProps> = ({ name, photoUrl, size }) => {
   return (
     <View>
       {photoUrl ? (
-        <Avatar.Image size={50} source={{ uri: photoUrl }} />
+        <Avatar.Image size={size ? size : 50} source={{ uri: photoUrl }} />
       ) : (
-        <Avatar.Text size={50} label={getInitials(name)} />
+        <Avatar.Text size={size ? size : 50} label={getInitials(name)} />
       )}
     </View>
   );

@@ -4,7 +4,7 @@ import { LabelComponent } from "../Label";
 import { colors, theme } from "@/global/styles/theme";
 import { StyledTextInput } from "@/global/styles/StyledTextInput";
 
-interface NameInputProps {
+interface TextAreaProps {
     label: string;
     labelColor?: string;
     placeholder?: string;
@@ -14,7 +14,7 @@ interface NameInputProps {
     border?: boolean;
 }
 
-export const NameInput: React.FC<NameInputProps> = ({ label, placeholder, labelColor, width, value, disabled, border  }) => {
+export const TextArea: React.FC<TextAreaProps> = ({ label, placeholder, labelColor, width, value }) => {
     const [text, setText] = React.useState(value || '');
 
     return (
@@ -24,15 +24,18 @@ export const NameInput: React.FC<NameInputProps> = ({ label, placeholder, labelC
           color={labelColor}
         />
         <StyledTextInput
-          mode="outlined"
-          placeholder={placeholder}
-          value={text}
-          onChangeText={setText}
-          placeholderTextColor={colors.lightPurple} 
-          outlineColor={colors.lightPurple} 
-          textColor={colors.darkBlue}
-          theme={theme}
-          width={width}
+            mode="outlined"
+            placeholder={placeholder}
+            value={text}
+            onChangeText={setText}
+            placeholderTextColor={colors.lightPurple} 
+            outlineColor={colors.lightPurple} 
+            textColor={colors.darkBlue}
+            theme={theme}
+            width={width}
+            multiline={true}
+            numberOfLines={20}
+            style={{ height: 100 }}
         />
       </View>
     );

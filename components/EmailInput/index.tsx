@@ -6,16 +6,21 @@ import { StyledTextInput } from "@/global/styles/StyledTextInput";
 
 interface EmailInputProps {
     label: string;
-    placeholder: string;
+    placeholder?: string;
+    labelColor?: string;
     width?: number;
+    value?: string;
 }
 
-export const EmailInput: React.FC<EmailInputProps> = ({ label, placeholder, width }) => {
-    const [text, setText] = React.useState('');
+export const EmailInput: React.FC<EmailInputProps> = ({ label, placeholder, width, value, labelColor }) => {
+    const [text, setText] = React.useState(value || '');
 
     return (
       <View>
-        <LabelComponent text={label} />
+        <LabelComponent
+          text={label} 
+          color={labelColor}
+        />
         <StyledTextInput
           mode="outlined"
           placeholder={placeholder}

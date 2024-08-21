@@ -7,6 +7,7 @@ import StyledButton from './styles';
 
 interface SelectInputProps {
   label: string;
+  labelColor?: string;
   options: string[];
   selectedValue?: string;
   width?: number;
@@ -17,6 +18,7 @@ interface SelectInputProps {
 
 export const SelectInput: React.FC<SelectInputProps> = ({
   label,
+  labelColor,
   options,
   selectedValue,
   width,
@@ -42,7 +44,10 @@ export const SelectInput: React.FC<SelectInputProps> = ({
 
   return (
     <View>
-      <LabelComponent text={label} />
+      <LabelComponent
+        text={label} 
+        color={labelColor}
+      />
       <MenuComponent
         options={menuOptions}
         visible={visible}

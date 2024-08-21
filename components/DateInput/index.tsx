@@ -10,9 +10,10 @@ interface DateInputProps {
     label?: string;
     width: number;
     color?: string;
+    labelColor?: string;
 }
 
-const DateInput: React.FC<DateInputProps> = ({ label = "", width, color }) => {
+const DateInput: React.FC<DateInputProps> = ({ label = "", width, color, labelColor }) => {
     const [ date, setDate ] = useState<Date>(new Date())
     const [ show, setShow ] = useState<boolean>(false)
     const [isFocused, setIsFocused] = useState<boolean>(false)
@@ -32,7 +33,10 @@ const DateInput: React.FC<DateInputProps> = ({ label = "", width, color }) => {
 
     return (
         <View>
-            <LabelComponent color={color} text={label} />
+            <LabelComponent
+                text={label} 
+                color={labelColor}
+            />
             <TouchableOpacity onPress={showDatePicker}>
                 <StyledTextInput  
                     value={date.toLocaleDateString()}
