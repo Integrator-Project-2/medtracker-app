@@ -8,13 +8,13 @@ import { PrimaryButton } from "@/components/PrimaryButton";
 import ReminderTypeForm from "./reminderTypeForm";
 import UniqueReminderForm from "./uniqueReminderForm";
 import DailyReminderForm from "./dailyReminderForm";
-import CustomSnackbar from "@/components/SnackBar";
+
 
 export default function TakeMedicationReminderScreen() {
     const router = useRouter();
     const params = useLocalSearchParams<{ medication: string }>();
     const medication = params.medication;
-
+    
     const [checkedValue, setCheckedValue] = useState('uniqueReminder');
     const [step, setStep] = useState(1);
 
@@ -32,7 +32,7 @@ export default function TakeMedicationReminderScreen() {
         } else if (step === 2) {
             setStep(3);
         } else if (step === 3) {
-            router.push('/medications');
+            router.push(`/reminderConfirmation?reminderType=${encodeURIComponent(checkedValue)}`);
         }
     }
 

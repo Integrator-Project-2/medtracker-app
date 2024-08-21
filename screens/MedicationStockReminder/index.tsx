@@ -6,18 +6,15 @@ import Subtitle from "@/components/Subtitle";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import IntegerInput from "@/components/IntegerInput";
-import CustomSnackbar from "@/components/SnackBar";
+
 
 export default function MedicationStockReminderScreen() {
     const router = useRouter();
     const params = useLocalSearchParams<{ medication: string }>();
-    const medication = params.medication;
-
-    const [snackbarVisible, setSnackbarVisible] = useState(false);
 
     function handleNext() {
 
-        router.push('/medications');
+        router.push(`/medications`);
 
     }
 
@@ -26,7 +23,7 @@ export default function MedicationStockReminderScreen() {
             <Header column>
                 <Title text="Create Reminder" color={theme.colors.darkBlue} size={24} />
                 <Subtitle text="Manage Medication Stock" size={16} color={theme.colors.lightPurple} />
-                <Subtitle text={`${medication}`} size={16} color={theme.colors.lightBlue} />
+                <Subtitle text={`${params.medication}`} size={16} color={theme.colors.lightBlue} />
             </Header>
 
 

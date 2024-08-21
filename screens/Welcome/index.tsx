@@ -2,9 +2,10 @@ import { DoctorWithMedicalPrescription } from "@/assets/images/svg/DoctorWithMed
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { useRouter } from "expo-router";
 import { View } from "react-native";
-import { AppDescription, ButtonContainer, ContentContainer, ImageContainer, StyledDetail } from "./styles";
+import { AppDescription, ButtonContainer, ContentContainer, StyledDetail } from "./styles";
 import Title from "@/components/Title";
 import { theme } from "@/global/styles/theme";
+import { ImageContainer } from "@/global/styles/globalStyles";
 
 export function WelcomeScreen() {
     const router = useRouter();
