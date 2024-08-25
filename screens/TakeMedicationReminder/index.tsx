@@ -14,7 +14,7 @@ export default function TakeMedicationReminderScreen() {
     const router = useRouter();
     const params = useLocalSearchParams<{ medication: string }>();
     const medication = params.medication;
-    
+
     const [checkedValue, setCheckedValue] = useState('uniqueReminder');
     const [step, setStep] = useState(1);
 
@@ -84,6 +84,7 @@ export default function TakeMedicationReminderScreen() {
 
             <FormContainer marginTop={50}>
                 {renderForm()}
+
             </FormContainer>
 
             <FormButtonContainer row marginTop={100}>

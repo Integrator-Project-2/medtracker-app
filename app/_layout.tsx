@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { theme } from '@/global/styles/theme';
+import * as Notifications from 'expo-notifications';
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -20,6 +21,14 @@ export default function RootLayout() {
       </View>
     );
   }
+
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: true,
+    }),
+  });
 
   return (
     <PaperProvider theme={theme}>
