@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, Alert, Button } from "react-native";
+import { Alert } from "react-native";
 import AvatarComponent from "@/components/Avatar";
 import CardComponent from "@/components/Card";
 import { CardButton } from "@/components/CardButton";
@@ -8,38 +8,13 @@ import Title from "@/components/Title";
 import { theme } from "@/global/styles/theme";
 import { CardButtonsContainer, CardContainer } from "./styles";
 import { Container, Header } from "@/global/styles/globalStyles";
-
-import * as Notifications from 'expo-notifications';
-import * as Linking from 'expo-linking';
+import { requestNotificationPermissions } from "@/services/notificationPermissionsService";
 
 export default function HomeScreen() {
 
     useEffect(() => {
         requestNotificationPermissions();
     }, []);
-
-    async function requestNotificationPermissions() {
-        const { status } = await Notifications.getPermissionsAsync();
-        if (status !== 'granted') {
-            const { status: newStatus } = await Notifications.requestPermissionsAsync();
-            if (newStatus !== 'granted') {
-                Alert.alert(
-                    'Permissões de Notificação',
-                    'Para receber notificações, você precisa conceder permissões. Deseja ajustar as configurações?',
-                    [
-                        {
-                            text: 'Não',
-                            style: 'cancel',
-                        },
-                        {
-                            text: 'Ir para Configurações',
-                            onPress: () => Linking.openSettings(),
-                        },
-                    ]
-                );
-            }
-        }
-    }
 
     return (
         <Container>

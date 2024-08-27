@@ -7,21 +7,21 @@ import { Container, FormButtonContainer, Header, ImageContainer } from "@/global
 import { theme } from "@/global/styles/theme";
 import { router, useLocalSearchParams } from "expo-router";
 import { Column, ContentContainer } from "./styles";
-import NotificationService, { Reminder } from "@/services/notificationService";
+import NotificationService, { Reminder } from "@/services/localNotificationService";
 
 export default function ReminderConfirmationScreen() {
     const { reminderType } = useLocalSearchParams<{ reminderType: string }>();
     const isMoreThanOnePerDay = reminderType === 'moreThanOnePerDay';
 
     const mockReminders: Reminder[] = [
-        // {
-        //     medication: "TESTE",
-        //     remindTime: new Date("2024-08-27T13:40:00"),
-        //     frequencyPerDay: 2,
-        //     frequencyHours: 8,
-        //     reminderType: "daily reminder",
-        //     day: new Date("2024-08-27"),
-        // },
+        {
+            medication: "TESTE",
+            remindTime: new Date("2024-08-27T13:40:00"),
+            frequencyPerDay: 2,
+            frequencyHours: 8,
+            reminderType: "daily reminder",
+            day: new Date("2024-08-27"),
+        },
         {
             medication: "LEMBRETE UNICO",
             remindTime: new Date("2024-08-27T13:43:00"),
