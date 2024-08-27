@@ -47,7 +47,7 @@ export async function requestNotificationPermissions() {
         // salva o novo token no armazenamento local
         await AsyncStorage.setItem('expoPushToken', token);
 
-        console.log(`novo yoken:${token}`);
+        console.log(`novo token:${token}`);
 
         const patientId = 1;
         const authToken = 'YOUR-TOKEN';
