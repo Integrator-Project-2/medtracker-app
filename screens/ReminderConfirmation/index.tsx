@@ -14,21 +14,21 @@ export default function ReminderConfirmationScreen() {
     const isMoreThanOnePerDay = reminderType === 'moreThanOnePerDay';
 
     const mockReminders: Reminder[] = [
+        // {
+        //     medication: "TESTE",
+        //     remindTime: new Date("2024-08-27T13:40:00"),
+        //     frequencyPerDay: 2,
+        //     frequencyHours: 8,
+        //     reminderType: "daily reminder",
+        //     day: new Date("2024-08-27"),
+        // },
         {
-            medication: "Paracetamol",
-            remindTime: new Date("2024-08-24T04:54:00"),
-            frequencyPerDay: 3,
-            frequencyHours: 8,
-            reminderType: "daily reminder",
-            day: new Date("2024-08-24"),
-        },
-        {
-            medication: "Ibuprofen",
-            remindTime: new Date("2024-08-25T11:43:00"),
+            medication: "LEMBRETE UNICO",
+            remindTime: new Date("2024-08-27T13:43:00"),
             frequencyPerDay: 1,
             frequencyHours: 24,
             reminderType: "daily reminder",
-            day: new Date("2024-08-24"),
+            day: new Date("2024-08-27"),
         },
     ];
     

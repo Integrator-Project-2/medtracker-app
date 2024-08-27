@@ -46,7 +46,8 @@ class NotificationService {
 
         for (let i = 0; i < frequencyPerDay; i++) {
             const notifyTime = new Date(remindTime.getTime() + i * interval);
-
+            console.log(notifyTime)
+            
             const identifier = await Notifications.scheduleNotificationAsync({
                 content: {
                     title: 'Frequent Reminder',
