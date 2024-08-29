@@ -65,6 +65,5 @@ export async function requestNotificationPermissions() {
 
     } catch (error) {
         console.error(error);
-        Alert.alert('Erro', 'Houve um problema ao enviar o token de notificação.');
     }
 }
