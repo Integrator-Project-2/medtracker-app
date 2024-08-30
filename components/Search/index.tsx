@@ -12,7 +12,7 @@ export default function Search() {
                 onChangeText={setSearchQuery}
                 value={searchQuery}
                 iconColor={theme.colors.navy}
-                bgColor={theme.colors.lightPurpleWitOpacity}
+                bgColor={theme.colors.lightPurpleWithOpacity}
             />
         );
 };

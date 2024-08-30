@@ -1,5 +1,5 @@
-import React from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useEffect } from "react";
+import { TouchableOpacity } from "react-native";
 import AvatarComponent from "@/components/Avatar";
 import CardComponent from "@/components/Card";
 import { CardButton } from "@/components/CardButton";
@@ -9,6 +9,7 @@ import { theme } from "@/global/styles/theme";
 import { CardButtonsContainer, CardContainer } from "./styles";
 import { Container, Header } from "@/global/styles/globalStyles";
 import { useRouter } from "expo-router";
+import { requestNotificationPermissions } from "@/services/notificationPermissionsService";
 
 export default function HomeScreen() {
     const router = useRouter();
@@ -16,6 +17,11 @@ export default function HomeScreen() {
     function handlePress() {
         router.push('/profile'); 
     }
+
+
+    useEffect(() => {
+        requestNotificationPermissions();
+    }, []);
 
     return (
         <Container>
@@ -28,7 +34,7 @@ export default function HomeScreen() {
 
             </Header>
 
-            <Subtitle text="Upcoming Reminder" size={16} marginBottom={10}/>
+            <Subtitle text="Upcoming Reminder" size={16} marginBottom={10} />
             <CardContainer>
                 <CardComponent
                     title="Aspirine"
@@ -43,7 +49,7 @@ export default function HomeScreen() {
                 />
             </CardContainer>
 
-            <Subtitle text="More" size={16} marginBottom={10}/>
+            <Subtitle text="More" size={16} marginBottom={10} />
             <CardButtonsContainer>
                 <CardButton
                     title="My prescriptions"

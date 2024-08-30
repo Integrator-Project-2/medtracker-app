@@ -1,13 +1,14 @@
-import Title from "@/components/Title";
+import React, { useState } from "react";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { Container, FormButtonContainer, FormContainer, Header, SubtitleContainer } from "@/global/styles/globalStyles";
 import { theme } from "@/global/styles/theme";
+import Title from "@/components/Title";
 import Subtitle from "@/components/Subtitle";
 import { PrimaryButton } from "@/components/PrimaryButton";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
 import ReminderTypeForm from "./reminderTypeForm";
 import UniqueReminderForm from "./uniqueReminderForm";
 import DailyReminderForm from "./dailyReminderForm";
+
 
 export default function TakeMedicationReminderScreen() {
     const router = useRouter();
@@ -31,7 +32,7 @@ export default function TakeMedicationReminderScreen() {
         } else if (step === 2) {
             setStep(3);
         } else if (step === 3) {
-            router.push('/medications');
+            router.push(`/reminderConfirmation?reminderType=${encodeURIComponent(checkedValue)}`);
         }
     }
 
@@ -83,6 +84,7 @@ export default function TakeMedicationReminderScreen() {
 
             <FormContainer marginTop={50}>
                 {renderForm()}
+
             </FormContainer>
 
             <FormButtonContainer row marginTop={100}>
@@ -103,6 +105,7 @@ export default function TakeMedicationReminderScreen() {
                     height={52}
                 />
             </FormButtonContainer>
+
         </Container>
     );
 }

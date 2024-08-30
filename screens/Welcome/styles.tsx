@@ -3,13 +3,6 @@ import { theme } from "@/global/styles/theme";
 import { Text, View } from "react-native";
 import styled from "styled-components/native";
 
-export const ImageContainer = styled(View)`
-    flex: 1;
-    background-color: 'rgba(153, 164, 214, 0.14)';
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-`;
 
 export const ContentContainer = styled(View)`
     flex: 1;
