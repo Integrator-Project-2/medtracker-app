@@ -26,15 +26,6 @@ export default function RootLayout() {
       }),
     });
 
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      Alert.alert("Notificação Recebida", notification.request.content.body ?? '');
-    });
-
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
-      Alert.alert("Notificação Clicada", response.notification.request.content.body ?? '');
-    });
-
     return () => {
       if (notificationListener.current) {
         Notifications.removeNotificationSubscription(notificationListener.current);
