@@ -7,9 +7,15 @@ import AvatarComponent from "@/components/Avatar";
 import { ProfileInfoText } from "@/components/ProfileInfoText";
 import { ProfileInfoForm } from "@/components/ProfileInfoForm";
 import { useState } from "react";
-
+import { useRouter } from "expo-router";
 
 export function ProfileScreen() {
+    const router = useRouter();
+
+    function handlePress() {
+        router.back(); 
+    }
+    
     const [isFormVisible, setIsFormVisible] = useState(false);
 
     const menuOptions = [
@@ -30,7 +36,7 @@ export function ProfileScreen() {
     return (
         <ProfileContainer>
             <Appbar.Header mode="center-aligned">
-                <Appbar.BackAction onPress={() => setIsFormVisible(false)} />
+                <Appbar.BackAction onPress={handlePress} />
                 <Appbar.Content title="Profile" />
                 <MenuButton 
                     options={menuOptions}
