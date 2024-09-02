@@ -17,6 +17,11 @@ import { theme } from '@/global/styles/theme';
 import { IconButton, RadioButton } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native';
 
+interface MenuOption {
+  label: string;
+  onPress: () => void;
+}
+
 interface CardComponentProps {
   title: string;
   subtitle: string;
@@ -34,11 +39,12 @@ interface CardComponentProps {
   additionalInfoSecondary?: string;
   additionalInfoPrimaryColor?: string;
   additionalInfoSecondaryColor?: string;
-  menuOptions?: { label: string; onPress: () => void }[];
-  iconName?: string;
+  menuOptions?: MenuOption[];
+  iconName?: 'tablet' | 'pill' | 'injection' | 'prescription';
   select?: boolean;
   selected?: boolean;
   onPress?: (value: string) => void;
+  downloadPress?: (value: string) => void;
   value?: string;
 }
 
@@ -64,23 +70,24 @@ const CardComponent: React.FC<CardComponentProps> = ({
   select = false,
   selected = false,
   onPress,
+  downloadPress,
   value
 }) => {
 
   const renderIcon = () => {
     const iconColor = titleColor || theme.colors.lightBlue;
 
-    if (iconName === 'tablet') {
-      return <Fontisto name="tablets" size={24} color={iconColor} />;
-    }
-    if (iconName === 'pill') {
-      return <MaterialCommunityIcons name="pill" size={24} color={iconColor} />;
-    }
-    if (iconName === 'injection') {
-      return <FontAwesome5 name="syringe" size={24} color={iconColor} />;
-    }
-    if (iconName === 'prescription') {
-      return <FontAwesome5 name="notes-medical" size={24} color={theme.colors.lightBlue} />;
+    switch (iconName) {
+      case 'tablet':
+        return <Fontisto name="tablets" size={24} color={iconColor} />;
+      case 'pill':
+        return <MaterialCommunityIcons name="pill" size={24} color={iconColor} />;
+      case 'injection':
+        return <FontAwesome5 name="syringe" size={24} color={iconColor} />;
+      case 'prescription':
+        return <FontAwesome5 name="notes-medical" size={24} color={theme.colors.lightBlue} />;
+      default:
+        return null;
     }
   };
 
@@ -126,7 +133,13 @@ const CardComponent: React.FC<CardComponentProps> = ({
                 color={theme.colors.lightBlue}
               />
             ) : (
-              (downloadButton && <IconButton icon="download" iconColor={theme.colors.lightBlue} onPress={() => { }} />) ||
+              (downloadButton && (
+                <IconButton 
+                  icon="download" 
+                  iconColor={theme.colors.lightBlue} 
+                  onPress={() => downloadPress && downloadPress(value || '')} 
+                />
+              )) ||
               (menuOptions && <MenuButton options={menuOptions} iconColor={titleColor} />)
             )}
           </RightSection>

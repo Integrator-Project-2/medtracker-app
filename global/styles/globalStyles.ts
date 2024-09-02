@@ -12,9 +12,9 @@ export const Header = styled(View) <HeaderProps>`
     align-items: ${(props) => (props.column ? 'flex-start' : 'center')};
     margin: 24px 0;
     width: ${(props) => props.width || '100%'};
-`;
-
-export const Container = styled(View)`
+    `;
+    
+    export const Container = styled(View)`
     flex: 1;
     align-content: center;
     padding: 40px;
