@@ -12,7 +12,7 @@ interface StyledSearchbarProps extends SearchbarProps {
 const StyledSearchbar = styled(PaperSearchbar)<StyledSearchbarProps>`
   border-radius: 10px;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   background-color: ${props => props.bgColor || theme.colors.white};
   elevation: 0;
   font-family: Poppins-Regular;

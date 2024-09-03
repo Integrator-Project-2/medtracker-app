@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, FlatList, StyleSheet, View, Text } from "react-native";
+import { Alert, FlatList, View } from "react-native";
 import CardComponent from "@/components/Card";
 import Search from "@/components/Search";
 import Title from "@/components/Title";
@@ -12,21 +12,27 @@ import { Medication } from "@/types/Medication";
 export function MedicationsScreen() {
     const [medications, setMedications] = useState<Medication[]>([]);
     const [loading, setLoading] = useState(true);
+    const patientId = 1;
+
+    const getMedications = async (query: string = '') => {
+        try {
+            setLoading(true);
+            const data = await fetchMedications(query, patientId);
+            setMedications(data);
+        } catch (error) {
+            Alert.alert("Erro", "Não foi possível carregar as medicações.");
+        } finally {
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
-        async function getMedications() {
-            try {
-                const data = await fetchMedications();
-                setMedications(data);
-            } catch (error) {
-                Alert.alert("Erro", "Não foi possível carregar as medicações.");
-            } finally {
-                setLoading(false);
-            }
-        }
-
         getMedications();
     }, []);
+
+    const handleSearch = (query: string) => {
+        getMedications(query)
+    }
 
     const getIconName = (form: string) => {
         switch (form) {
@@ -47,7 +53,7 @@ export function MedicationsScreen() {
 
     const renderItem = ({ item }: { item: Medication }) => {
         return (
-            <View style={styles.card}>
+            <View>
                 <CardComponent
                     title={item.name}
                     subtitle={item.pharmaceutical_form}
@@ -77,7 +83,7 @@ export function MedicationsScreen() {
                 <Title text="Medications" />
             </Header>
 
-            <Search />
+            <Search onSearch={handleSearch} />
 
             {loading ? (
                 <Loader />
@@ -91,9 +97,3 @@ export function MedicationsScreen() {
         </Container>
     );
 }
-
-const styles = StyleSheet.create({
-    card: {
-        marginBottom: 20,
-    },
-});
