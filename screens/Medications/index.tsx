@@ -60,7 +60,7 @@ export function MedicationsScreen() {
                     additionalInfoPrimary={item.amount ? "Amount" : undefined}
                     additionalInfoSecondary={item.amount || undefined}
                     iconName={getIconName(item.pharmaceutical_form)}
-                    border={true}
+                    border
                     additionalInfoSecondaryColor={theme.colors.lightBlue}
                     additionalInfoPrimaryColor={theme.colors.lightPurple}
                     height={120}
