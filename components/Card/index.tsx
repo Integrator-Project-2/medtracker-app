@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {
   StyledCard,
   CardContent,
@@ -12,7 +12,7 @@ import {
   AdditionalInfoSecondaryText,
 } from './styles';
 import MenuButton from '../MenuButton';
-import { FontAwesome5, Fontisto, MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5, Fontisto, MaterialCommunityIcons, FontAwesome6 } from '@expo/vector-icons';
 import { theme } from '@/global/styles/theme';
 import { IconButton, RadioButton } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native';
@@ -40,7 +40,7 @@ interface CardComponentProps {
   additionalInfoPrimaryColor?: string;
   additionalInfoSecondaryColor?: string;
   menuOptions?: MenuOption[];
-  iconName?: 'tablet' | 'pill' | 'injection' | 'prescription';
+  iconName?: 'tablet' | 'pill' | 'liquid' | 'drops' | 'injection' | 'prescription' | 'solution';
   select?: boolean;
   selected?: boolean;
   onPress?: (value: string) => void;
@@ -73,7 +73,6 @@ const CardComponent: React.FC<CardComponentProps> = ({
   downloadPress,
   value
 }) => {
-
   const renderIcon = () => {
     const iconColor = titleColor || theme.colors.lightBlue;
 
@@ -82,12 +81,16 @@ const CardComponent: React.FC<CardComponentProps> = ({
         return <Fontisto name="tablets" size={24} color={iconColor} />;
       case 'pill':
         return <MaterialCommunityIcons name="pill" size={24} color={iconColor} />;
+      case 'liquid':
+        return <FontAwesome6 name="glass-water" size={24} color={iconColor} />;
+      case 'solution':
+        return <FontAwesome6 name="glass-water-droplet" size={24} color={iconColor} />;
+      case 'drops':
+        return <FontAwesome5 name="tint" size={24} color={iconColor} />;
       case 'injection':
         return <FontAwesome5 name="syringe" size={24} color={iconColor} />;
       case 'prescription':
-        return <FontAwesome5 name="notes-medical" size={24} color={theme.colors.lightBlue} />;
-      default:
-        return null;
+        return <FontAwesome5 name="notes-medical"  size={24} color={iconColor} />;
     }
   };
 

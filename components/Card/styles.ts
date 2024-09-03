@@ -62,7 +62,8 @@ export const Subtitle = styled.Text<SubtitleProps>`
 `;
 
 export const AdditionalInfoContainer = styled.View`
-  margin-right: 10px;
+  margin-right: 5px;
+  margin-left: 10px;
   flex-direction: column;
   align-items: center;
 `;
