@@ -83,7 +83,7 @@ export function Prescriptions() {
     );
 
     return (
-        <Container style={styles.container}>
+        <Container>
             <Header>
                 <Title text="Prescriptions" />
                 <FilterButton>
@@ -101,11 +101,6 @@ export function Prescriptions() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center', 
-    },
     card: {
         marginBottom: 20,
     },
