@@ -77,3 +77,14 @@ export const ImageContainer = styled(View) <ImageContainerProps>`
             : `flex: 1;`
     }
 `;
+
+export const CardListContainer = styled(View)`
+    margin-bottom: 16px;
+    align-items: center;
+    gap: 40px;
+`;
+
+export const CardContainer = styled(View)`
+    margin-bottom: 24px;
+    align-items: center;
+`;

@@ -6,8 +6,7 @@ import { CardButton } from "@/components/CardButton";
 import Subtitle from "@/components/Subtitle";
 import Title from "@/components/Title";
 import { theme } from "@/global/styles/theme";
-import { CardButtonsContainer, CardContainer } from "./styles";
-import { Container, Header } from "@/global/styles/globalStyles";
+import { CardContainer, CardListContainer, Container, Header } from "@/global/styles/globalStyles";
 import { useRouter } from "expo-router";
 import { requestNotificationPermissions } from "@/services/notificationPermissionsService";
 
@@ -50,7 +49,7 @@ export default function HomeScreen() {
             </CardContainer>
 
             <Subtitle text="More" size={16} marginBottom={10} />
-            <CardButtonsContainer>
+            <CardListContainer>
                 <CardButton
                     title="My prescriptions"
                     description="Check your medical prescriptions"
@@ -63,7 +62,7 @@ export default function HomeScreen() {
                     iconName="pills"
                     iconLib="fontisto"
                 />
-            </CardButtonsContainer>
+            </CardListContainer>
         </Container>
     );
 }

@@ -2,14 +2,13 @@ import React, { useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import AvatarComponent from "@/components/Avatar";
 import CardComponent from "@/components/Card";
-import { CardButton } from "@/components/CardButton";
 import Subtitle from "@/components/Subtitle";
 import Title from "@/components/Title";
 import { theme } from "@/global/styles/theme";
-import { Container, Header } from "@/global/styles/globalStyles";
+import { CardContainer, CardListContainer, Container, Header } from "@/global/styles/globalStyles";
 import { useRouter } from "expo-router";
 import { requestNotificationPermissions } from "@/services/notificationPermissionsService";
-import { CardButtonsContainer, CardContainer } from "@/screens/Home/styles";
+
 
 export default function Reminders() {
     const router = useRouter();
@@ -56,7 +55,7 @@ export default function Reminders() {
             </CardContainer>
 
             <Subtitle text="All Reminders" size={16} marginBottom={10} />
-            <CardButtonsContainer>
+            <CardListContainer>
             <CardComponent
                     title="Aspirine"
                     subtitle="1 capsule 50 mg"
@@ -71,7 +70,7 @@ export default function Reminders() {
                   }
                 />
                 
-            </CardButtonsContainer>
+            </CardListContainer>
         </Container>
     );
 }
