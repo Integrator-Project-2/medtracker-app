@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { FilterIcon } from "@/assets/images/svg/FilterIcon";
 import CardComponent from "@/components/Card";
 import Title from "@/components/Title";
+import Loader from "@/components/Loader";  // Importe o componente Loader
 import { theme } from "@/global/styles/theme";
 import { FilterButton, FilterButtonText } from "./styles";
 import { Container, Header } from "@/global/styles/globalStyles";
@@ -18,11 +19,11 @@ const PATIENT_ID = 1;
 export function Prescriptions() {
     const [prescriptions, setPrescriptions] = useState<Prescription[]>([]);
     const [doctors, setDoctors] = useState<{ [key: number]: { name: string, specialty: string } }>({});
+    const [loading, setLoading] = useState(true);
 
     const downloadPrescription = async (base64Pdf: string) => {
         console.log("Iniciando download do PDF...");
         //TODO: ajust download
-
     };
 
     useEffect(() => {
@@ -42,6 +43,8 @@ export function Prescriptions() {
                 setDoctors(doctorMap);
             } catch (error) {
                 Alert.alert("Erro", "Não foi possível carregar as prescrições.");
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -91,11 +94,15 @@ export function Prescriptions() {
                     <FilterButtonText>Filters</FilterButtonText>
                 </FilterButton>
             </Header>
-            <FlatList
-                data={prescriptions}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id.toString()}
-            />
+            {loading ? (
+                <Loader /> 
+            ) : (
+                <FlatList
+                    data={prescriptions}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id.toString()}
+                />
+            )}
         </Container>   
     );
 }
