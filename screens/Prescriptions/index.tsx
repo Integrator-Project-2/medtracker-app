@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Alert, FlatList, StyleSheet, View } from "react-native";
+import { Alert, FlatList, View } from "react-native";
 import { format } from 'date-fns';
 import { FilterIcon } from "@/assets/images/svg/FilterIcon";
 import CardComponent from "@/components/Card";
 import Title from "@/components/Title";
-import Loader from "@/components/Loader";  // Importe o componente Loader
+import Loader from "@/components/Loader";
 import { theme } from "@/global/styles/theme";
 import { FilterButton, FilterButtonText } from "./styles";
 import { Container, Header } from "@/global/styles/globalStyles";
@@ -14,7 +14,7 @@ import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import base64 from 'base64-js';
 
-const PATIENT_ID = 1;
+const patientId = 1;
 
 export function Prescriptions() {
     const [prescriptions, setPrescriptions] = useState<Prescription[]>([]);
@@ -29,7 +29,7 @@ export function Prescriptions() {
     useEffect(() => {
         const loadPrescriptions = async () => {
             try {
-                const prescriptionData = await fetchPrescriptions(PATIENT_ID);
+                const prescriptionData = await fetchPrescriptions(patientId);
                 setPrescriptions(prescriptionData);
 
                 const doctorDetails = await Promise.all(
@@ -66,7 +66,7 @@ export function Prescriptions() {
     };
 
     const renderItem = ({ item }: { item: Prescription }) => (
-        <View style={styles.card}>
+        <View>
             <CardComponent
                 title={doctors[item.doctor_id]?.specialty || "Unknown Specialty"}
                 subtitle={`Dr. ${doctors[item.doctor_id]?.name}` || "Unknown Doctor"}
@@ -80,7 +80,7 @@ export function Prescriptions() {
                 downloadPress={() => {
                     downloadPrescription(item.prescription_file);
                 }}
-                width={316}
+                width={312}
             />
         </View>
     );
@@ -106,9 +106,3 @@ export function Prescriptions() {
         </Container>   
     );
 }
-
-const styles = StyleSheet.create({
-    card: {
-        marginBottom: 20,
-    },
-});

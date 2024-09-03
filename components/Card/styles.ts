@@ -17,6 +17,7 @@ export const StyledCard = styled(Card)<StyledCardProps>`
   justify-content: center;
   border-radius: 14px;
   background-color: ${(props) => props.bgColor || theme.colors.white};
+  margin-bottom:20px;
 
   ${(props) =>
   props.border &&
