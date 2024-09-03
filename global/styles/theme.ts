@@ -27,6 +27,7 @@ const theme = {
     lightBlue: '#4D80F9',
     cardLightColor: '#F5F6FB',
     darkBlue: '#212C5B',
+    surface: 'white'
   },
 };
 

@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 
 export const ProfileContainer = styled(View)`
     height: 100%;
+    background-color: white;
 `;
 
 export const InputContainer = styled(View)`

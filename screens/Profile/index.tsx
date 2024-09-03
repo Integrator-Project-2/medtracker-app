@@ -8,6 +8,7 @@ import { ProfileInfoText } from "@/components/ProfileInfoText";
 import { ProfileInfoForm } from "@/components/ProfileInfoForm";
 import { useState } from "react";
 import { useRouter } from "expo-router";
+import { theme } from "@/global/styles/theme";
 
 export function ProfileScreen() {
     const router = useRouter();
@@ -35,7 +36,7 @@ export function ProfileScreen() {
 
     return (
         <ProfileContainer>
-            <Appbar.Header mode="center-aligned">
+            <Appbar.Header mode="center-aligned" theme={theme}>
                 <Appbar.BackAction onPress={handlePress} />
                 <Appbar.Content title="Profile" />
                 <MenuButton 
@@ -47,7 +48,6 @@ export function ProfileScreen() {
             <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
                 <ProfileInfoContainer>
                     <AvatarComponent
-                        photoUrl={'assets/images/profile-picture.png'}
                         name="Michael Scott"
                         size={70}
                     />
