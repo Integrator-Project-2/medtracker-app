@@ -24,7 +24,7 @@ interface MenuOption {
 
 interface CardComponentProps {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   downloadButton?: boolean;
   height?: number;
   width?: number;

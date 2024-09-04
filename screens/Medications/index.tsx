@@ -8,6 +8,8 @@ import { Container, Header } from "@/global/styles/globalStyles";
 import { theme } from "@/global/styles/theme";
 import { fetchMedications } from "@/services/medicationService";
 import { Medication } from "@/types/Medication";
+import { getIconName } from "@/global/utils/iconUtils";
+
 
 export function MedicationsScreen() {
     const [medications, setMedications] = useState<Medication[]>([]);
@@ -33,23 +35,6 @@ export function MedicationsScreen() {
     const handleSearch = (query: string) => {
         getMedications(query)
     }
-
-    const getIconName = (form: string) => {
-        switch (form) {
-            case 'tablet':
-                return 'tablet';
-            case 'capsule':
-                return 'pill';
-            case 'solution':
-                return 'solution';
-            case 'liquid':
-                return 'liquid';
-            case 'drops':
-                return 'drops';
-            case 'injectable':
-                return 'injection';
-        }
-    };
 
     const renderItem = ({ item }: { item: Medication }) => {
         return (

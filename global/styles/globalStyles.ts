@@ -79,7 +79,7 @@ export const ImageContainer = styled(View) <ImageContainerProps>`
 `;
 
 export const CardListContainer = styled(View)`
-    margin-bottom: 16px;
+    margin-bottom: 100px;
     align-items: center;
     gap: 40px;
 `;
