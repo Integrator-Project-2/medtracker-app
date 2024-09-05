@@ -11,23 +11,36 @@ import { requestNotificationPermissions } from "@/services/notificationPermissio
 import { Reminder } from "@/types/Reminder";
 import { fetchReminders } from "@/services/remindersListService";
 import { getIconName } from "@/global/utils/iconUtils";
+import { getPatientData } from "@/services/patientService";
 
 
 
 export default function RemindersScreen() {
     const [reminders, setReminders] = useState<Reminder[]>([]);
+    const [patientData, setPatientData] = useState<Patient | null>(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
-
+    const patientId = 1
+ 
     useEffect(() => {
         requestNotificationPermissions();
+        loadPatientInfo()
         loadReminders();
     }, []);
+
+    const loadPatientInfo = async () => {
+        try {
+            const patientData = await getPatientData(patientId);
+            setPatientData(patientData || "Unknown");
+        } catch (error) {
+            
+        }
+    };
 
     const loadReminders = async () => {
         try {
             setLoading(true);
-            const data = await fetchReminders(1);
+            const data = await fetchReminders(patientId);
             if (Array.isArray(data)) {
                 setReminders(data);
             } else {
@@ -83,7 +96,9 @@ export default function RemindersScreen() {
             <Header>
                 <Title text="Your Reminders" />
                 <TouchableOpacity onPress={handlePress}>
-                    <AvatarComponent name="Michael Scott" />
+                <AvatarComponent
+                            name={patientData?.user.name || "Unknown"}
+                        />
                 </TouchableOpacity>
             </Header>
 

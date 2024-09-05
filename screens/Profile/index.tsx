@@ -17,11 +17,12 @@ export function ProfileScreen() {
     const [isFormVisible, setIsFormVisible] = useState(false); 
     const [patientData, setPatientData] = useState<Patient | null>(null);
     const [loading, setLoading] = useState(true);
+    const patientId = 1
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await getPatientData(1);
+                const data = await getPatientData(patientId);
                 setPatientData(data);
             } catch (error) {
                 Alert.alert("Erro", "Não foi possível carregar os dados do paciente.");
@@ -78,7 +79,7 @@ export function ProfileScreen() {
                         {isFormVisible ? (
                             <ProfileInfoForm 
                             initialData={patientData} 
-                            patientId={1} 
+                            patientId={patientId} 
                             onCancel={handleCancel}
                             /> 
                         ) : (
