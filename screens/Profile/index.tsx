@@ -37,6 +37,10 @@ export function ProfileScreen() {
         router.back(); 
     }
 
+    function handleCancel() {
+        setIsFormVisible(false)
+    }
+
     const menuOptions = [
         {
             label: 'Logout',
@@ -72,7 +76,11 @@ export function ProfileScreen() {
                         />
 
                         {isFormVisible ? (
-                            <ProfileInfoForm initialData={patientData} patientId={1} /> 
+                            <ProfileInfoForm 
+                            initialData={patientData} 
+                            patientId={1} 
+                            onCancel={handleCancel}
+                            /> 
                         ) : (
                             <ProfileInfoText data={patientData}/>
                         )}

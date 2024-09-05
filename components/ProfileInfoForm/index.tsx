@@ -19,9 +19,10 @@ import { EmailInput } from "../EmailInput";
 interface ProfileInfoFormProps {
     initialData: Patient | null;
     patientId: number;
+    onCancel: () => void;
 }
 
-export function ProfileInfoForm({ initialData, patientId }: ProfileInfoFormProps) {
+export function ProfileInfoForm({ initialData, patientId, onCancel }: ProfileInfoFormProps) {
 
     const formatDateForDisplay = (date: Date): string => {
         return format(date, 'yyyy-MM-dd');
@@ -38,7 +39,7 @@ export function ProfileInfoForm({ initialData, patientId }: ProfileInfoFormProps
         user: {
             id: initialData?.user?.id || 0,
             name: initialData?.user?.name || '',
-            email: initialData?.user?.email|| '',
+            email: initialData?.user?.email || '',
             address: initialData?.user?.address || '',
             phone: initialData?.user?.phone || '',
             birth_date: toDate(initialData?.user?.birth_date || new Date())
@@ -88,7 +89,7 @@ export function ProfileInfoForm({ initialData, patientId }: ProfileInfoFormProps
     const handleSubmit = async () => {
         try {
             const modifiedData: any = { user: {} };
-    
+
             if (formData.user.name !== initialData?.user.name) {
                 modifiedData.user.name = formData.user.name;
             }
@@ -98,19 +99,19 @@ export function ProfileInfoForm({ initialData, patientId }: ProfileInfoFormProps
             if (formData.user.phone !== initialData?.user.phone) {
                 modifiedData.user.phone = formData.user.phone;
             }
-    
+
             if (formData.user.email !== initialData?.user.email) {
                 modifiedData.user.email = formData.user.email;
             }
-    
+
             const initialBirthDate = initialData?.user.birth_date ? toDate(initialData.user.birth_date) : null;
             const formattedCurrentBirthDate = formatDateForDisplay(formData.user.birth_date);
             const formattedInitialBirthDate = initialBirthDate ? formatDateForDisplay(initialBirthDate) : null;
-    
+
             if (formattedCurrentBirthDate !== formattedInitialBirthDate) {
                 modifiedData.user.birth_date = formattedCurrentBirthDate;
             }
-    
+
             if (formData.gender !== initialData?.gender) {
                 modifiedData.gender = formData.gender;
             }
@@ -123,20 +124,22 @@ export function ProfileInfoForm({ initialData, patientId }: ProfileInfoFormProps
             if (formData.allergies_and_observations !== initialData?.allergies_and_observations) {
                 modifiedData.allergies_and_observations = formData.allergies_and_observations;
             }
-    
+
             if (Object.keys(modifiedData).length === 1 && Object.keys(modifiedData.user).length === 0) {
                 alert("No changes detected.");
                 return;
             }
-    
+
             await updatePatientData(patientId, modifiedData);
             alert("Dados atualizados com sucesso!");
+            onCancel();
+            
         } catch (error) {
             console.error("Erro ao atualizar os dados:", error);
             alert("Erro ao atualizar os dados.");
         }
     };
-    
+
     return (
         <>
             <NameInput
@@ -226,7 +229,7 @@ export function ProfileInfoForm({ initialData, patientId }: ProfileInfoFormProps
                     text='Cancel'
                     bgColor={theme.colors.lightNavy}
                     textColor={theme.colors.navy}
-                    onPress={() => { }}
+                    onPress={onCancel}
                     width={148}
                     height={52}
                 />
