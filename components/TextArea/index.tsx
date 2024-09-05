@@ -12,31 +12,46 @@ interface TextAreaProps {
     value?: string;
     disabled?: boolean;
     border?: boolean;
+    onChange?: (value: string) => void;
 }
 
-export const TextArea: React.FC<TextAreaProps> = ({ label, placeholder, labelColor, width, value }) => {
-    const [text, setText] = React.useState(value || '');
+export const TextArea: React.FC<TextAreaProps> = ({
+  label,
+  placeholder,
+  labelColor,
+  width,
+  value,
+  onChange
+}) => {
+  const [text, setText] = React.useState(value || '');
 
-    return (
-      <View>
-        <LabelComponent 
-          text={label} 
-          color={labelColor}
-        />
-        <StyledTextInput
-            mode="outlined"
-            placeholder={placeholder}
-            value={text}
-            onChangeText={setText}
-            placeholderTextColor={colors.lightPurple} 
-            outlineColor={colors.lightPurple} 
-            textColor={colors.darkBlue}
-            theme={theme}
-            width={width}
-            multiline={true}
-            numberOfLines={20}
-            style={{ height: 100 }}
-        />
-      </View>
-    );
+  const handleChange = (text: string) => {
+      setText(text);
+      if (onChange) {
+          onChange(text);
+      }
+  };
+
+  return (
+    <View>
+      <LabelComponent 
+        text={label} 
+        color={labelColor}
+      />
+      <StyledTextInput
+          mode="outlined"
+          placeholder={placeholder}
+          value={text}
+          onChangeText={handleChange}
+          placeholderTextColor={colors.lightPurple} 
+          outlineColor={colors.lightPurple} 
+          textColor={colors.darkBlue}
+          theme={theme}
+          width={width}
+          multiline={true}
+          numberOfLines={20}
+          style={{ height: 100 }}
+      />
+    </View>
+  );
 };

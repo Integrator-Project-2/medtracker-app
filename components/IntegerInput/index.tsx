@@ -9,18 +9,18 @@ interface IntegerInputProps {
     width?: number;
     fontSize?: number;
     labelColor?: string;
+    value: number;
+    onChange: (value: number) => void;
 }
 
-export default function IntegerInput({ label, width, fontSize, labelColor }: IntegerInputProps) {
-    const [value, setValue] = useState<number>(0);
-
-    const increment = () => setValue(value + 1);
-    const decrement = () => setValue(value > 0 ? value - 1 : 0);
+export default function IntegerInput({ label, width, fontSize, labelColor, value, onChange }: IntegerInputProps) {
+    const increment = () => onChange(value + 1);
+    const decrement = () => onChange(value > 0 ? value - 1 : 0);
 
     const handleChange = (text: string) => {
         const newValue = text === '' ? 0 : parseInt(text, 10);
         if (!isNaN(newValue)) {
-            setValue(newValue);
+            onChange(newValue);
         }
     };
 
@@ -39,7 +39,7 @@ export default function IntegerInput({ label, width, fontSize, labelColor }: Int
                 <StyledIntegerInput
                     mode="flat"
                     keyboardType="numeric"
-                    value={value.toString()}
+                    value={value.toString()} // Exibir o valor como string
                     onChangeText={handleChange}
                     outlineColor={theme.colors.lightPurple}
                     textColor={theme.colors.darkBlue}

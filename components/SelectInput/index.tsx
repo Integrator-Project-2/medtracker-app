@@ -8,12 +8,14 @@ import StyledButton from './styles';
 interface SelectInputProps {
   label: string;
   labelColor?: string;
-  options: string[];
+  options: { value: string, label: string }[];
   selectedValue?: string;
   width?: number;
   height?: number;
   borderColor?: string;
   borderRadius?: number;
+  onChange?: (value: string) => void;
+
 }
 
 export const SelectInput: React.FC<SelectInputProps> = ({
@@ -25,27 +27,33 @@ export const SelectInput: React.FC<SelectInputProps> = ({
   height,
   borderColor,
   borderRadius,
+  onChange
 }) => {
   const [visible, setVisible] = useState(false);
-  const [selected, setSelected] = useState(selectedValue || '');
+  const [selected, setSelected] = useState(
+    selectedValue ? options.find(option => option.value === selectedValue)?.label || '' : ''
+  );
 
   const showMenu = () => setVisible(true);
   const hideMenu = () => setVisible(false);
 
-  const handleSelect = (value: string) => {
-    setSelected(value);
+  const handleSelect = (value: string, label: string) => {
+    setSelected(label);
+    if (onChange) {
+      onChange(value);
+    }
     hideMenu();
   };
 
   const menuOptions = options.map(option => ({
-    label: option,
-    onPress: () => handleSelect(option),
+    label: option.label,
+    onPress: () => handleSelect(option.value, option.label),
   }));
 
   return (
     <View>
       <LabelComponent
-        text={label} 
+        text={label}
         color={labelColor}
       />
       <MenuComponent
@@ -62,7 +70,7 @@ export const SelectInput: React.FC<SelectInputProps> = ({
             borderRadius={borderRadius}
             isFocused={visible}
           >
-            {selected || 'Select...'}
+            {selected || 'Select...'} {/* Mostra o label selecionado */}
           </StyledButton>
         }
       />

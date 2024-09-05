@@ -10,10 +10,25 @@ interface EmailInputProps {
     labelColor?: string;
     width?: number;
     value?: string;
+    onChange?: (value: string) => void;
 }
 
-export const EmailInput: React.FC<EmailInputProps> = ({ label, placeholder, width, value, labelColor }) => {
+export const EmailInput: React.FC<EmailInputProps> = ({
+    label,
+    placeholder,
+    width,
+    value,
+    labelColor,
+    onChange 
+}) => {
     const [text, setText] = React.useState(value || '');
+
+    const handleChange = (text: string) => {
+        setText(text);
+        if (onChange) {
+            onChange(text);
+        }
+    };
 
     return (
       <View>
@@ -25,7 +40,7 @@ export const EmailInput: React.FC<EmailInputProps> = ({ label, placeholder, widt
           mode="outlined"
           placeholder={placeholder}
           value={text}
-          onChangeText={setText}
+          onChangeText={handleChange}
           placeholderTextColor={colors.lightPurple} 
           outlineColor={colors.lightPurple} 
           textColor={colors.darkBlue}

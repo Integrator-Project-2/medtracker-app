@@ -1,35 +1,51 @@
 import MenuButton from "@/components/MenuButton";
 import { Appbar } from "react-native-paper";
-import { ScrollView } from "react-native";
+import { Alert, ScrollView } from "react-native";
 import { ProfileContainer } from "@/components/ProfileInfoForm/styles";
 import { ProfileInfoContainer } from "./styles";
 import AvatarComponent from "@/components/Avatar";
-import { ProfileInfoText } from "@/components/ProfileInfoText";
 import { ProfileInfoForm } from "@/components/ProfileInfoForm";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
 import { theme } from "@/global/styles/theme";
+import { getPatientData } from "@/services/patientService";
+import Loader from "@/components/Loader";
+import { ProfileInfoText } from "@/components/ProfileInfoText";
 
 export function ProfileScreen() {
     const router = useRouter();
+    const [isFormVisible, setIsFormVisible] = useState(false); 
+    const [patientData, setPatientData] = useState<Patient | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await getPatientData(1);
+                setPatientData(data);
+            } catch (error) {
+                Alert.alert("Erro", "Não foi possível carregar os dados do paciente.");
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchData();
+    }, []);
 
     function handlePress() {
         router.back(); 
     }
-    
-    const [isFormVisible, setIsFormVisible] = useState(false);
 
     const menuOptions = [
         {
-            label: 'Option 1',
-            onPress: () => {
-                setIsFormVisible(true); 
-            }
+            label: 'Logout',
+            onPress: () => { }
         },
         {
-            label: 'Option 2',
+            label: 'Edit',
             onPress: () => {
-                setIsFormVisible(false);
+                setIsFormVisible(true);
             }
         }
     ];
@@ -45,21 +61,25 @@ export function ProfileScreen() {
                 />
             </Appbar.Header>
 
-            <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
-                <ProfileInfoContainer>
-                    <AvatarComponent
-                        name="Michael Scott"
-                        size={70}
-                    />
+            {loading ? (
+                <Loader /> 
+            ) : (
+                <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
+                    <ProfileInfoContainer>
+                        <AvatarComponent
+                            name={patientData?.user.name || "Unknown"}
+                            size={70}
+                        />
 
-                    {isFormVisible ? (
-                        <ProfileInfoForm /> // Renderiza o formulário se isFormVisible for true
-                    ) : (
-                        <ProfileInfoText /> // Caso contrário, renderiza o texto padrão
-                    )}
+                        {isFormVisible ? (
+                            <ProfileInfoForm initialData={patientData} patientId={1} /> 
+                        ) : (
+                            <ProfileInfoText data={patientData}/>
+                        )}
 
-                </ProfileInfoContainer>
-            </ScrollView>
+                    </ProfileInfoContainer>
+                </ScrollView>
+            )}
         </ProfileContainer>
     )
 }

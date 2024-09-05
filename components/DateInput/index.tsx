@@ -12,35 +12,50 @@ interface DateInputProps {
     color?: string;
     labelColor?: string;
     borderColor?: string;
+    value: Date;
+    onChange: (date: Date) => void; 
 }
 
-const DateInput: React.FC<DateInputProps> = ({ label = "", width, color, labelColor, borderColor }) => {
-    const [ date, setDate ] = useState<Date>(new Date())
-    const [ show, setShow ] = useState<boolean>(false)
-    const [isFocused, setIsFocused] = useState<boolean>(false)
+interface DateInputProps {
+    label?: string;
+    value: Date;
+    width: number;
+    color?: string;
+    labelColor?: string;
+    borderColor?: string;
+    onChange: (date: Date) => void; 
+}
+
+const DateInput: React.FC<DateInputProps> = ({
+    label = "",
+    value,
+    width,
+    color,
+    labelColor,
+    borderColor,
+    onChange 
+}) => {
+    const [show, setShow] = useState<boolean>(false);
+    const [isFocused, setIsFocused] = useState<boolean>(false);
 
     const showDatePicker = () => {
-        setShow(true)
-        setIsFocused(true)
-    }
+        setShow(true);
+        setIsFocused(true);
+    };
 
-    const onChange = (event: any, selectedDate?:Date) => {
-        const currentDate = selectedDate || date;
-        // o seletor de data no ios é exibido como um modal que deve ser escondido apos a selecao, no android ja fecha automaticamente
+    const handleDateChange = (event: any, selectedDate?: Date) => {
+        const currentDate = selectedDate || value;
         setShow(Platform.OS == 'ios');
-        setDate(currentDate);
-        setIsFocused(false)
-    }
+        onChange(currentDate);
+        setIsFocused(false);
+    };
 
     return (
         <View>
-            <LabelComponent
-                text={label} 
-                color={labelColor}
-            />
+            <LabelComponent text={label} color={labelColor} />
             <TouchableOpacity onPress={showDatePicker}>
-                <StyledTextInput  
-                    value={date.toLocaleDateString()}
+                <StyledTextInput
+                    value={value.toLocaleDateString()}
                     editable={false}
                     width={width}
                     isFocused={isFocused}
@@ -52,14 +67,14 @@ const DateInput: React.FC<DateInputProps> = ({ label = "", width, color, labelCo
             </TouchableOpacity>
             {show && (
                 <DateTimePicker
-                value={date}
-                mode="date"
-                display="default"
-                onChange={onChange}
+                    value={value} 
+                    mode="date"
+                    display="default"
+                    onChange={handleDateChange}
                 />
             )}
         </View>
-    )
+    );
 };
 
 export default DateInput;
