@@ -14,6 +14,7 @@ import { updatePatientData } from "@/services/patientService";
 import { AddressInput } from "../AddressInput";
 import { PhoneNumberInput } from "../PhoneNumber";
 import { format, parseISO } from 'date-fns';
+import { EmailInput } from "../EmailInput";
 
 interface ProfileInfoFormProps {
     initialData: Patient | null;
@@ -37,6 +38,7 @@ export function ProfileInfoForm({ initialData, patientId }: ProfileInfoFormProps
         user: {
             id: initialData?.user?.id || 0,
             name: initialData?.user?.name || '',
+            email: initialData?.user?.email|| '',
             address: initialData?.user?.address || '',
             phone: initialData?.user?.phone || '',
             birth_date: toDate(initialData?.user?.birth_date || new Date())
@@ -85,27 +87,56 @@ export function ProfileInfoForm({ initialData, patientId }: ProfileInfoFormProps
 
     const handleSubmit = async () => {
         try {
-            const height = isNaN(formData.height) ? undefined : formData.height;
-            const weight = isNaN(formData.weight) ? undefined : formData.weight;
-            const birth_date = formatDateForDisplay(formData.user.birth_date);
-
-            await updatePatientData(patientId, {
-                user: {
-                    ...formData.user,
-                    birth_date: birth_date
-                },
-                gender: formData.gender,
-                height: height,
-                weight: weight,
-                allergies_and_observations: formData.allergies_and_observations
-            });
+            const modifiedData: any = { user: {} };
+    
+            if (formData.user.name !== initialData?.user.name) {
+                modifiedData.user.name = formData.user.name;
+            }
+            if (formData.user.address !== initialData?.user.address) {
+                modifiedData.user.address = formData.user.address;
+            }
+            if (formData.user.phone !== initialData?.user.phone) {
+                modifiedData.user.phone = formData.user.phone;
+            }
+    
+            if (formData.user.email !== initialData?.user.email) {
+                modifiedData.user.email = formData.user.email;
+            }
+    
+            const initialBirthDate = initialData?.user.birth_date ? toDate(initialData.user.birth_date) : null;
+            const formattedCurrentBirthDate = formatDateForDisplay(formData.user.birth_date);
+            const formattedInitialBirthDate = initialBirthDate ? formatDateForDisplay(initialBirthDate) : null;
+    
+            if (formattedCurrentBirthDate !== formattedInitialBirthDate) {
+                modifiedData.user.birth_date = formattedCurrentBirthDate;
+            }
+    
+            if (formData.gender !== initialData?.gender) {
+                modifiedData.gender = formData.gender;
+            }
+            if (formData.height !== initialData?.height) {
+                modifiedData.height = formData.height;
+            }
+            if (formData.weight !== initialData?.weight) {
+                modifiedData.weight = formData.weight;
+            }
+            if (formData.allergies_and_observations !== initialData?.allergies_and_observations) {
+                modifiedData.allergies_and_observations = formData.allergies_and_observations;
+            }
+    
+            if (Object.keys(modifiedData).length === 1 && Object.keys(modifiedData.user).length === 0) {
+                alert("No changes detected.");
+                return;
+            }
+    
+            await updatePatientData(patientId, modifiedData);
             alert("Dados atualizados com sucesso!");
         } catch (error) {
             console.error("Erro ao atualizar os dados:", error);
             alert("Erro ao atualizar os dados.");
         }
     };
-
+    
     return (
         <>
             <NameInput
@@ -139,22 +170,23 @@ export function ProfileInfoForm({ initialData, patientId }: ProfileInfoFormProps
                 />
             </InputContainer>
 
-            {/* <EmailInput
-                    label="Email"
-                    value={formData.user.email}
-                    labelColor={theme.colors.lightPurple}
-                /> */}
-
-            <AddressInput
-                label="Address"
-                value={formData.user.address}
-                onChange={(value) => handleInputChange('address', value)}
+            <EmailInput
+                label="Email"
+                value={formData.user.email}
+                labelColor={theme.colors.lightPurple}
+                onChange={(value) => handleInputChange('email', value)}
             />
 
             <PhoneNumberInput
                 label="Phone Number"
                 value={formData.user.phone}
                 onChange={(value) => handleInputChange('phone', value)}
+            />
+
+            <AddressInput
+                label="Address"
+                value={formData.user.address}
+                onChange={(value) => handleInputChange('address', value)}
             />
 
             <View style={{ alignItems: "flex-start", width: "100%" }} >
