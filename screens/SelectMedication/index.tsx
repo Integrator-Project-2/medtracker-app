@@ -1,22 +1,71 @@
 import Title from "@/components/Title";
 import { Container, FormButtonContainer, FormContainer, Header, SubtitleContainer } from "@/global/styles/globalStyles";
 import { theme } from "@/global/styles/theme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Subtitle from "@/components/Subtitle";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { useRouter } from "expo-router";
 import CardComponent from "@/components/Card";
 import Search from "@/components/Search";
 import { StyledScrollView } from "./styles";
+import { Medication } from "@/types/Medication";
+import { Alert, FlatList, View } from "react-native";
+import { fetchMedications } from "@/services/medicationService";
+import { getIconName } from "@/global/utils/iconUtils";
+import Loader from "@/components/Loader";
 
 
 export default function SelectMedicationScreen() {
     const [selectedMedication, setSelectedMedication] = useState<string | null>(null);
     const router = useRouter();
 
+    const [medications, setMedications] = useState<Medication[]>([]);
+    const [loading, setLoading] = useState(true);
+    const patientId = 1;
+
     const handlePress = (value: string) => {
         setSelectedMedication(value);
     };
+
+    const getMedications = async (query: string = '') => {
+        try {
+            setLoading(true);
+            const data = await fetchMedications(query, patientId);
+            setMedications(data);
+        } catch (error) {
+            Alert.alert("Erro", "Não foi possível carregar as medicações.");
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        getMedications();
+    }, []);
+
+    const handleSearch = (query: string) => {
+        getMedications(query)
+    }
+
+    const renderItem = ({ item }: { item: Medication }) => {
+        return (
+            <View>
+                <CardComponent
+                    title={item.name}
+                    subtitle={item.pharmaceutical_form}
+                    iconName={getIconName(item.pharmaceutical_form)}
+                    border
+                    select
+                    height={120}
+                    width={312}
+                    additionalInfoPrimaryfontSize={13}
+                    value={item.name}
+                    selected={selectedMedication === item.name}
+                    onPress={() => handlePress(item.name)}
+                />
+            </View>
+        )
+    }
 
     return (
         <Container>
@@ -28,46 +77,20 @@ export default function SelectMedicationScreen() {
                 <Subtitle text='Select a medication' size={16} />
             </SubtitleContainer>
 
-            <Search />
-            <StyledScrollView>
-                <FormContainer marginTop={50}>
-                    <CardComponent
-                        title="Amoxicilina"
-                        subtitle="1 capsule 50 mg"
-                        iconName="pill"
-                        border
-                        select
-                        value="Amoxicilina"
-                        selected={selectedMedication === "Amoxicilina"}
-                        onPress={() => handlePress("Amoxicilina")}
-                        width={300}
-                    />
+            <Search onSearch={handleSearch} />
 
-                    <CardComponent
-                        title="Ibuprofeno"
-                        subtitle="1 capsule 50 mg"
-                        iconName="tablet"
-                        border
-                        select
-                        value="Ibuprofeno"
-                        selected={selectedMedication === "Ibuprofeno"}
-                        onPress={() => handlePress("Ibuprofeno")}
-                        width={300}
+            <FormContainer>
+                {loading ? (
+                    <Loader />
+                ) : (
+                    <FlatList
+                        data={medications}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item.id.toString()}
                     />
+                )}
 
-                    <CardComponent
-                        title="Dipirona"
-                        subtitle="1 capsule 50 mg"
-                        iconName="injection"
-                        border
-                        select
-                        value="Dipirona"
-                        selected={selectedMedication === "Dipirona"}
-                        onPress={() => handlePress("Dipirona")}
-                        width={300}
-                    />
-                </FormContainer>
-                </StyledScrollView>
+            </FormContainer>
 
             <FormButtonContainer row >
                 <PrimaryButton
