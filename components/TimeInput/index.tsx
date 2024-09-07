@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Platform, TouchableOpacity, View } from "react-native";
-
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { LabelComponent } from "../Label";
@@ -11,10 +10,12 @@ interface TimeInputProps {
     width: number;
     color?: string;
     borderColor?: string;
+    value: Date;  // Adiciona a prop value aqui
+    onChange: (time: Date) => void;  // Adiciona a prop onChange
 }
 
-const TimeInput: React.FC<TimeInputProps> = ({ label = "", width, color, borderColor}) => {
-    const [time, setTime] = useState<Date>(new Date());
+// TimeInput.tsx
+const TimeInput: React.FC<TimeInputProps> = ({ label = "", width, color, borderColor, value, onChange }) => {
     const [show, setShow] = useState<boolean>(false);
     const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -23,10 +24,10 @@ const TimeInput: React.FC<TimeInputProps> = ({ label = "", width, color, borderC
         setIsFocused(true);
     };
 
-    const onChange = (event: any, selectedTime?: Date) => {
-        const currentTime = selectedTime || time;
+    const handleChange = (event: any, selectedTime?: Date) => {
+        const currentTime = selectedTime || new Date();  // Usa um valor padrão se selectedTime for undefined
         setShow(Platform.OS === 'ios');
-        setTime(currentTime);
+        onChange(currentTime);  // Chama o onChange com o tempo selecionado
         setIsFocused(false);
     };
 
@@ -35,7 +36,7 @@ const TimeInput: React.FC<TimeInputProps> = ({ label = "", width, color, borderC
             <LabelComponent color={color} text={label} />
             <TouchableOpacity onPress={showTimePicker}>
                 <StyledTextInput
-                    value={time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    value={value ? value.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ""}  // Verifica se o value é válido
                     editable={false}
                     width={width}
                     isFocused={isFocused}
@@ -47,10 +48,10 @@ const TimeInput: React.FC<TimeInputProps> = ({ label = "", width, color, borderC
             </TouchableOpacity>
             {show && (
                 <DateTimePicker
-                    value={time}
+                    value={value || new Date()}  // Usa um valor padrão se value for undefined
                     mode="time"
                     display="default"
-                    onChange={onChange}
+                    onChange={handleChange}
                 />
             )}
         </View>

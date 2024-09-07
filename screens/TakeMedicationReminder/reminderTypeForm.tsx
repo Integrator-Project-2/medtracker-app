@@ -1,26 +1,26 @@
+import React from "react";
+import { useFormContext } from "react-hook-form";
 import { InputRadio } from "@/components/InputRadio";
 
-interface ReminderTypeFormProps {
-    checkedValue: string;
-    handlePress: (value: string) => void;
-}
+export default function ReminderTypeForm() {
+    const { watch, setValue } = useFormContext();
+    const reminder_type = watch("reminder_type");
 
-export default function ReminderTypeForm({ checkedValue, handlePress }: ReminderTypeFormProps) {
     return (
         <>
             <InputRadio
                 text="Unique Reminder"
-                selected={checkedValue === 'uniqueReminder'}
-                value="uniqueReminder"
-                onPress={handlePress}
+                selected={reminder_type === 'unique reminder'}
+                value="unique reminder"
+                onPress={() => setValue("reminder_type", 'unique reminder')}
             />
 
             <InputRadio
                 text="Daily Reminder"
-                selected={checkedValue === 'dailyReminder'}
-                value="dailyReminder"
-                onPress={handlePress}
+                selected={reminder_type === 'daily reminder'}
+                value="daily reminder"
+                onPress={() => setValue("reminder_type", 'daily reminder')}
             />
         </>
-    )
+    );
 }

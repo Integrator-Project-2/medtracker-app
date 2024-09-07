@@ -26,6 +26,7 @@ interface DateInputProps {
     onChange: (date: Date) => void; 
 }
 
+// DateInput.tsx
 const DateInput: React.FC<DateInputProps> = ({
     label = "",
     value,
@@ -33,7 +34,7 @@ const DateInput: React.FC<DateInputProps> = ({
     color,
     labelColor,
     borderColor,
-    onChange 
+    onChange
 }) => {
     const [show, setShow] = useState<boolean>(false);
     const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -44,7 +45,7 @@ const DateInput: React.FC<DateInputProps> = ({
     };
 
     const handleDateChange = (event: any, selectedDate?: Date) => {
-        const currentDate = selectedDate || value;
+        const currentDate = selectedDate || new Date(); // Usa um valor padrão se selectedDate for undefined
         setShow(Platform.OS == 'ios');
         onChange(currentDate);
         setIsFocused(false);
@@ -55,7 +56,7 @@ const DateInput: React.FC<DateInputProps> = ({
             <LabelComponent text={label} color={labelColor} />
             <TouchableOpacity onPress={showDatePicker}>
                 <StyledTextInput
-                    value={value.toLocaleDateString()}
+                    value={value ? value.toLocaleDateString() : ""} // Verifica se o value é válido
                     editable={false}
                     width={width}
                     isFocused={isFocused}
@@ -67,7 +68,7 @@ const DateInput: React.FC<DateInputProps> = ({
             </TouchableOpacity>
             {show && (
                 <DateTimePicker
-                    value={value} 
+                    value={value || new Date()}  // Usa um valor padrão se value for undefined
                     mode="date"
                     display="default"
                     onChange={handleDateChange}
