@@ -27,7 +27,7 @@ export default function CreateReminderScreen() {
     };
 
     function handleNext(){
-        const medicationJson = JSON.stringify(medication); // Certifique-se de que está serializando corretamente
+        const medicationJson = JSON.stringify(medication);
         if (checkedValue === 'takeMyMedications'){
             router.push(`/takeMedicationReminder?medication=${encodeURIComponent(medicationJson)}`);
         } else if (checkedValue === 'manageMedicationStock'){

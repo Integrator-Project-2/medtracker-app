@@ -10,6 +10,7 @@ import ReminderTypeForm from "./reminderTypeForm";
 import DailyReminderForm from "./dailyReminderForm";
 import SelectDayAndTimeForm from "./selectDayAndTimeForm";
 import { Medication } from "@/types/Medication";
+import { Reminder } from "@/types/Reminder";
 
 
 export default function TakeMedicationReminderScreen() {
@@ -18,7 +19,7 @@ export default function TakeMedicationReminderScreen() {
     const medication: Medication = JSON.parse(decodeURIComponent(params.medication || '{}'));
 
     const [step, setStep] = useState(1);
-    const methods = useForm({
+    const methods = useForm<Reminder>({
         defaultValues: {
             patient: 1,
             medication: medication.id,
