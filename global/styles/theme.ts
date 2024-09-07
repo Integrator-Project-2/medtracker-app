@@ -5,6 +5,7 @@ const colors = {
   navy: '#354DB0',
   lightPurple: '#99A4D6',
   darkBlue: '#212C5B',
+  lightBlue: '#4D80F9',
 };
 
 const theme = {
@@ -27,7 +28,8 @@ const theme = {
     lightBlue: '#4D80F9',
     cardLightColor: '#F5F6FB',
     darkBlue: '#212C5B',
-    surface: 'white'
+    surface: 'white',
+    red: '#D30000'
   },
 };
 

@@ -1,3 +1,4 @@
+import { theme } from '@/global/styles/theme';
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Avatar } from 'react-native-paper';

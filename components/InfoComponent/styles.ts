@@ -11,4 +11,6 @@ export const StyledText = styled(Text)`
     color: ${theme.colors.lightPurple};
     font-size: 16px;
     font-family: Poppins-Regular;
+    flex-wrap:wrap;
+    max-width: 200px;
 `

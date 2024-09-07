@@ -37,16 +37,20 @@ export function MedicationsScreen() {
     }
 
     const renderItem = ({ item }: { item: Medication }) => {
+
+        const amountColor = item.low_stock ? theme.colors.red : theme.colors.lightBlue
+        const displayAmount = item.amount !== null && item.amount !== undefined ? `${item.amount}` : undefined;
+
         return (
             <View>
                 <CardComponent
                     title={item.name}
                     subtitle={item.pharmaceutical_form}
-                    additionalInfoPrimary={item.amount ? "Amount" : undefined}
-                    additionalInfoSecondary={item.amount || undefined}
+                    additionalInfoPrimary={displayAmount ? "Amount" : undefined}
+                    additionalInfoSecondary={displayAmount}
                     iconName={getIconName(item.pharmaceutical_form)}
                     border
-                    additionalInfoSecondaryColor={theme.colors.lightBlue}
+                    additionalInfoSecondaryColor={amountColor}
                     additionalInfoPrimaryColor={theme.colors.lightPurple}
                     height={120}
                     width={312}
