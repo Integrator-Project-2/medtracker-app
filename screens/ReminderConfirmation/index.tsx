@@ -1,47 +1,29 @@
-import { ReminderClock } from "@/assets/images/svg/ReminderClock";
-import { InfoComponent } from "@/components/InfoComponent";
-import { PrimaryButton } from "@/components/PrimaryButton";
-import Subtitle from "@/components/Subtitle";
-import Title from "@/components/Title";
+import React from "react";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { Container, FormButtonContainer, Header, ImageContainer } from "@/global/styles/globalStyles";
 import { theme } from "@/global/styles/theme";
-import { router, useLocalSearchParams } from "expo-router";
+import Title from "@/components/Title";
+import Subtitle from "@/components/Subtitle";
+
+import { PrimaryButton } from "@/components/PrimaryButton";
+import { ReminderClock } from "@/assets/images/svg/ReminderClock";
+import { createMedicationReminder } from "@/services/createReminderService";
 import { Column, ContentContainer } from "./styles";
-import NotificationService, { Reminder } from "@/services/localNotificationService";
+import { InfoComponent } from "@/components/InfoComponent";
 
 export default function ReminderConfirmationScreen() {
-    const { reminderType } = useLocalSearchParams<{ reminderType: string }>();
-    const isMoreThanOnePerDay = reminderType === 'moreThanOnePerDay';
+    const router = useRouter();
+    const params = useLocalSearchParams<{ data: string }>();
+    const data = JSON.parse(decodeURIComponent(params.data || '{}'));
 
-    const mockReminders: Reminder[] = [
-        {
-            medication: "TESTE",
-            remindTime: new Date("2024-08-27T13:40:00"),
-            frequencyPerDay: 2,
-            frequencyHours: 8,
-            reminderType: "daily reminder",
-            day: new Date("2024-08-27"),
-        },
-        {
-            medication: "LEMBRETE UNICO",
-            remindTime: new Date("2024-08-27T13:43:00"),
-            frequencyPerDay: 1,
-            frequencyHours: 24,
-            reminderType: "daily reminder",
-            day: new Date("2024-08-27"),
-        },
-    ];
-    
-    async function testMockedReminders() {
+    const handleConfirm = async () => {
         try {
-            for (const reminder of mockReminders) {
-                await NotificationService.scheduleReminder(reminder);
-            }
-            alert("Lembrete agendado com sucesso!");
+            await createMedicationReminder(data);
+            router.push('/reminders');
         } catch (error) {
-            alert("Erro ao agendar o lembrete");
+            console.error('Erro ao criar lembrete de medicação:', error);
         }
-    }
+    };
 
     return (
         <Container>
@@ -56,24 +38,19 @@ export default function ReminderConfirmationScreen() {
 
             <ContentContainer>
                 <Column>
-                    <InfoComponent label="Medication" data="Aspirine" />
-                    <InfoComponent label="Initial Date" data="09-10-2024" />
-                    {isMoreThanOnePerDay &&
-                        (
-                            <InfoComponent label="Times a day" data="2" />
-                        )
+                    <InfoComponent label="Medication" data={data.medication} />
+                    <InfoComponent label="Initial Date" data={data.day} />
+                    {data.reminder_type === 'daily reminder' &&
+                        <InfoComponent label="Times a day" data={data.frequency_per_day.toString()} />
                     }
                 </Column>
 
                 <Column>
-                    <InfoComponent label="Reminder Type" data="Unique Reminder" />
-                    <InfoComponent label="Initial Time" data="23:59" />
-                    {isMoreThanOnePerDay &&
-                        (
-                            <InfoComponent label="Hours Interval" data="8" />
-                        )
+                    <InfoComponent label="Reminder Type" data={data.reminder_type} />
+                    <InfoComponent label="Initial Time" data={data.remind_time} />
+                    {data.reminder_type === 'daily reminder' &&
+                        <InfoComponent label="Hours Interval" data={data.frequency_hours.toString()} />
                     }
-
                 </Column>
             </ContentContainer>
 
@@ -90,11 +67,7 @@ export default function ReminderConfirmationScreen() {
                 <PrimaryButton
                     text='Confirm'
                     bgColor={theme.colors.navy}
-                    onPress={ async () => {
-                        await testMockedReminders()
-                        router.push('/medications')
-                    }
-                    }
+                    onPress={handleConfirm}
                     width={148}
                     height={52}
                 />

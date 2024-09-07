@@ -58,18 +58,21 @@ export default function TakeMedicationReminderScreen() {
     
             console.log("Dados formatados para envio:", formattedData);
     
-            try {
-                console.log('Chamando createMedicationReminder...');
-                await createMedicationReminder(formattedData);
-                console.log('Lembrete de medicação criado com sucesso.');
-                router.push(`/reminderConfirmation?reminderType=${encodeURIComponent(formattedData.reminder_type)}`);
-            } catch (error) {
-                console.error('Erro ao criar lembrete de medicação:', error);
-            }
+            // try {
+            //     console.log('Chamando createMedicationReminder...');
+            //     await createMedicationReminder(formattedData);
+            //     console.log('Lembrete de medicação criado com sucesso.');
+            //     router.push(`/reminderConfirmation?reminderType=${encodeURIComponent(formattedData.reminder_type)}`);
+            // } catch (error) {
+            //     console.error('Erro ao criar lembrete de medicação:', error);
+            // }
+               // Codifica os dados como uma string JSON
+        const queryString = encodeURIComponent(JSON.stringify(formattedData));
+
+        router.push(`/reminderConfirmation?data=${queryString}`);
+
         }
     });
-    
-    
     
 
     const handleBack = () => {
