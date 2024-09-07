@@ -9,6 +9,8 @@ import { theme } from "@/global/styles/theme";
 import { fetchMedications } from "@/services/medicationService";
 import { Medication } from "@/types/Medication";
 import { getIconName } from "@/global/utils/iconUtils";
+import { router } from "expo-router";
+import { AmountReminder } from "@/types/AmountReminder";
 
 
 export function MedicationsScreen() {
@@ -36,6 +38,14 @@ export function MedicationsScreen() {
         getMedications(query)
     }
 
+    const handleManageStock = (amountReminder: AmountReminder | null | undefined, medication: Medication) => {
+        const amountReminderParam = amountReminder
+            ? `&amountReminder=${encodeURIComponent(JSON.stringify(amountReminder))}`
+            : '';
+        router.push(`/medicationStockReminder?medication=${encodeURIComponent(JSON.stringify(medication))}${amountReminderParam}`);
+    };
+
+
     const renderItem = ({ item }: { item: Medication }) => {
 
         const amountColor = item.low_stock ? theme.colors.red : theme.colors.lightBlue
@@ -58,7 +68,7 @@ export function MedicationsScreen() {
                     menuOptions={
                         [
                             { label: 'Option 1', onPress: () => console.log('Option 1 pressed') },
-                            { label: 'Option 2', onPress: () => console.log('Option 2 pressed') }
+                            { label: 'Manage Stock', onPress: () => handleManageStock(item.amount_reminder, item) }
                         ]
                     }
                 />
