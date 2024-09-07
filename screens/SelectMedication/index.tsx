@@ -1,10 +1,10 @@
-import Title from "@/components/Title";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "expo-router";
 import { Container, FormButtonContainer, FormContainer, Header, SubtitleContainer } from "@/global/styles/globalStyles";
 import { theme } from "@/global/styles/theme";
-import { useEffect, useState } from "react";
+import Title from "@/components/Title";
 import Subtitle from "@/components/Subtitle";
 import { PrimaryButton } from "@/components/PrimaryButton";
-import { useRouter } from "expo-router";
 import CardComponent from "@/components/Card";
 import Search from "@/components/Search";
 import { StyledScrollView } from "./styles";
@@ -14,17 +14,16 @@ import { fetchMedications } from "@/services/medicationService";
 import { getIconName } from "@/global/utils/iconUtils";
 import Loader from "@/components/Loader";
 
-
 export default function SelectMedicationScreen() {
-    const [selectedMedication, setSelectedMedication] = useState<string | null>(null);
+    const [selectedMedication, setSelectedMedication] = useState<Medication | null>(null);
     const router = useRouter();
 
     const [medications, setMedications] = useState<Medication[]>([]);
     const [loading, setLoading] = useState(true);
     const patientId = 1;
 
-    const handlePress = (value: string) => {
-        setSelectedMedication(value);
+    const handlePress = (medication: Medication) => {
+        setSelectedMedication(medication);
     };
 
     const getMedications = async (query: string = '') => {
@@ -37,15 +36,15 @@ export default function SelectMedicationScreen() {
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     useEffect(() => {
         getMedications();
     }, []);
 
     const handleSearch = (query: string) => {
-        getMedications(query)
-    }
+        getMedications(query);
+    };
 
     const renderItem = ({ item }: { item: Medication }) => {
         return (
@@ -60,12 +59,12 @@ export default function SelectMedicationScreen() {
                     width={312}
                     additionalInfoPrimaryfontSize={13}
                     value={item.name}
-                    selected={selectedMedication === item.name}
-                    onPress={() => handlePress(item.name)}
+                    selected={selectedMedication?.id === item.id}
+                    onPress={() => handlePress(item)}
                 />
             </View>
-        )
-    }
+        );
+    };
 
     return (
         <Container>
@@ -89,10 +88,9 @@ export default function SelectMedicationScreen() {
                         keyExtractor={(item) => item.id.toString()}
                     />
                 )}
-
             </FormContainer>
 
-            <FormButtonContainer row >
+            <FormButtonContainer row>
                 <PrimaryButton
                     text='Cancel'
                     bgColor={theme.colors.lightNavy}
@@ -107,7 +105,9 @@ export default function SelectMedicationScreen() {
                     bgColor={theme.colors.navy}
                     onPress={() => {
                         if (selectedMedication) {
-                            router.push(`/createReminder?medication=${encodeURIComponent(selectedMedication)}`);
+                            const medicationJson = JSON.stringify(selectedMedication);
+
+                            router.push(`/createReminder?medication=${encodeURIComponent(medicationJson)}`);
                         }
                     }}
                     width={148}
@@ -115,5 +115,5 @@ export default function SelectMedicationScreen() {
                 />
             </FormButtonContainer>
         </Container>
-    )
+    );
 }

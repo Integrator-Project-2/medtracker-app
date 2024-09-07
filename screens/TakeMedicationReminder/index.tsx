@@ -9,19 +9,19 @@ import { PrimaryButton } from "@/components/PrimaryButton";
 import ReminderTypeForm from "./reminderTypeForm";
 import DailyReminderForm from "./dailyReminderForm";
 import SelectDayAndTimeForm from "./selectDayAndTimeForm";
-import { createMedicationReminder } from "@/services/createReminderService";
+import { Medication } from "@/types/Medication";
 
 
 export default function TakeMedicationReminderScreen() {
     const router = useRouter();
     const params = useLocalSearchParams<{ medication: string }>();
-    const medication = params.medication;
+    const medication: Medication = JSON.parse(decodeURIComponent(params.medication || '{}'));
 
     const [step, setStep] = useState(1);
     const methods = useForm({
         defaultValues: {
             patient: 1,
-            medication: 2,
+            medication: medication.id,
             reminder_type: 'unique reminder',
             frequency_per_day: 1,
             frequency_hours: 0,
@@ -31,7 +31,7 @@ export default function TakeMedicationReminderScreen() {
     });
 
     const handleNext = methods.handleSubmit(async (data) => {
-        
+
         if (step === 1) {
             console.log("Tipo de lembrete:", data.reminder_type);
             if (data.reminder_type === 'daily reminder') {
@@ -45,35 +45,28 @@ export default function TakeMedicationReminderScreen() {
             console.log("Dados no passo 3:", data);
             const dayDate = new Date(data.day);
             const remindTimeDate = new Date(data.remind_time);
-    
+
             const formattedData = {
                 ...data,
-                day: !isNaN(dayDate.getTime()) 
+                day: !isNaN(dayDate.getTime())
                     ? dayDate.toISOString().split("T")[0]
                     : data.day,
                 remind_time: !isNaN(remindTimeDate.getTime())
                     ? remindTimeDate.toLocaleTimeString([], { hour12: false })
                     : data.remind_time,
+                    medication_name: medication.name, 
             };
-    
-            console.log("Dados formatados para envio:", formattedData);
-    
-            // try {
-            //     console.log('Chamando createMedicationReminder...');
-            //     await createMedicationReminder(formattedData);
-            //     console.log('Lembrete de medicação criado com sucesso.');
-            //     router.push(`/reminderConfirmation?reminderType=${encodeURIComponent(formattedData.reminder_type)}`);
-            // } catch (error) {
-            //     console.error('Erro ao criar lembrete de medicação:', error);
-            // }
-               // Codifica os dados como uma string JSON
-        const queryString = encodeURIComponent(JSON.stringify(formattedData));
+            
 
-        router.push(`/reminderConfirmation?data=${queryString}`);
+            console.log("Dados formatados para envio:", formattedData);
+
+            const queryString = encodeURIComponent(JSON.stringify(formattedData));
+
+            router.push(`/reminderConfirmation?data=${queryString}`);
 
         }
     });
-    
+
 
     const handleBack = () => {
         if (step === 1) {
@@ -89,7 +82,7 @@ export default function TakeMedicationReminderScreen() {
                 <Header column>
                     <Title text="Create Reminder" color={theme.colors.darkBlue} size={24} />
                     <Subtitle text="Take My Medications" size={16} color={theme.colors.lightPurple} />
-                    <Subtitle text={`${medication}`} size={16} color={theme.colors.lightBlue} />
+                    <Subtitle text={`${medication.name}`} size={16} color={theme.colors.lightBlue} />
                 </Header>
 
                 <SubtitleContainer>
@@ -98,8 +91,8 @@ export default function TakeMedicationReminderScreen() {
                             step === 1
                                 ? 'What kind of reminder do you want to set?'
                                 : step === 2
-                                ? 'How many times a day do you need to take this medication?'
-                                : 'When do you want to be reminded?'
+                                    ? 'How many times a day do you need to take this medication?'
+                                    : 'When do you want to be reminded?'
                         }
                         size={16}
                     />

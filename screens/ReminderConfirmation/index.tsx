@@ -38,7 +38,7 @@ export default function ReminderConfirmationScreen() {
 
             <ContentContainer>
                 <Column>
-                    <InfoComponent label="Medication" data={data.medication} />
+                    <InfoComponent label="Medication" data={data.medication_name} />
                     <InfoComponent label="Initial Date" data={data.day} />
                     {data.reminder_type === 'daily reminder' &&
                         <InfoComponent label="Times a day" data={data.frequency_per_day.toString()} />

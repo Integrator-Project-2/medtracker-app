@@ -2,7 +2,7 @@ import { Medication } from "./Medication";
 
 export interface Reminder {
     id?: number;
-    medication: number;
+    medication: Medication;
     patient: number;
     reminder_type: string;
     frequency_per_day: number | null;

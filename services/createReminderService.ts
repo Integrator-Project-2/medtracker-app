@@ -4,13 +4,13 @@ import { Reminder } from "@/types/Reminder";
 export const createMedicationReminder = async (reminder: Reminder): Promise<Reminder> => {
     try {
         const url = 'http://10.0.2.2:8000/api/medication-reminder/';
-        console.log('Sending Reminder Data to API:', reminder); // Log data being sent
+
         const response = await axios.post<Reminder>(url, reminder, {
             headers: {
                 'Content-Type': 'application/json',
             },
         });
-        console.log('API Response:', response.data); // Log API response
+        console.log('API Response:', response.data); 
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {

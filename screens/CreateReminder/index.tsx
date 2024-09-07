@@ -11,29 +11,39 @@ export default function CreateReminderScreen() {
     const [checkedValue, setCheckedValue] = useState('takeMyMedications');
     const router = useRouter();
     const params = useLocalSearchParams<{ medication: string }>();
-    const medication = params.medication;
+
+    // Decodificar o JSON do medicamento e garantir que é um objeto válido
+    const medicationJson = params.medication || '{}';
+    let medication: any = {};
+    try {
+        medication = JSON.parse(decodeURIComponent(medicationJson));
+        console.log('Medication received:', medication);  // Adicione isso para debug
+    } catch (error) {
+        console.error('Erro ao decodificar o medicamento:', error);
+    }
 
     function handlePress(value: string){
         setCheckedValue(value);
     };
 
     function handleNext(){
+        const medicationJson = JSON.stringify(medication); // Certifique-se de que está serializando corretamente
         if (checkedValue === 'takeMyMedications'){
-            router.push(`/takeMedicationReminder?medication=${encodeURIComponent(medication)}`)
+            router.push(`/takeMedicationReminder?medication=${encodeURIComponent(medicationJson)}`);
         } else if (checkedValue === 'manageMedicationStock'){
-            router.push(`/medicationStockReminder?medication=${encodeURIComponent(medication)}`)
+            router.push(`/medicationStockReminder?medication=${encodeURIComponent(medicationJson)}`);
         }
     }
 
     return (
         <Container>
-            <Header column >
+            <Header column>
                 <Title text="Create Reminder" color={theme.colors.darkBlue} size={24} />
-                <Subtitle text={`${medication}`} size={16} color={theme.colors.lightBlue}/>
+                <Subtitle text={ medication.name } size={16} color={theme.colors.lightBlue}/>
             </Header>
 
             <SubtitleContainer>
-                <Subtitle text='Whats the reminder for?' size={16} />
+                <Subtitle text='What’s the reminder for?' size={16} />
             </SubtitleContainer>
 
             <FormContainer marginTop={50}>
@@ -71,5 +81,5 @@ export default function CreateReminderScreen() {
                 />
             </FormButtonContainer>
         </Container>
-    )
+    );
 }
