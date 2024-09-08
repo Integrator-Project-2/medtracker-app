@@ -10,7 +10,7 @@ import { TextArea } from "../TextArea";
 import { FormButtonContainer } from "@/global/styles/globalStyles";
 import { PrimaryButton } from "../PrimaryButton";
 import { useState } from "react";
-import { updatePatientData } from "@/services/patientService";
+import { updatePatientData } from "@/services/Patient/patientService";
 import { AddressInput } from "../AddressInput";
 import { PhoneNumberInput } from "../PhoneNumber";
 import { format, parseISO } from 'date-fns';
@@ -133,7 +133,7 @@ export function ProfileInfoForm({ initialData, patientId, onCancel }: ProfileInf
             await updatePatientData(patientId, modifiedData);
             alert("Dados atualizados com sucesso!");
             onCancel();
-            
+
         } catch (error) {
             console.error("Erro ao atualizar os dados:", error);
             alert("Erro ao atualizar os dados.");

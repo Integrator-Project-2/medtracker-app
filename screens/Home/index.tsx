@@ -8,13 +8,13 @@ import Title from "@/components/Title";
 import { theme } from "@/global/styles/theme";
 import { CardContainer, CardListContainer, Container, Header } from "@/global/styles/globalStyles";
 import { useRouter } from "expo-router";
-import { requestNotificationPermissions } from "@/services/notificationPermissionsService";
+import { requestNotificationPermissions } from "@/services/Notifications/notificationPermissionsService";
 
 export default function HomeScreen() {
     const router = useRouter();
 
     function handlePress() {
-        router.push('/profile'); 
+        router.push('/profile');
     }
 
 

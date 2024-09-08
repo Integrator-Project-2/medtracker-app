@@ -8,8 +8,8 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { FormProvider, useForm, Controller } from 'react-hook-form';
 import { Medication } from '@/types/Medication';
 import { AmountReminder } from '@/types/AmountReminder';
-import { createMedicationAmountReminder } from '@/services/createAmountReminderService';
-import { updateMedicationAmountReminder } from '@/services/updateAmountReminderService';
+import { createMedicationAmountReminder } from '@/services/Reminders/createAmountReminderService';
+import { updateMedicationAmountReminder } from '@/services/Reminders/updateAmountReminderService';
 import Subtitle from '@/components/Subtitle';
 import IntegerInput from "@/components/IntegerInput";
 

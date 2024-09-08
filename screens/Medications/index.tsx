@@ -6,7 +6,7 @@ import Title from "@/components/Title";
 import Loader from "@/components/Loader";
 import { Container, Header } from "@/global/styles/globalStyles";
 import { theme } from "@/global/styles/theme";
-import { fetchMedications } from "@/services/medicationService";
+import { fetchMedications } from "@/services/Medications/medicationService";
 import { Medication } from "@/types/Medication";
 import { getIconName } from "@/global/utils/iconUtils";
 import { router } from "expo-router";

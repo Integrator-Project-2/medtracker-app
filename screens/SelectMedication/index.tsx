@@ -10,7 +10,7 @@ import Search from "@/components/Search";
 import { StyledScrollView } from "./styles";
 import { Medication } from "@/types/Medication";
 import { Alert, FlatList, View } from "react-native";
-import { fetchMedications } from "@/services/medicationService";
+import { fetchMedications } from "@/services/Medications/medicationService";
 import { getIconName } from "@/global/utils/iconUtils";
 import Loader from "@/components/Loader";
 

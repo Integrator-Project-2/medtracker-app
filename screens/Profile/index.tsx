@@ -8,13 +8,13 @@ import { ProfileInfoForm } from "@/components/ProfileInfoForm";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
 import { theme } from "@/global/styles/theme";
-import { getPatientData } from "@/services/patientService";
+import { getPatientData } from "@/services/Patient/patientService";
 import Loader from "@/components/Loader";
 import { ProfileInfoText } from "@/components/ProfileInfoText";
 
 export function ProfileScreen() {
     const router = useRouter();
-    const [isFormVisible, setIsFormVisible] = useState(false); 
+    const [isFormVisible, setIsFormVisible] = useState(false);
     const [patientData, setPatientData] = useState<Patient | null>(null);
     const [loading, setLoading] = useState(true);
     const patientId = 1
@@ -35,7 +35,7 @@ export function ProfileScreen() {
     }, []);
 
     function handlePress() {
-        router.back(); 
+        router.back();
     }
 
     function handleCancel() {
@@ -60,14 +60,14 @@ export function ProfileScreen() {
             <Appbar.Header mode="center-aligned" theme={theme}>
                 <Appbar.BackAction onPress={handlePress} />
                 <Appbar.Content title="Profile" />
-                <MenuButton 
+                <MenuButton
                     options={menuOptions}
                     iconColor="black"
                 />
             </Appbar.Header>
 
             {loading ? (
-                <Loader /> 
+                <Loader />
             ) : (
                 <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
                     <ProfileInfoContainer>
@@ -77,13 +77,13 @@ export function ProfileScreen() {
                         />
 
                         {isFormVisible ? (
-                            <ProfileInfoForm 
-                            initialData={patientData} 
-                            patientId={patientId} 
-                            onCancel={handleCancel}
-                            /> 
+                            <ProfileInfoForm
+                                initialData={patientData}
+                                patientId={patientId}
+                                onCancel={handleCancel}
+                            />
                         ) : (
-                            <ProfileInfoText data={patientData}/>
+                            <ProfileInfoText data={patientData} />
                         )}
 
                     </ProfileInfoContainer>

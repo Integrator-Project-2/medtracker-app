@@ -7,24 +7,25 @@ import Title from "@/components/Title";
 import Loader from "@/components/Loader";
 import { CardListContainer, Container, Header } from "@/global/styles/globalStyles";
 import { useRouter } from "expo-router";
-import { requestNotificationPermissions } from "@/services/notificationPermissionsService";
+import { requestNotificationPermissions } from "@/services/Notifications/notificationPermissionsService";
 import { Reminder } from "@/types/Reminder";
-import { fetchReminders } from "@/services/remindersListService";
+
 import { getIconName } from "@/global/utils/iconUtils";
-import { getPatientData } from "@/services/patientService";
-
-
+import { getPatientData } from "@/services/Patient/patientService";
+import { isMedication } from "@/global/utils/medicationUtils";
+import { fetchReminders } from "@/services/Reminders/remindersListService";
+import { deleteReminder } from "@/services/Reminders/deleteReminderService";
 
 export default function RemindersScreen() {
     const [reminders, setReminders] = useState<Reminder[]>([]);
     const [patientData, setPatientData] = useState<Patient | null>(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
-    const patientId = 1
- 
+    const patientId = 1;
+
     useEffect(() => {
         requestNotificationPermissions();
-        loadPatientInfo()
+        loadPatientInfo();
         loadReminders();
     }, []);
 
@@ -33,7 +34,7 @@ export default function RemindersScreen() {
             const patientData = await getPatientData(patientId);
             setPatientData(patientData || "Unknown");
         } catch (error) {
-            
+            console.error("Error loading patient info:", error);
         }
     };
 
@@ -54,9 +55,14 @@ export default function RemindersScreen() {
         }
     };
 
-    function handlePress() {
-        router.push('/profile');
-    }
+    const handleDeleteReminder = async (id: number) => {
+        try {
+            await deleteReminder(id);
+            setReminders(reminders.filter(reminder => reminder.id !== id));
+        } catch (error) {
+            Alert.alert("Erro", "Não foi possível excluir o lembrete.");
+        }
+    };
 
     const formatTime = (timeString: string) => {
         try {
@@ -72,33 +78,40 @@ export default function RemindersScreen() {
     };
 
     const renderReminder = ({ item }: { item: Reminder }) => {
+        const medicationName = isMedication(item.medication) ? item.medication.name : 'Unknown Medication';
+        const iconName = isMedication(item.medication) ? getIconName(item.medication.pharmaceutical_form) : 'tablet';
+
         return (
             <View>
                 <CardComponent
-                    title={item.medication.name}
+                    title={medicationName}
                     subtitle={item.reminder_type}
                     additionalInfoPrimary={formatTime(item.remind_time)}
                     subTitlefontSize={14}
-                    iconName={getIconName(item.medication.pharmaceutical_form)}
+                    iconName={iconName}
                     width={312}
                     height={100}
                     border
                     menuOptions={[
-                        { label: 'Option 1', onPress: () => console.log('Option 1 pressed') }
+                        { label: 'Delete', onPress: () => handleDeleteReminder(item.id!) }
                     ]}
                 />
             </View>
         );
     };
 
+    function handlePress() {
+        router.push('/profile');
+    }
+
     return (
         <Container>
             <Header>
                 <Title text="Your Reminders" />
                 <TouchableOpacity onPress={handlePress}>
-                <AvatarComponent
-                            name={patientData?.user.name || "Unknown"}
-                        />
+                    <AvatarComponent
+                        name={patientData?.user.name || "Unknown"}
+                    />
                 </TouchableOpacity>
             </Header>
 
@@ -110,7 +123,7 @@ export default function RemindersScreen() {
                     <FlatList
                         data={reminders}
                         renderItem={renderReminder}
-                        keyExtractor={(item) => item.id.toString()}
+                        keyExtractor={(item) => item.id!.toString()}
                         ListEmptyComponent={<Subtitle text="No reminders available" size={16} />}
                     />
                 </CardListContainer>

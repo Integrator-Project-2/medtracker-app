@@ -8,7 +8,7 @@ import Loader from "@/components/Loader";
 import { theme } from "@/global/styles/theme";
 import { FilterButton, FilterButtonText } from "./styles";
 import { Container, Header } from "@/global/styles/globalStyles";
-import { fetchPrescriptions, fetchDoctorDetails } from "@/services/prescriptionService";
+import { fetchPrescriptions, fetchDoctorDetails } from "@/services/Prescriptions/prescriptionService";
 import { Prescription } from "@/types/Prescription";
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';

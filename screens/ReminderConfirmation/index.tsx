@@ -7,10 +7,10 @@ import Subtitle from "@/components/Subtitle";
 
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { ReminderClock } from "@/assets/images/svg/ReminderClock";
-import { createMedicationReminder } from "@/services/createReminderService";
+import { createMedicationReminder } from "@/services/Reminders/createReminderService";
 import { Column, ContentContainer } from "./styles";
 import { InfoComponent } from "@/components/InfoComponent";
-import NotificationService from "@/services/localNotificationService";
+import NotificationService from "@/services/Notifications/localNotificationService";
 
 export default function ReminderConfirmationScreen() {
     const router = useRouter();
