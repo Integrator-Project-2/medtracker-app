@@ -16,6 +16,7 @@ import { isMedication } from "@/global/utils/medicationUtils";
 import { fetchReminders } from "@/services/Reminders/remindersListService";
 import { deleteReminder } from "@/services/Reminders/deleteReminderService";
 import { formatTime } from "@/global/utils/dateTimeUtils";
+import NotificationService from "@/services/Notifications/localNotificationService";
 
 export default function RemindersScreen() {
     const [reminders, setReminders] = useState<Reminder[]>([]);
@@ -58,8 +59,12 @@ export default function RemindersScreen() {
 
     const handleDeleteReminder = async (id: number) => {
         try {
+
+            await NotificationService.cancelReminder(id)
             await deleteReminder(id);
+
             setReminders(reminders.filter(reminder => reminder.id !== id));
+
         } catch (error) {
             Alert.alert("Erro", "Não foi possível excluir o lembrete.");
         }
@@ -68,7 +73,7 @@ export default function RemindersScreen() {
     const handleViewReminders = (reminderId: number) => {
         router.push(`/reminderRecords?reminderId=${reminderId}`);
     };
-    
+
     const renderReminder = ({ item }: { item: Reminder }) => {
         const medicationName = isMedication(item.medication) ? item.medication.name : 'Unknown Medication';
         const iconName = isMedication(item.medication) ? getIconName(item.medication.pharmaceutical_form) : 'tablet';

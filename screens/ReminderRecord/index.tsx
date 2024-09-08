@@ -36,7 +36,7 @@ export default function ReminderRecordsScreen() {
                 }
 
                 const filteredRecords = data.filter((record: ReminderRecord) => !record.taken);
-                
+
                 setReminderRecords(filteredRecords);
 
             } catch (error) {

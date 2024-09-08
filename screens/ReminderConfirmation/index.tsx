@@ -19,10 +19,19 @@ export default function ReminderConfirmationScreen() {
 
     const handleConfirm = async () => {
         try {
-            await createMedicationReminder(data);
-            await NotificationService.scheduleReminder(data)
+            console.log('Dados recebidos:', data); 
+            const createdReminder = await createMedicationReminder(data);
+    
+            if (!createdReminder.id) {
+                throw new Error('ID do lembrete não retornado.');
+            }
+    
+            // atualiza o objeto data com o ID recebido
+            const updatedData = { ...data, id: createdReminder.id };
+    
+            await NotificationService.scheduleReminder(updatedData);
             router.push('/reminders');
-
+    
         } catch (error) {
             console.error('Erro ao criar lembrete de medicação:', error);
         }
