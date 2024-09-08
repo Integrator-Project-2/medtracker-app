@@ -44,12 +44,26 @@ const DateInput: React.FC<DateInputProps> = ({
         setIsFocused(true);
     };
 
+    const adjustDateToLocalTime = (date: Date): Date => {
+        const localOffset = date.getTimezoneOffset() * 60000;
+        const localDate = new Date(date.getTime() - localOffset);
+        return localDate;
+    };
+    
+
     const handleDateChange = (event: any, selectedDate?: Date) => {
-        const currentDate = selectedDate || new Date(); // Usa um valor padrão se selectedDate for undefined
+        if (selectedDate) {
+            const localDate = adjustDateToLocalTime(selectedDate);
+            console.log("Data ajustada para o horário local:", localDate);
+            onChange(localDate);
+        } else {
+            onChange(new Date());
+        }
         setShow(Platform.OS == 'ios');
-        onChange(currentDate);
         setIsFocused(false);
     };
+    
+    
 
     return (
         <View>

@@ -10,6 +10,7 @@ import { ReminderClock } from "@/assets/images/svg/ReminderClock";
 import { createMedicationReminder } from "@/services/createReminderService";
 import { Column, ContentContainer } from "./styles";
 import { InfoComponent } from "@/components/InfoComponent";
+import NotificationService from "@/services/localNotificationService";
 
 export default function ReminderConfirmationScreen() {
     const router = useRouter();
@@ -19,7 +20,9 @@ export default function ReminderConfirmationScreen() {
     const handleConfirm = async () => {
         try {
             await createMedicationReminder(data);
+            await NotificationService.scheduleReminder(data)
             router.push('/reminders');
+
         } catch (error) {
             console.error('Erro ao criar lembrete de medicação:', error);
         }
