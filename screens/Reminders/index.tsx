@@ -15,6 +15,7 @@ import { getPatientData } from "@/services/Patient/patientService";
 import { isMedication } from "@/global/utils/medicationUtils";
 import { fetchReminders } from "@/services/Reminders/remindersListService";
 import { deleteReminder } from "@/services/Reminders/deleteReminderService";
+import { formatTime } from "@/global/utils/dateTimeUtils";
 
 export default function RemindersScreen() {
     const [reminders, setReminders] = useState<Reminder[]>([]);
@@ -64,19 +65,10 @@ export default function RemindersScreen() {
         }
     };
 
-    const formatTime = (timeString: string) => {
-        try {
-            const [hours, minutes] = timeString.split(':').map(Number);
-            if (isNaN(hours) || isNaN(minutes)) {
-                throw new Error("Invalid time format");
-            }
-            return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-        } catch (error) {
-            console.error("Error formatting time:", error);
-            return "00:00";
-        }
+    const handleViewReminders = (reminderId: number) => {
+        router.push(`/reminderRecords?reminderId=${reminderId}`);
     };
-
+    
     const renderReminder = ({ item }: { item: Reminder }) => {
         const medicationName = isMedication(item.medication) ? item.medication.name : 'Unknown Medication';
         const iconName = isMedication(item.medication) ? getIconName(item.medication.pharmaceutical_form) : 'tablet';
@@ -93,7 +85,8 @@ export default function RemindersScreen() {
                     height={100}
                     border
                     menuOptions={[
-                        { label: 'Delete', onPress: () => handleDeleteReminder(item.id!) }
+                        { label: 'Delete', onPress: () => handleDeleteReminder(item.id!) },
+                        { label: 'View Reminders', onPress: () => handleViewReminders(item.id!) }
                     ]}
                 />
             </View>

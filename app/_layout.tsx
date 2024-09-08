@@ -56,6 +56,7 @@ export default function RootLayout() {
         <Stack.Screen name="reminderConfirmation" options={{ headerShown: false }} />
         <Stack.Screen name="profile" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="reminderRecords" options={{ headerShown: false }} />
       </Stack>
     </PaperProvider>
   );

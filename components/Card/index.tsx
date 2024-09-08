@@ -90,7 +90,7 @@ const CardComponent: React.FC<CardComponentProps> = ({
       case 'injection':
         return <FontAwesome5 name="syringe" size={24} color={iconColor} />;
       case 'prescription':
-        return <FontAwesome5 name="notes-medical"  size={24} color={iconColor} />;
+        return <FontAwesome5 name="notes-medical" size={24} color={iconColor} />;
     }
   };
 
@@ -135,15 +135,20 @@ const CardComponent: React.FC<CardComponentProps> = ({
                 status={selected ? 'checked' : 'unchecked'}
                 color={theme.colors.lightBlue}
               />
+            ) : downloadButton ? (
+              <IconButton
+                icon="download"
+                iconColor={theme.colors.lightBlue}
+                onPress={() => downloadPress && downloadPress(value || '')}
+              />
+            ) : menuOptions ? (
+              <MenuButton options={menuOptions} iconColor={titleColor} />
             ) : (
-              (downloadButton && (
-                <IconButton 
-                  icon="download" 
-                  iconColor={theme.colors.lightBlue} 
-                  onPress={() => downloadPress && downloadPress(value || '')} 
-                />
-              )) ||
-              (menuOptions && <MenuButton options={menuOptions} iconColor={titleColor} />)
+              <IconButton
+              icon="check"
+              iconColor={theme.colors.lightBlue}
+              onPress={() => onPress && onPress(value || '')}
+            />
             )}
           </RightSection>
         </CardContent>
