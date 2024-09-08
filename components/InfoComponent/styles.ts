@@ -12,5 +12,5 @@ export const StyledText = styled(Text)`
     font-size: 16px;
     font-family: Poppins-Regular;
     flex-wrap:wrap;
-    max-width: 200px;
+    max-width: 180px;
 `

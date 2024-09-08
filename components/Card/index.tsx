@@ -146,7 +146,7 @@ const CardComponent: React.FC<CardComponentProps> = ({
             ) : (
               <IconButton
               icon="check"
-              iconColor={theme.colors.lightBlue}
+              iconColor={titleColor}
               onPress={() => onPress && onPress(value || '')}
             />
             )}

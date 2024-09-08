@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import { TouchableOpacity, Text, View } from 'react-native';
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import { Fontisto } from "@expo/vector-icons";
+import { Fontisto, MaterialCommunityIcons } from "@expo/vector-icons";
 
 export const Button = styled(TouchableOpacity)`
     flex-direction: row;
@@ -29,7 +29,7 @@ export const TextButtonContainer = styled(View)`
 `;
 
 export const TitleText = styled(Text)`
-    font-size: 18px;
+    font-size: 16px;
     color: #354DB0;
     font-family: Poppins-Semibold;
 `;
@@ -46,5 +46,8 @@ export const FontAwesomeIcon = styled(FontAwesome5)`
 `;
 
 export const FontistoIcon = styled(Fontisto)`
+    transform: rotate(-26deg);
+`;
+export const MaterialCommunityIcon = styled(MaterialCommunityIcons)`
     transform: rotate(-26deg);
 `;

@@ -34,7 +34,7 @@ export default function RemindersScreen() {
     const loadPatientInfo = async () => {
         try {
             const patientData = await getPatientData(patientId);
-            setPatientData(patientData || "Unknown");
+            setPatientData(patientData || " ");
         } catch (error) {
             console.error("Error loading patient info:", error);
         }
@@ -108,7 +108,7 @@ export default function RemindersScreen() {
                 <Title text="Your Reminders" />
                 <TouchableOpacity onPress={handlePress}>
                     <AvatarComponent
-                        name={patientData?.user.name || "Unknown"}
+                        name={patientData?.user.name || " "}
                     />
                 </TouchableOpacity>
             </Header>
