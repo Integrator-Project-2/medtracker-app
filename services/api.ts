@@ -1,5 +1,4 @@
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BASE_URL, ACCESS_TOKEN } from 'react-native-dotenv';
 
 const api = axios.create({
@@ -16,7 +15,8 @@ api.interceptors.request.use(
 
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`;
-                console.log('Using Token:', token);  // Verifique o token utilizado
+                // console.log('Using Token:', token);
+                console.log('token funcionou');
             }
         } catch (error) {
             console.error('Error setting Authorization header', error);
