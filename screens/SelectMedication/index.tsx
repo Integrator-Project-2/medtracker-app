@@ -7,7 +7,6 @@ import Subtitle from "@/components/Subtitle";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import CardComponent from "@/components/Card";
 import Search from "@/components/Search";
-import { StyledScrollView } from "./styles";
 import { Medication } from "@/types/Medication";
 import { Alert, FlatList, View } from "react-native";
 import { fetchMedications } from "@/services/Medications/medicationService";
