@@ -18,7 +18,7 @@ export async function fetchMedications(query: string = '', patientId: number): P
 
 export async function fetchMedicationsById(medicationId: number): Promise<Medication | null> {
     try {
-        const url = `medications/${medicationId}/`;
+        const url = `medications/${medicationId}`;
         
         const response = await api.get<Medication>(url);
 

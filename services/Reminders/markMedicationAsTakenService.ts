@@ -1,12 +1,11 @@
 import axios from 'axios';
-
-const API_URL = 'http:10.0.2.2:8000/api/medication-reminder-record/';
+import api from '../api'; 
 
 export const markMedicationAsTaken = async (id: number) => {
     try {
-        console.log(`Sending request to mark medication with ID ${id} as taken`);
-
-        const response = await axios.post(`${API_URL}${id}/take-medication/`);
+      
+        const url = `take-medication/${id}/`;
+        const response = await api.post(url);
         
         console.log(`Response received:`, response.data);
 

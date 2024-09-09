@@ -1,12 +1,17 @@
 import axios from 'axios';
-
+import api from '../api';
 
 export const deleteReminder = async (id: number) => {
     try {
-        const response = await axios.delete(`http://10.0.2.2:8000/api/medication-reminder/${id}/`);
+        const url = `/medication-reminder/${id}/`;
+
+        const response = await api.delete(url);
         return response.data;
-       
     } catch (error) {
-        console.log('Axios error:', error);
+        if (axios.isAxiosError(error)) {
+            console.error('Axios error:', error.response?.data || error.message);
+        } else {
+            console.error('Unexpected error:', error);
+        }
     }
 };

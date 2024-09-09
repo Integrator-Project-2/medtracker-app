@@ -1,15 +1,12 @@
-import axios from "axios";
-import { Reminder } from "@/types/Reminder";
+import axios from 'axios';
+import api from '../api';
+import { Reminder } from '@/types/Reminder';
 
 export const createMedicationReminder = async (reminder: Reminder): Promise<Reminder> => {
     try {
-        const url = 'http://10.0.2.2:8000/api/medication-reminder/';
+        const url = 'medication-reminder/';
 
-        const response = await axios.post<Reminder>(url, reminder, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        const response = await api.post<Reminder>(url, reminder);
         console.log('API Response:', response.data); 
         return response.data;
     } catch (error) {

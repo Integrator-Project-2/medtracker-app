@@ -1,42 +1,57 @@
 import { ReminderRecord } from '@/types/ReminderRecord';
+import api from '../api';  // Ajuste o caminho conforme necessário
 import axios from 'axios';
-
-
-const BASE_URL = 'http://10.0.2.2:8000/api/medication-reminder-record'; 
 
 export const fetchReminderRecords = async (patientId: number): Promise<ReminderRecord[]> => {
     try {
-        const response = await axios.get(`${BASE_URL}`, {
+        const url = `/medication-reminder-records/`; 
+
+        const response = await api.get<ReminderRecord[]>(url, {
             params: { patient_id: patientId }
         });
         return response.data;
     } catch (error) {
-        console.error("Error fetching reminders:", error);
-        throw error;
+        if (axios.isAxiosError(error)) {
+            console.error("Error fetching reminder records:", error.response?.data || error.message);
+        } else {
+            console.error("Unexpected error:", error);
+        }
+        throw error; 
     }
 };
 
 export const fetchReminderRecordsByReminder = async (reminderId: number): Promise<ReminderRecord[]> => {
     try {
-        const response = await axios.get(`${BASE_URL}`, {
+        const url = `/medication-reminder-records/`; 
+
+        const response = await api.get<ReminderRecord[]>(url, {
             params: { reminder_id: reminderId }
         });
         return response.data;
     } catch (error) {
-        console.error("Error fetching reminders:", error);
-        throw error;
+        if (axios.isAxiosError(error)) {
+            console.error("Error fetching reminder records by reminder:", error.response?.data || error.message);
+        } else {
+            console.error("Unexpected error:", error);
+        }
+        throw error; 
     }
 };
 
 export const fetchUpcomingReminderRecord = async (patientId: number): Promise<ReminderRecord> => {
     try {
-        const response = await axios.get(`${BASE_URL}/upcoming/`, {
+        const url = `/upcoming-reminder-record/`; 
+
+        const response = await api.get<ReminderRecord>(url, {
             params: { patient_id: patientId }
         });
         return response.data;
     } catch (error) {
-        console.error("Error fetching reminders:", error);
-        throw error;
+        if (axios.isAxiosError(error)) {
+            console.error("Error fetching upcoming reminder record:", error.response?.data || error.message);
+        } else {
+            console.error("Unexpected error:", error);
+        }
+        throw error; 
     }
 };
-

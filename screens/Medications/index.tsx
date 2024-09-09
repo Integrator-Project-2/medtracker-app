@@ -11,7 +11,7 @@ import { Medication } from "@/types/Medication";
 import { getIconName } from "@/global/utils/iconUtils";
 import { router } from "expo-router";
 import { AmountReminder } from "@/types/AmountReminder";
-
+import { deleteMedicationAmountReminder } from "@/services/Reminders/deleteAmountReminderService";
 
 export function MedicationsScreen() {
     const [medications, setMedications] = useState<Medication[]>([]);
@@ -28,15 +28,15 @@ export function MedicationsScreen() {
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     useEffect(() => {
         getMedications();
     }, []);
 
     const handleSearch = (query: string) => {
-        getMedications(query)
-    }
+        getMedications(query);
+    };
 
     const handleManageStock = (amountReminder: AmountReminder | null | undefined, medication: Medication) => {
         const amountReminderParam = amountReminder
@@ -45,11 +45,41 @@ export function MedicationsScreen() {
         router.push(`/medicationStockReminder?medication=${encodeURIComponent(JSON.stringify(medication))}${amountReminderParam}`);
     };
 
+    const handleDelete = (reminderId: string) => {
+        Alert.alert(
+            "Confirm Delete",
+            "Are you sure you want to delete this reminder?",
+            [
+                { text: "Cancel", style: "cancel" },
+                {
+                    text: "Delete",
+                    style: "destructive",
+                    onPress: async () => {
+                        try {
+                            await deleteMedicationAmountReminder(reminderId);
+                            Alert.alert("Success", "Reminder deleted successfully.");
+                            getMedications();  // Refresh list after deletion
+                        } catch (error) {
+                            Alert.alert("Error", "Failed to delete the reminder.");
+                        }
+                    }
+                }
+            ]
+        );
+    };
 
     const renderItem = ({ item }: { item: Medication }) => {
-
-        const amountColor = item.low_stock ? theme.colors.red : theme.colors.lightBlue
+        const amountColor = item.low_stock ? theme.colors.red : theme.colors.lightBlue;
         const displayAmount = item.amount !== null && item.amount !== undefined ? `${item.amount}` : undefined;
+        const deleteOption = item.amount_reminder && item.amount_reminder.id
+            ? { label: 'Delete Amount', onPress: () => handleDelete(item.amount_reminder!.id!.toString()) }
+            : undefined;
+
+
+            const menuOptions = [
+                { label: 'Manage Stock', onPress: () => handleManageStock(item.amount_reminder, item) },
+                ...(deleteOption ? [deleteOption] : [])
+            ];
 
         return (
             <View>
@@ -65,16 +95,12 @@ export function MedicationsScreen() {
                     height={120}
                     width={312}
                     additionalInfoPrimaryfontSize={13}
-                    menuOptions={
-                        [
-                            { label: 'Option 1', onPress: () => console.log('Option 1 pressed') },
-                            { label: 'Manage Stock', onPress: () => handleManageStock(item.amount_reminder, item) }
-                        ]
-                    }
+                    menuOptions={menuOptions}
                 />
             </View>
         );
     };
+
 
     return (
         <Container>
