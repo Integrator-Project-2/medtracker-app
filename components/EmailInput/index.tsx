@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { LabelComponent } from "../Label";
 import { colors, theme } from "@/global/styles/theme";
 import { StyledTextInput } from "@/global/styles/StyledTextInput";
@@ -11,6 +11,7 @@ interface EmailInputProps {
     width?: number;
     value?: string;
     onChange?: (value: string) => void;
+    error?: string; 
 }
 
 export const EmailInput: React.FC<EmailInputProps> = ({
@@ -19,7 +20,8 @@ export const EmailInput: React.FC<EmailInputProps> = ({
     width,
     value,
     labelColor,
-    onChange 
+    onChange,
+    error  
 }) => {
     const [text, setText] = React.useState(value || '');
 
@@ -31,22 +33,21 @@ export const EmailInput: React.FC<EmailInputProps> = ({
     };
 
     return (
-      <View>
-        <LabelComponent
-          text={label} 
-          color={labelColor}
-        />
-        <StyledTextInput
-          mode="outlined"
-          placeholder={placeholder}
-          value={text}
-          onChangeText={handleChange}
-          placeholderTextColor={colors.lightPurple} 
-          outlineColor={colors.lightPurple} 
-          textColor={colors.darkBlue}
-          theme={theme}
-          width={width}
-        />
-      </View>
+        <View>
+            <LabelComponent text={label} color={labelColor} />
+            <StyledTextInput 
+                mode="outlined"
+                placeholder={placeholder}
+                value={text}
+                onChangeText={handleChange}
+                placeholderTextColor={colors.lightPurple}
+                outlineColor={colors.lightPurple}
+                textColor={colors.darkBlue}
+                theme={theme}
+                width={width}
+                error={!!error}
+            />
+            {error && <Text style={{ color: 'red' }}>{error}</Text>}
+        </View>
     );
 };

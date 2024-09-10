@@ -1,5 +1,5 @@
 import axios from 'axios';
-import api from '../api';  // Ajuste o caminho conforme necessário
+import { api } from '../api';  
 import { AmountReminder } from '@/types/AmountReminder';
 
 export const createMedicationAmountReminder = async (amountReminder: AmountReminder): Promise<AmountReminder> => {

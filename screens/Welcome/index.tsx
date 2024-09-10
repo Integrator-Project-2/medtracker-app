@@ -12,11 +12,11 @@ export function WelcomeScreen() {
 
 
     function handleGetStartedPress() {
-        router.push('/authentication'); 
+        router.push('/signUp'); 
     }
 
     function handleAlreadyHaveAccountPress() {
-        router.push('/authentication?step=3');
+        router.push('/signIn');
     }
     
     return (

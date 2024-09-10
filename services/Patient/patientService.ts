@@ -1,5 +1,4 @@
-import api from '../api'; 
-
+import { api } from '../api'; 
 
 export const getPatientData = async (patientId: number): Promise<Patient> => {
     const url = `/patients-service/${patientId}/`; 

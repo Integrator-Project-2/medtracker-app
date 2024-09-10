@@ -1,5 +1,5 @@
 import { ReminderRecord } from '@/types/ReminderRecord';
-import api from '../api';  // Ajuste o caminho conforme necessário
+import { api } from '../api';
 import axios from 'axios';
 
 export const fetchReminderRecords = async (patientId: number): Promise<ReminderRecord[]> => {

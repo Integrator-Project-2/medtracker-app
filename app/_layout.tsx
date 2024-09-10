@@ -48,7 +48,8 @@ export default function RootLayout() {
     <PaperProvider theme={theme}>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="authentication" options={{ headerShown: false }} />
+        <Stack.Screen name="signIn" options={{ headerShown: false }} />
+        <Stack.Screen name="signUp" options={{ headerShown: false }} />
         <Stack.Screen name="selectMedication" options={{ headerShown: false }} />
         <Stack.Screen name="createReminder" options={{ headerShown: false }} />
         <Stack.Screen name="medicationStockReminder" options={{ headerShown: false }} />

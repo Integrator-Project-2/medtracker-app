@@ -5,11 +5,10 @@ import { Container, FormButtonContainer, FormContainer, Header } from "@/global/
 import { theme } from "@/global/styles/theme";
 import Title from "@/components/Title";
 import SignUpForm from "./signUpForm";
-import CompleteSignUpForm from "./completeSignUpForm";
-import SignInForm from "./signInForm";
+
 import { registerPatient } from "@/services/Patient/createPatientService";
 import { PrimaryButton } from "@/components/PrimaryButton";
-
+import CompleteSignUpForm from "./completeSignUpForm";
 
 export default function AuthenticationScreen() {
     const [step, setStep] = useState(1);
@@ -46,12 +45,10 @@ export default function AuthenticationScreen() {
                     },
                 };
 
-                console.log("Dados formatados para envio:", formattedData);
-
                 const response = await registerPatient(formattedData);
 
                 if (response.status === 201) {
-                    setStep(3);
+                    router.push('/signIn');
                 }
             } catch (error) {
                 console.error("Erro no cadastro:", error);
@@ -63,13 +60,12 @@ export default function AuthenticationScreen() {
         <FormProvider {...methods}>
             <Container>
                 <Header>
-                    <Title text={step === 1 || step === 2 ? 'Sign Up' : 'Sign In'} color={theme.colors.navy} size={24} />
+                    <Title text='Sign Up' color={theme.colors.navy} size={24} />
                 </Header>
 
                 <FormContainer>
                     {step === 1 && <SignUpForm />}
                     {step === 2 && <CompleteSignUpForm />}
-                    {step === 3 && <SignInForm />}
                 </FormContainer>
 
                 <FormButtonContainer>
@@ -90,16 +86,6 @@ export default function AuthenticationScreen() {
                             width={316}
                             height={52}
                             onPress={methods.handleSubmit(onSubmit)}
-                        />
-                    )}
-
-                    {step === 3 && (
-                        <PrimaryButton
-                            text="Sign In"
-                            bgColor={theme.colors.navy}
-                            width={316}
-                            height={52}
-                            onPress={() => router.push('/(tabs)')}
                         />
                     )}
                 </FormButtonContainer>

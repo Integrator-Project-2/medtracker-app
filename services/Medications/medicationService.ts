@@ -1,5 +1,5 @@
 import { Medication } from '@/types/Medication';
-import api from '../api';
+import { api } from '../api';
 
 export async function fetchMedications(query: string = '', patientId: number): Promise<Medication[]> {
     try {

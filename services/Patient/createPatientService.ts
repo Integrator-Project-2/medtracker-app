@@ -1,11 +1,13 @@
 import axios from "axios";
-import { BASE_URL } from "react-native-dotenv";
+import Constants from 'expo-constants';
+
+const apiUrl = Constants.expoConfig?.extra?.apiUrl || 'default_url';
 
 export async function registerPatient(data: Patient) {
     console.log("Iniciando o registro do paciente com os seguintes dados:", data);
 
     try {
-        const response = await axios.post(`${BASE_URL}register-patient/`, {
+        const response = await axios.post(`${apiUrl}register-patient/`, {
             user: {
                 name: data.user.name,
                 email: data.user.email,
@@ -18,8 +20,8 @@ export async function registerPatient(data: Patient) {
             gender: data.gender,
         });
 
-        console.log("Resposta do servidor:", response);
-        
+        // console.log("Resposta do servidor:", response);
+
         return response;
     } catch (error) {
         if (axios.isAxiosError(error)) {

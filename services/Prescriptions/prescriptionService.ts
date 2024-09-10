@@ -1,6 +1,6 @@
 import { Doctor } from '@/types/Doctor';
 import { Prescription } from '@/types/Prescription';
-import api from '../api';
+import { api } from '../api';
 
 
 export const fetchPrescriptions = async (patientId: number): Promise<Prescription[]> => {

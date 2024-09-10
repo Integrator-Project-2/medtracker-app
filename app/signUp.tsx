@@ -1,4 +1,4 @@
-import AuthenticationScreen from "@/screens/Authentication";
+import AuthenticationScreen from "@/screens/Authentication/SignUpScreens";
 import { ScrollView, StyleSheet } from "react-native";
 
 export default function Authentication() {
