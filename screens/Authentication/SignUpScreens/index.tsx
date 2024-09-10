@@ -9,6 +9,7 @@ import SignUpForm from "./signUpForm";
 import { registerPatient } from "@/services/Patient/createPatientService";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import CompleteSignUpForm from "./completeSignUpForm";
+import { Image } from "react-native";
 
 export default function AuthenticationScreen() {
     const [step, setStep] = useState(1);
@@ -70,13 +71,28 @@ export default function AuthenticationScreen() {
 
                 <FormButtonContainer>
                     {step === 1 && (
-                        <PrimaryButton
-                            text="Next"
-                            bgColor={theme.colors.navy}
-                            width={316}
-                            height={52}
-                            onPress={() => setStep(2)}
-                        />
+                        <>
+                            <PrimaryButton
+                                text="Next"
+                                bgColor={theme.colors.navy}
+                                width={316}
+                                height={52}
+                                onPress={() => setStep(2)}
+                            />
+
+                            <PrimaryButton
+                                text="Sign up with Google"
+                                bgColor="transparent"
+                                width={316}
+                                height={52}
+                                textColor="#4D80F9"
+                                icon={
+                                    <Image source={require('@/assets/images/devicon_google.png')} style={{ marginRight: 10 }} />
+                                }
+                                border="1px solid #4D80F9"
+                                onPress={() => console.log('Button Pressed')}
+                            />
+                        </>
                     )}
 
                     {step === 2 && (

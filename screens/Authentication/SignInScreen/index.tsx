@@ -7,6 +7,8 @@ import Title from '@/components/Title';
 import { PrimaryButton } from '@/components/PrimaryButton';
 import SignInForm from './signInForm';
 import { signInUserService } from '@/services/Authentication/signInService';
+import { Image } from 'react-native';
+
 
 export default function SignInScreen() {
     const methods = useForm<UserCredentials>();
@@ -21,7 +23,7 @@ export default function SignInScreen() {
             } else if (response.status === 400) {
                 setErrorMessage('User does not exist.');
             } else if (response.status === 401) {
-                setErrorMessage('Email or password may be incorrect.'); 
+                setErrorMessage('Email or password may be incorrect.');
             } else {
                 console.error('Login failed:', response);
             }
@@ -30,7 +32,7 @@ export default function SignInScreen() {
             setErrorMessage('An error occurred while logging in. Please try again.');
         }
     }
-    
+
 
     return (
         <FormProvider {...methods}>
@@ -52,6 +54,20 @@ export default function SignInScreen() {
                         height={52}
                         onPress={methods.handleSubmit(onSubmit)}
                     />
+
+                    <PrimaryButton
+                        text="Sign in with Google"
+                        bgColor="transparent"
+                        width={316}
+                        height={52}
+                        textColor="#4D80F9"
+                        icon={
+                            <Image source={require('@/assets/images/devicon_google.png')} style={{ marginRight: 10 }} />
+                        }
+                        border="1px solid #4D80F9"
+                        onPress={() => console.log('Button Pressed')}
+                    />
+
                 </FormButtonContainer>
             </Container>
         </FormProvider>
