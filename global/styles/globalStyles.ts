@@ -1,4 +1,4 @@
-import { FlatList, FlatListProps, View } from "react-native";
+import { FlatList, FlatListProps, View, Text } from "react-native";
 import styled from "styled-components";
 import { theme } from "./theme";
 
@@ -87,4 +87,11 @@ export const CardListContainer = styled(View)`
 export const CardContainer = styled(View)`
     margin-bottom: 24px;
     align-items: center;
+`;
+
+
+export const ErrorText = styled(Text)`
+  color: ${theme.colors.red};
+  font-size: 16px;
+  margin-top: 4px;
 `;

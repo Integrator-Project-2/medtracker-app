@@ -17,10 +17,10 @@ export default function SignInForm() {
                 name="email"
                 control={control}
                 rules={{
-                    required: 'Email é obrigatório',
+                    required: 'Email is required',
                     pattern: {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: 'Email inválido'
+                        message: 'Invalid email address'
                     }
                 }}
                 render={({ field }) => (
@@ -29,7 +29,7 @@ export default function SignInForm() {
                         placeholder="johndoe@email.com"
                         value={field.value}
                         onChange={field.onChange}
-                        error={errors.email?.message}
+                        error={errors.email?.message} 
                     />
                 )}
             />
@@ -37,10 +37,10 @@ export default function SignInForm() {
                 name="password"
                 control={control}
                 rules={{
-                    required: 'Senha é obrigatória',
+                    required: 'Password is required',
                     minLength: {
                         value: 6,
-                        message: 'Senha deve ter pelo menos 6 caracteres'
+                        message: 'Password must be at least 6 characters'
                     }
                 }}
                 render={({ field }) => (

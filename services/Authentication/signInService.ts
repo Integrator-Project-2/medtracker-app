@@ -10,7 +10,6 @@ export const storeToken = async (accessToken: string, refreshToken?: string) => 
             await SecureStore.setItemAsync('authToken', accessToken);
         }
 
-        // Se o refreshToken não for fornecido, apenas ignore o armazenamento
         if (refreshToken) {
             await SecureStore.setItemAsync('refreshToken', refreshToken);
         }
@@ -35,11 +34,13 @@ export const signInUserService = async (credentials: UserCredentials) => {
             console.error('Tokens recebidos da resposta do servidor estão indefinidos ou nulos.');
         }
 
-        console.log("Resposta do servidor:", response);
-
         return response;
-    } catch (error) {
-        console.error('Erro ao fazer login:', error);
-        throw error;
+    } catch (error: any) {
+        if (error.response) {
+            // Retorna a resposta do erro para ser tratada no componente
+            return error.response;
+        } else {
+            throw new Error('Erro ao se comunicar com o servidor.');
+        }
     }
 };
