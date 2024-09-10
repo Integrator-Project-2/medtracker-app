@@ -5,6 +5,7 @@ import { useFonts } from 'expo-font';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { theme } from '@/global/styles/theme';
 import * as Notifications from 'expo-notifications';
+import { PatientProvider } from '@/contexts/PatientContext';
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -45,7 +46,9 @@ export default function RootLayout() {
   }
 
   return (
+
     <PaperProvider theme={theme}>
+      <PatientProvider>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="signIn" options={{ headerShown: false }} />
@@ -59,6 +62,7 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="reminderRecords" options={{ headerShown: false }} />
       </Stack>
+      </PatientProvider>
     </PaperProvider>
   );
 }

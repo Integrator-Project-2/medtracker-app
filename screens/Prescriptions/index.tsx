@@ -13,13 +13,15 @@ import { Prescription } from "@/types/Prescription";
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import base64 from 'base64-js';
+import { usePatient } from "@/contexts/PatientContext";
 
-const patientId = 1;
 
 export function Prescriptions() {
     const [prescriptions, setPrescriptions] = useState<Prescription[]>([]);
     const [doctors, setDoctors] = useState<{ [key: number]: { name: string, specialty: string } }>({});
     const [loading, setLoading] = useState(true);
+    const { patient } = usePatient();
+    const patientId = patient?.id;
 
     const downloadPrescription = async (base64Pdf: string) => {
         console.log("Iniciando download do PDF...");
@@ -28,10 +30,15 @@ export function Prescriptions() {
 
     useEffect(() => {
         const loadPrescriptions = async () => {
+            if (patientId === undefined) {
+                Alert.alert("Erro", "Paciente não encontrado.");
+                setLoading(false);
+                return;
+            }
             try {
                 const prescriptionData = await fetchPrescriptions(patientId);
                 setPrescriptions(prescriptionData);
-
+    
                 const doctorDetails = await Promise.all(
                     prescriptionData.map(prescription => fetchDoctorDetails(prescription.doctor_id))
                 );
@@ -39,7 +46,7 @@ export function Prescriptions() {
                     map[prescriptionData[index].doctor_id] = doctor;
                     return map;
                 }, {} as { [key: number]: { name: string, specialty: string } });
-
+    
                 setDoctors(doctorMap);
             } catch (error) {
                 Alert.alert("Erro", "Não foi possível carregar as prescrições.");
@@ -47,9 +54,9 @@ export function Prescriptions() {
                 setLoading(false);
             }
         };
-
+    
         loadPrescriptions();
-    }, []);
+    }, [patientId]);
 
     const formatDate = (dateString: string) => {
         try {

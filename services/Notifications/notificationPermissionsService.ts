@@ -4,8 +4,10 @@ import * as Linking from 'expo-linking';
 import Constants from 'expo-constants';
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { usePatient } from '@/contexts/PatientContext'; 
+import { api } from '../api';
 
-// Função para solicitar permissões de notificação e enviar o token
+
 export async function requestNotificationPermissions() {
     const { status } = await Notifications.getPermissionsAsync();
     if (status !== 'granted') {
@@ -38,30 +40,29 @@ export async function requestNotificationPermissions() {
 
         const { data: token } = await Notifications.getExpoPushTokenAsync({ projectId });
 
-        // verifica se o token ja foi salvo anteriormente
+        // Verifica se o token já foi salvo anteriormente
         const storedToken = await AsyncStorage.getItem('expoPushToken');
         if (storedToken === token) {
             return;
         }
 
-        // salva o novo token no armazenamento local
+        // Salva o novo token no armazenamento local
         await AsyncStorage.setItem('expoPushToken', token);
 
-        console.log(`novo token:${token}`);
+        console.log(`Novo token: ${token}`);
 
-        const patientId = 1;
-        const authToken = 'YOUR-TOKEN';
+        const { patient } = usePatient();
+        const patientId = patient?.id;
+        if (!patientId) {
+            console.error('Patient ID is not available.');
+            return;
+        }
 
-        const response = await axios.post(`http://10.0.2.2:8001/api/pacients/${patientId}/update_token/`, {
-            "expo_push_token": token
-        }, {
-            headers: {
-                'Authorization': `Bearer ${authToken}`,
-                'Content-Type': 'application/json'
-            }
+        await api.post(`/update_token/${patientId}`, {
+            expo_push_token: token
         });
 
-        console.log('Response:', response.data);
+        console.log('Token atualizado com sucesso.');
 
     } catch (error) {
         console.error(error);

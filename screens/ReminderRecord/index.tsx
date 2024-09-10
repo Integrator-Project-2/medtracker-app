@@ -1,46 +1,48 @@
 import React, { useEffect, useState } from "react";
-import { Alert, FlatList, TouchableOpacity, View } from "react-native";
+import { Alert, FlatList, View } from "react-native";
 
 import CardComponent from "@/components/Card";
 import Subtitle from "@/components/Subtitle";
 import Title from "@/components/Title";
 import Loader from "@/components/Loader";
 import { CardListContainer, Container, Header } from "@/global/styles/globalStyles";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { getIconName } from "@/global/utils/iconUtils";
 import { isMedication } from "@/global/utils/medicationUtils";
 import { ReminderRecord } from "@/types/ReminderRecord";
 import { fetchReminderRecords, fetchReminderRecordsByReminder } from "@/services/Reminders/reminderRecordListService";
 import { formatDate, formatTime } from "@/global/utils/dateTimeUtils";
 import { markMedicationAsTaken } from "@/services/Reminders/markMedicationAsTakenService";
+import { usePatient } from "@/contexts/PatientContext";
 
 export default function ReminderRecordsScreen() {
     const [reminderRecords, setReminderRecords] = useState<ReminderRecord[]>([]);
     const [loading, setLoading] = useState(true);
-    const router = useRouter();
     const { reminderId } = useLocalSearchParams<{ reminderId: string }>();
-
-    const patientId = 1;
-
+    const { patient } = usePatient();
+    const patientId = patient?.id;
 
     useEffect(() => {
         const getReminders = async () => {
             try {
-                let data: ReminderRecord[] = [];
-                if (reminderId) {
+                if (!patientId) {
+                    Alert.alert("Error", "Patient ID is not available.");
+                    return;
+                }
 
+                let data: ReminderRecord[] = [];
+
+                if (reminderId) {
                     data = await fetchReminderRecordsByReminder(parseInt(reminderId, 10));
                 } else {
-
                     data = await fetchReminderRecords(patientId);
                 }
 
-                const filteredRecords = data.filter((record: ReminderRecord) => !record.taken);
-
+                const filteredRecords = data.filter((record) => !record.taken);
                 setReminderRecords(filteredRecords);
 
             } catch (error) {
-                Alert.alert("Error", "Failed to fetch reminders");
+                Alert.alert("Error", "Failed to fetch reminders.");
             } finally {
                 setLoading(false);
             }
@@ -49,22 +51,21 @@ export default function ReminderRecordsScreen() {
         getReminders();
     }, [patientId, reminderId]);
 
-
     const handleMarkAsTaken = async (id: number) => {
         try {
             const response = await markMedicationAsTaken(id);
-
             const { warning } = response;
+
             if (warning) {
                 Alert.alert('Warning', warning);
             } else {
-                Alert.alert('Success', 'Medication marked as taken');
+                Alert.alert('Success', 'Medication marked as taken.');
+                setReminderRecords(prevRecords => prevRecords.filter(record => record.id !== id));
             }
 
-            setReminderRecords(prevRecords => prevRecords.filter(record => record.id !== id));
-
         } catch (error) {
-            Alert.alert('Error', 'Failed to mark medication as taken');
+            Alert.alert('Error', 'Failed to mark medication as taken.');
+            console.error('Mark as taken error:', error);
         }
     };
 
@@ -89,15 +90,14 @@ export default function ReminderRecordsScreen() {
         );
     };
 
-
     return (
         <Container>
             <Header>
                 <Title text="Medications to Take" />
-
             </Header>
 
             <Subtitle text="All Reminders" size={16} marginBottom={10} />
+
             {loading ? (
                 <Loader />
             ) : (

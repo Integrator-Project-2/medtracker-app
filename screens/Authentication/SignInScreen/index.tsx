@@ -6,14 +6,14 @@ import { theme } from '@/global/styles/theme';
 import Title from '@/components/Title';
 import { PrimaryButton } from '@/components/PrimaryButton';
 import SignInForm from './signInForm';
-import { signInUserService } from '@/services/Authentication/signInService';
 import { Image } from 'react-native';
-
+import { useSignInUser } from '@/services/Authentication/signInService';
 
 export default function SignInScreen() {
     const methods = useForm<UserCredentials>();
     const router = useRouter();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const signInUserService = useSignInUser(); 
 
     async function onSubmit(data: UserCredentials) {
         try {

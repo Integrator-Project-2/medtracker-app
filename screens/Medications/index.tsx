@@ -12,17 +12,23 @@ import { getIconName } from "@/global/utils/iconUtils";
 import { router } from "expo-router";
 import { AmountReminder } from "@/types/AmountReminder";
 import { deleteMedicationAmountReminder } from "@/services/Reminders/deleteAmountReminderService";
+import { usePatient } from "@/contexts/PatientContext";
 
 export function MedicationsScreen() {
     const [medications, setMedications] = useState<Medication[]>([]);
     const [loading, setLoading] = useState(true);
-    const patientId = 1;
+    const { patient } = usePatient();
+    const patientId = patient?.id;
 
     const getMedications = async (query: string = '') => {
         try {
             setLoading(true);
-            const data = await fetchMedications(query, patientId);
-            setMedications(data);
+            if (patientId !== undefined) {
+                const data = await fetchMedications(query, patientId);
+                setMedications(data);
+            } else {
+                Alert.alert("Erro", "Paciente não encontrado.");
+            }
         } catch (error) {
             Alert.alert("Erro", "Não foi possível carregar as medicações.");
         } finally {
@@ -58,7 +64,7 @@ export function MedicationsScreen() {
                         try {
                             await deleteMedicationAmountReminder(reminderId);
                             Alert.alert("Success", "Reminder deleted successfully.");
-                            getMedications();  // Refresh list after deletion
+                            getMedications();
                         } catch (error) {
                             Alert.alert("Error", "Failed to delete the reminder.");
                         }
@@ -76,10 +82,10 @@ export function MedicationsScreen() {
             : undefined;
 
 
-            const menuOptions = [
-                { label: 'Manage Stock', onPress: () => handleManageStock(item.amount_reminder, item) },
-                ...(deleteOption ? [deleteOption] : [])
-            ];
+        const menuOptions = [
+            { label: 'Manage Stock', onPress: () => handleManageStock(item.amount_reminder, item) },
+            ...(deleteOption ? [deleteOption] : [])
+        ];
 
         return (
             <View>

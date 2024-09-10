@@ -11,28 +11,38 @@ import { theme } from "@/global/styles/theme";
 import { getPatientData } from "@/services/Patient/patientService";
 import Loader from "@/components/Loader";
 import { ProfileInfoText } from "@/components/ProfileInfoText";
+import { usePatient } from "@/contexts/PatientContext";
 
 export function ProfileScreen() {
     const router = useRouter();
     const [isFormVisible, setIsFormVisible] = useState(false);
     const [patientData, setPatientData] = useState<Patient | null>(null);
     const [loading, setLoading] = useState(true);
-    const patientId = 1
+
+    const { patient } = usePatient();
+    const patientId = patient?.id;
 
     useEffect(() => {
         async function fetchData() {
-            try {
-                const data = await getPatientData(patientId);
-                setPatientData(data);
-            } catch (error) {
-                Alert.alert("Erro", "Não foi possível carregar os dados do paciente.");
-            } finally {
+            if (patientId !== undefined) {
+                try {
+                    const data = await getPatientData(patientId);
+                    setPatientData(data);
+                } catch (error) {
+                    Alert.alert("Erro", "Não foi possível carregar os dados do paciente.");
+                } finally {
+                    setLoading(false);
+                }
+            } else {
+               
                 setLoading(false);
             }
         }
-
+    
         fetchData();
-    }, []);
+    }, [patientId]);
+    
+    
 
     function handlePress() {
         router.back();
@@ -79,7 +89,7 @@ export function ProfileScreen() {
                         {isFormVisible ? (
                             <ProfileInfoForm
                                 initialData={patientData}
-                                patientId={patientId}
+                                patientId={patientId as number}
                                 onCancel={handleCancel}
                             />
                         ) : (

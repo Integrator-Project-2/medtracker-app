@@ -12,26 +12,34 @@ import { Alert, FlatList, View } from "react-native";
 import { fetchMedications } from "@/services/Medications/medicationService";
 import { getIconName } from "@/global/utils/iconUtils";
 import Loader from "@/components/Loader";
+import { usePatient } from "@/contexts/PatientContext";
 
 export default function SelectMedicationScreen() {
     const [selectedMedication, setSelectedMedication] = useState<Medication | null>(null);
-    const router = useRouter();
-
     const [medications, setMedications] = useState<Medication[]>([]);
     const [loading, setLoading] = useState(true);
-    const patientId = 1;
+    const { patient } = usePatient();
+    const patientId = patient?.id;
+
+    const router = useRouter();
 
     const handlePress = (medication: Medication) => {
         setSelectedMedication(medication);
     };
 
     const getMedications = async (query: string = '') => {
+        if (patientId === undefined) {
+            Alert.alert("Error", "Patient ID is not available.");
+            return;
+        }
+
         try {
             setLoading(true);
             const data = await fetchMedications(query, patientId);
             setMedications(data);
         } catch (error) {
-            Alert.alert("Erro", "Não foi possível carregar as medicações.");
+            console.error("Fetch medications error:", error);
+            Alert.alert("Error", "Failed to load medications.");
         } finally {
             setLoading(false);
         }
@@ -39,7 +47,7 @@ export default function SelectMedicationScreen() {
 
     useEffect(() => {
         getMedications();
-    }, []);
+    }, [patientId]); 
 
     const handleSearch = (query: string) => {
         getMedications(query);
@@ -105,8 +113,9 @@ export default function SelectMedicationScreen() {
                     onPress={() => {
                         if (selectedMedication) {
                             const medicationJson = JSON.stringify(selectedMedication);
-
                             router.push(`/createReminder?medication=${encodeURIComponent(medicationJson)}`);
+                        } else {
+                            Alert.alert("Select Medication", "Please select a medication before proceeding.");
                         }
                     }}
                     width={148}

@@ -11,36 +11,44 @@ import { requestNotificationPermissions } from "@/services/Notifications/notific
 import { Reminder } from "@/types/Reminder";
 
 import { getIconName } from "@/global/utils/iconUtils";
-import { getPatientData } from "@/services/Patient/patientService";
 import { isMedication } from "@/global/utils/medicationUtils";
 import { fetchReminders } from "@/services/Reminders/remindersListService";
 import { deleteReminder } from "@/services/Reminders/deleteReminderService";
 import { formatTime } from "@/global/utils/dateTimeUtils";
 import NotificationService from "@/services/Notifications/localNotificationService";
+import { usePatient } from "@/contexts/PatientContext";
 
 export default function RemindersScreen() {
     const [reminders, setReminders] = useState<Reminder[]>([]);
-    const [patientData, setPatientData] = useState<Patient | null>(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
-    const patientId = 1;
+    const { patient } = usePatient();
+    const patientId = patient?.id;
 
     useEffect(() => {
-        requestNotificationPermissions();
-        loadPatientInfo();
-        loadReminders();
-    }, []);
+        const initialize = async () => {
+            try {
+                await requestNotificationPermissions();
+                if (patientId) {
+                    await loadReminders();
+                } else {
+                    console.warn("Patient ID is not available.");
+                }
+            } catch (error) {
+                console.error("Initialization error:", error);
+                Alert.alert("Error", "Failed to initialize the reminders screen.");
+            }
+        };
 
-    const loadPatientInfo = async () => {
-        try {
-            const patientData = await getPatientData(patientId);
-            setPatientData(patientData || " ");
-        } catch (error) {
-            console.error("Error loading patient info:", error);
-        }
-    };
+        initialize();
+    }, [patientId]);
 
     const loadReminders = async () => {
+        if (patientId === undefined) {
+            console.error("Patient ID is not available.");
+            return;
+        }
+    
         try {
             setLoading(true);
             const data = await fetchReminders(patientId);
@@ -48,25 +56,25 @@ export default function RemindersScreen() {
                 setReminders(data);
             } else {
                 console.error("Invalid data format:", data);
+                Alert.alert("Error", "Unexpected data format received.");
             }
         } catch (error) {
-            Alert.alert("Erro", "Não foi possível carregar os lembretes.");
+            Alert.alert("Error", "Failed to load reminders.");
             console.error("Fetch reminders error:", error);
         } finally {
             setLoading(false);
         }
     };
+    
 
     const handleDeleteReminder = async (id: number) => {
         try {
-
-            await NotificationService.cancelReminder(id)
+            await NotificationService.cancelReminder(id);
             await deleteReminder(id);
-
-            setReminders(reminders.filter(reminder => reminder.id !== id));
-
+            setReminders(prev => prev.filter(reminder => reminder.id !== id));
         } catch (error) {
-            Alert.alert("Erro", "Não foi possível excluir o lembrete.");
+            Alert.alert("Error", "Failed to delete reminder.");
+            console.error("Delete reminder error:", error);
         }
     };
 
@@ -98,9 +106,9 @@ export default function RemindersScreen() {
         );
     };
 
-    function handlePress() {
+    const handlePress = () => {
         router.push('/profile');
-    }
+    };
 
     return (
         <Container>
@@ -108,7 +116,7 @@ export default function RemindersScreen() {
                 <Title text="Your Reminders" />
                 <TouchableOpacity onPress={handlePress}>
                     <AvatarComponent
-                        name={patientData?.user.name || " "}
+                        name={patient?.user.name || " "}
                     />
                 </TouchableOpacity>
             </Header>

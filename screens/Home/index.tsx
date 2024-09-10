@@ -16,27 +16,29 @@ import { isMedication } from "@/global/utils/medicationUtils";
 import { getIconName } from "@/global/utils/iconUtils";
 import { formatDate, formatTime } from "@/global/utils/dateTimeUtils";
 import { markMedicationAsTaken } from "@/services/Reminders/markMedicationAsTakenService";
-import { getPatientData } from "@/services/Patient/patientService";
+import { usePatient } from "@/contexts/PatientContext";
 
 export default function HomeScreen() {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [reminderRecordData, setReminderRecordData] = useState<ReminderRecord | null>(null);
-    const [patientData, setPatientData] = useState<Patient | null>(null);
-
-    const patientId = 1;
+    const { patient } = usePatient(); 
+    const patientId = patient?.id;
 
     function handlePress() {
         router.push('/profile');
     }
 
     useEffect(() => {
-        loadPatientInfo();
-        requestNotificationPermissions();
-        getUpcomingReminder();
-    }, []);
+        if (patientId) {
+            requestNotificationPermissions();
+            getUpcomingReminder();
+        }
+    }, [patientId]);
 
     const getUpcomingReminder = async () => {
+        if (!patientId) return; // Ensure patientId is available
+
         try {
             setLoading(true);
             const upcomingReminderData = await fetchUpcomingReminderRecord(patientId);
@@ -65,22 +67,13 @@ export default function HomeScreen() {
         }
     };
 
-    const loadPatientInfo = async () => {
-        try {
-            const patientData = await getPatientData(patientId);
-            setPatientData(patientData || "Unknown");
-        } catch (error) {
-            console.error("Error loading patient info:", error);
-        }
-    };
-
     return (
         <Container>
             <Header>
-                <Title text={`Hello, ${patientData?.user.name || " "}`}/>
+                <Title text={`Hello, ${patient?.user.name || " "}`}/>
 
                 <TouchableOpacity onPress={handlePress}>
-                    <AvatarComponent name={patientData?.user.name || " "} />
+                    <AvatarComponent name={patient?.user.name || " "} />
                 </TouchableOpacity>
             </Header>
 
@@ -113,20 +106,20 @@ export default function HomeScreen() {
                     title="Reminders of the day"
                     description="Check your reminders of the day"
                     iconLib="material-icons"
-                    onPress= {() => router.push('/reminderRecords') }
+                    onPress={() => router.push('/reminderRecords')}
                 />
                 <CardButton
                     title="My prescriptions"
                     description="Check your medical prescriptions"
                     iconName="notes-medical"
                     iconLib="font-awesome"
-                    onPress= {() => router.push('/prescriptions') }
+                    onPress={() => router.push('/prescriptions')}
                 />
                 <CardButton
                     title="My medications"
                     description="Check all your medications"
                     iconLib="fontisto"
-                    onPress= {() => router.push('/medications') }
+                    onPress={() => router.push('/medications')}
                 />
             </CardListContainer>
         </Container>
