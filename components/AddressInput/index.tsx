@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { LabelComponent } from "../Label";
 import { colors, theme } from "@/global/styles/theme";
 import { StyledTextInput } from "@/global/styles/StyledTextInput";
@@ -10,32 +10,42 @@ interface AddressInputProps {
     width?: number;
     value?: string;
     onChange?: (value: string) => void;
+    error?: string; 
 }
 
-export const AddressInput: React.FC<AddressInputProps> = ({ label, placeholder, width, value, onChange }) => {
-  const [text, setText] = React.useState(value || '');
+export const AddressInput: React.FC<AddressInputProps> = ({
+    label,
+    placeholder,
+    width,
+    value,
+    onChange,
+    error 
+}) => {
+    const [text, setText] = React.useState(value || '');
 
-  const handleTextChange = (newText: string) => {
-      setText(newText);
-      if (onChange) {
-          onChange(newText);
-      }
-  };
+    const handleTextChange = (newText: string) => {
+        setText(newText);
+        if (onChange) {
+            onChange(newText);
+        }
+    };
 
-  return (
-    <View>
-      <LabelComponent text={label} />
-      <StyledTextInput
-        mode="outlined"
-        placeholder={placeholder}
-        value={text}
-        onChangeText={handleTextChange} // Usa a função handleTextChange
-        placeholderTextColor={colors.lightPurple} 
-        outlineColor={colors.lightPurple} 
-        textColor={colors.darkBlue}
-        theme={theme}
-        width={width}
-      />
-    </View>
-  );
+    return (
+        <View>
+            <LabelComponent text={label} />
+            <StyledTextInput
+                mode="outlined"
+                placeholder={placeholder}
+                value={text}
+                onChangeText={handleTextChange} 
+                placeholderTextColor={colors.lightPurple} 
+                outlineColor={colors.lightPurple} 
+                textColor={colors.darkBlue}
+                theme={theme}
+                width={width}
+            />
+            {error && <Text style={{ color: 'red' }}>{error}</Text>}
+        </View>
+    );
 };
+

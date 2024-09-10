@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { LabelComponent } from '../Label';
 import MenuComponent from '../MenuComponent';
 import StyledButton from './styles';
-
 
 interface SelectInputProps {
   label: string;
@@ -15,7 +14,7 @@ interface SelectInputProps {
   borderColor?: string;
   borderRadius?: number;
   onChange?: (value: string) => void;
-
+  error?: string; 
 }
 
 export const SelectInput: React.FC<SelectInputProps> = ({
@@ -27,7 +26,8 @@ export const SelectInput: React.FC<SelectInputProps> = ({
   height,
   borderColor,
   borderRadius,
-  onChange
+  onChange,
+  error 
 }) => {
   const [visible, setVisible] = useState(false);
   const [selected, setSelected] = useState(
@@ -70,10 +70,12 @@ export const SelectInput: React.FC<SelectInputProps> = ({
             borderRadius={borderRadius}
             isFocused={visible}
           >
-            {selected || 'Select...'} {/* Mostra o label selecionado */}
+            {selected || 'Select...'} 
           </StyledButton>
         }
       />
+       {error && <Text style={{ color: 'red' }}>{error}</Text>}
     </View>
   );
 };
+

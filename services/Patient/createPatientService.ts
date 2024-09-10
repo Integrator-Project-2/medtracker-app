@@ -20,17 +20,22 @@ export async function registerPatient(data: Patient) {
             gender: data.gender,
         });
 
-        // console.log("Resposta do servidor:", response);
-
         return response;
     } catch (error) {
         if (axios.isAxiosError(error)) {
-            console.error("Erro no cadastro - mensagem:", error.message);
-            console.error("Erro no cadastro - resposta:", error.response?.data);
-            console.error("Erro no cadastro - status:", error.response?.status);
+            let errorMessage = 'An error occurred during registration. Please try again.';
+            
+            if (error.response?.status === 400) {
+                // Error details can be extracted from error.response.data
+                errorMessage = error.response?.data?.user?.email?.[0] || errorMessage;
+            } else if (error.response?.status === 409) {
+                errorMessage = 'Email already in use';
+            }
+            
+            throw new Error(errorMessage);
         } else {
             console.error("Erro desconhecido:", error);
+            throw new Error('An unexpected error occurred.');
         }
-        throw error;
     }
 }

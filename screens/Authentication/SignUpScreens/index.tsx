@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { useRouter } from "expo-router";
-import { Container, FormButtonContainer, FormContainer, Header } from "@/global/styles/globalStyles";
+import { Container, FormButtonContainer, FormContainer, Header, ErrorText } from "@/global/styles/globalStyles";
 import { theme } from "@/global/styles/theme";
 import Title from "@/components/Title";
 import SignUpForm from "./signUpForm";
-
 import { registerPatient } from "@/services/Patient/createPatientService";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import CompleteSignUpForm from "./completeSignUpForm";
-import { Image } from "react-native";
 
 export default function AuthenticationScreen() {
     const [step, setStep] = useState(1);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const router = useRouter();
-
     const methods = useForm<Patient>({
         defaultValues: {
             user: {
@@ -23,11 +21,21 @@ export default function AuthenticationScreen() {
                 phone: '',
                 address: '',
                 birth_date: '',
+                password: '',
             },
             cpf: '',
             gender: 'M',
         },
     });
+
+    async function validateAndProceed() {
+        const isValid = await methods.trigger(); 
+        if (isValid) {
+            setStep(2);
+        } else {
+            console.log("Formulário de inscrição inválido");
+        }
+    }
 
     async function onSubmit(data: Patient) {
         if (step === 2) {
@@ -52,7 +60,12 @@ export default function AuthenticationScreen() {
                     router.push('/signIn');
                 }
             } catch (error) {
-                console.error("Erro no cadastro:", error);
+                if (error instanceof Error) {
+                    setErrorMessage(error.message);
+                } else {
+                    console.error("Erro no cadastro:", error);
+                    setErrorMessage('An error occurred during registration. Please try again.');
+                }
             }
         }
     }
@@ -67,32 +80,18 @@ export default function AuthenticationScreen() {
                 <FormContainer>
                     {step === 1 && <SignUpForm />}
                     {step === 2 && <CompleteSignUpForm />}
+                    {errorMessage && <ErrorText>{errorMessage}</ErrorText>} 
                 </FormContainer>
 
                 <FormButtonContainer>
                     {step === 1 && (
-                        <>
-                            <PrimaryButton
-                                text="Next"
-                                bgColor={theme.colors.navy}
-                                width={316}
-                                height={52}
-                                onPress={() => setStep(2)}
-                            />
-
-                            <PrimaryButton
-                                text="Sign up with Google"
-                                bgColor="transparent"
-                                width={316}
-                                height={52}
-                                textColor="#4D80F9"
-                                icon={
-                                    <Image source={require('@/assets/images/devicon_google.png')} style={{ marginRight: 10 }} />
-                                }
-                                border="1px solid #4D80F9"
-                                onPress={() => console.log('Button Pressed')}
-                            />
-                        </>
+                        <PrimaryButton
+                            text="Next"
+                            bgColor={theme.colors.navy}
+                            width={316}
+                            height={52}
+                            onPress={validateAndProceed} 
+                        />
                     )}
 
                     {step === 2 && (

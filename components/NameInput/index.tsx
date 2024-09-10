@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { LabelComponent } from "../Label";
 import { colors, theme } from "@/global/styles/theme";
 import { StyledTextInput } from "@/global/styles/StyledTextInput";
@@ -13,6 +13,7 @@ interface NameInputProps {
     disabled?: boolean;
     border?: boolean;
     onChange?: (value: string) => void;
+    error?: string;  
 }
 
 export const NameInput: React.FC<NameInputProps> = ({
@@ -23,7 +24,8 @@ export const NameInput: React.FC<NameInputProps> = ({
   value,
   disabled,
   border,
-  onChange
+  onChange,
+  error 
 }) => {
   const [text, setText] = React.useState(value || '');
 
@@ -50,7 +52,9 @@ export const NameInput: React.FC<NameInputProps> = ({
         textColor={colors.darkBlue}
         theme={theme}
         width={width}
+        error={!!error} 
       />
+      {error && <Text style={{ color: 'red' }}>{error}</Text>} 
     </View>
   );
 };
