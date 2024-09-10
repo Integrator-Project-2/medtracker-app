@@ -8,11 +8,12 @@ import { StyledTextInput } from '@/global/styles/StyledTextInput';
 interface PasswordInputProps {
   label: string;
   placeholder: string;
+  value: string;
+  onChangeText: (text: string) => void;
 }
 
-const PasswordInput: React.FC<PasswordInputProps> = ({ label, placeholder }) => {
+const PasswordInput: React.FC<PasswordInputProps> = ({ label, placeholder, value, onChangeText }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [password, setPassword] = useState('');
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev);
@@ -25,9 +26,9 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ label, placeholder }) => 
         secureTextEntry={!isPasswordVisible}
         right={
           <TextInput.Icon
-            icon={isPasswordVisible ? "eye-off" : "eye"}
+            icon={isPasswordVisible ? 'eye-off' : 'eye'}
             onPress={togglePasswordVisibility}
-            style={{ marginTop: 25 }} 
+            style={{ marginTop: 25 }}
           />
         }
         theme={theme}
@@ -36,8 +37,8 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ label, placeholder }) => 
         placeholderTextColor={colors.lightPurple}
         outlineColor={colors.lightPurple}
         textColor={colors.darkBlue}
-        value={password}
-        onChangeText={setPassword}
+        value={value}
+        onChangeText={onChangeText}
       />
     </View>
   );

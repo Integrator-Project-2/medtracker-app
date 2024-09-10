@@ -1,5 +1,5 @@
 interface Patient {
-    id: number;
+    id?: number;
     cpf: string;
     user: User;
     gender: 'M' | 'F' | 'NB';
