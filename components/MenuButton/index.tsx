@@ -3,7 +3,6 @@ import { IconButton } from 'react-native-paper';
 import MenuComponent from '../MenuComponent';
 import { theme } from '@/global/styles/theme';
 
-
 interface MenuOption {
   label: string;
   onPress: () => void;
@@ -12,9 +11,10 @@ interface MenuOption {
 interface MenuButtonProps {
   options: MenuOption[];
   iconColor?: string;
+  style?: object; 
 }
 
-const MenuButton: React.FC<MenuButtonProps> = ({ options, iconColor = theme.colors.lightBlue }) => {
+const MenuButton: React.FC<MenuButtonProps> = ({ options, iconColor = theme.colors.lightBlue, style }) => {
   const [visible, setVisible] = React.useState(false);
 
   const openMenu = () => setVisible(true);
@@ -31,6 +31,7 @@ const MenuButton: React.FC<MenuButtonProps> = ({ options, iconColor = theme.colo
             icon="dots-horizontal"
             iconColor={iconColor}
             onPress={openMenu}
+            style={style} // Passe a prop style aqui
           />
         }
       />

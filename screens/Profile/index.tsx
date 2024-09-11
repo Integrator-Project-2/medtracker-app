@@ -80,6 +80,7 @@ export function ProfileScreen() {
                 <MenuButton
                     options={menuOptions}
                     iconColor="black"
+                    style={{ marginTop: 20 }}
                 />
             </Appbar.Header>
 
