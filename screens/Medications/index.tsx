@@ -4,7 +4,7 @@ import CardComponent from "@/components/Card";
 import Search from "@/components/Search";
 import Title from "@/components/Title";
 import Loader from "@/components/Loader";
-import { Container, Header } from "@/global/styles/globalStyles";
+import { CardContainer, Container, Header } from "@/global/styles/globalStyles";
 import { theme } from "@/global/styles/theme";
 import { fetchMedications } from "@/services/Medications/medicationService";
 import { Medication } from "@/types/Medication";
@@ -13,6 +13,7 @@ import { router } from "expo-router";
 import { AmountReminder } from "@/types/AmountReminder";
 import { deleteMedicationAmountReminder } from "@/services/Reminders/deleteAmountReminderService";
 import { usePatient } from "@/contexts/PatientContext";
+import Subtitle from "@/components/Subtitle";
 
 export function MedicationsScreen() {
     const [medications, setMedications] = useState<Medication[]>([]);
@@ -107,7 +108,6 @@ export function MedicationsScreen() {
         );
     };
 
-
     return (
         <Container>
             <Header>
@@ -115,15 +115,17 @@ export function MedicationsScreen() {
             </Header>
 
             <Search onSearch={handleSearch} />
-
             {loading ? (
                 <Loader />
             ) : (
+                <CardContainer>
                 <FlatList
                     data={medications}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.id.toString()}
+                    ListEmptyComponent={<Subtitle text="No medications available" size={16} />} 
                 />
+            </CardContainer>
             )}
         </Container>
     );

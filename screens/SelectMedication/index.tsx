@@ -93,6 +93,7 @@ export default function SelectMedicationScreen() {
                         data={medications}
                         renderItem={renderItem}
                         keyExtractor={(item) => item.id.toString()}
+                        ListEmptyComponent={<Subtitle text="No medications available" size={16} />}
                     />
                 )}
             </FormContainer>

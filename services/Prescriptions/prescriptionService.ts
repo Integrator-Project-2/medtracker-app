@@ -5,14 +5,14 @@ import { api } from '../api';
 
 export const fetchPrescriptions = async (patientId: number): Promise<Prescription[]> => {
     try {
-
-        const url = `/prescriptions/patient/${patientId}/`
-
+        const url = `/prescriptions/patient/${patientId}/`;
         const response = await api.get<Prescription[]>(url);
-        return response.data;
+        
+        return response.data || [];
     } catch (error) {
         console.error("Erro ao buscar prescrições:", error);
-        throw new Error("Não foi possível buscar as prescrições.");
+       
+        return [];
     }
 };
 

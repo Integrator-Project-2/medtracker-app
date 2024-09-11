@@ -8,13 +8,15 @@ export async function fetchMedications(query: string = '', patientId: number): P
         const params = query ? { name: query } : {};
 
         const response = await api.get<{ medications: Medication[] }>(url, { params });
-
-        return response.data.medications;
+      
+        return response.data.medications || [];
     } catch (error) {
         console.error("Erro ao buscar as medicações:", error);
+       
         return [];
     }
 }
+
 
 export async function fetchMedicationsById(medicationId: number): Promise<Medication | null> {
     try {

@@ -7,13 +7,14 @@ import Title from "@/components/Title";
 import Loader from "@/components/Loader";
 import { theme } from "@/global/styles/theme";
 import { FilterButton, FilterButtonText } from "./styles";
-import { Container, Header } from "@/global/styles/globalStyles";
+import { CardContainer, Container, Header } from "@/global/styles/globalStyles";
 import { fetchPrescriptions, fetchDoctorDetails } from "@/services/Prescriptions/prescriptionService";
 import { Prescription } from "@/types/Prescription";
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import base64 from 'base64-js';
 import { usePatient } from "@/contexts/PatientContext";
+import Subtitle from "@/components/Subtitle";
 
 
 export function Prescriptions() {
@@ -101,14 +102,18 @@ export function Prescriptions() {
                     <FilterButtonText>Filters</FilterButtonText>
                 </FilterButton>
             </Header>
+
             {loading ? (
                 <Loader /> 
             ) : (
+                <CardContainer>
                 <FlatList
                     data={prescriptions}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.id.toString()}
-                />
+                    ListEmptyComponent={<Subtitle text="No prescriptions available" size={16} />}
+                    />
+                    </CardContainer>
             )}
         </Container>   
     );

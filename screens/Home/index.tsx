@@ -59,8 +59,8 @@ export default function HomeScreen() {
                 Alert.alert('Warning', warning);
             } else {
                 Alert.alert('Success', 'Medication marked as taken');
-                getUpcomingReminder();
             }
+            getUpcomingReminder();
 
         } catch (error) {
             Alert.alert('Error', 'Failed to mark medication as taken');

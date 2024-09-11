@@ -15,9 +15,9 @@ export async function logOut(navigate: () => void) {
         // Navegação após logout
         navigate();
 
-        Alert.alert('Logout', 'Você foi desconectado com sucesso.');
+        Alert.alert('Logout', 'You have successfully logged out.');
     } catch (error) {
         console.error('Erro ao realizar logout:', error);
-        Alert.alert('Erro', 'Não foi possível realizar o logout.');
+        Alert.alert('Error', 'Unable to log out.');
     }
 }
