@@ -66,16 +66,31 @@ export default function RemindersScreen() {
         }
     };
 
-    const handleDeleteReminder = async (id: number) => {
-        try {
-            await NotificationService.cancelReminder(id);
-            await deleteReminder(id);
-            setReminders(prev => prev.filter(reminder => reminder.id !== id));
-        } catch (error) {
-            Alert.alert("Error", "Failed to delete reminder.");
-            console.error("Delete reminder error:", error);
-        }
+    const handleDeleteReminder = (id: number) => {
+        Alert.alert(
+            "Confirm Delete",
+            "Are you sure you want to delete this reminder?",
+            [
+                { text: "Cancel", style: "cancel" },
+                {
+                    text: "Delete",
+                    style: "destructive",
+                    onPress: async () => {
+                        try {
+                            await NotificationService.cancelReminder(id);
+                            await deleteReminder(id);
+                            setReminders(prev => prev.filter(reminder => reminder.id !== id));
+                            Alert.alert("Success", "Reminder deleted successfully.");
+                        } catch (error) {
+                            Alert.alert("Error", "Failed to delete the reminder.");
+                            console.error("Delete reminder error:", error);
+                        }
+                    }
+                }
+            ]
+        );
     };
+    
 
     const handleViewReminders = (reminderId: number) => {
         router.push(`/reminderRecords?reminderId=${reminderId}`);
