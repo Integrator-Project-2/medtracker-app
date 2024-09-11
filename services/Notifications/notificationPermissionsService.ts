@@ -4,11 +4,9 @@ import * as Linking from 'expo-linking';
 import Constants from 'expo-constants';
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { usePatient } from '@/contexts/PatientContext'; 
 import { api } from '../api';
 
-
-export async function requestNotificationPermissions() {
+export async function requestNotificationPermissions(patientId: number) {
     const { status } = await Notifications.getPermissionsAsync();
     if (status !== 'granted') {
         const { status: newStatus } = await Notifications.requestPermissionsAsync();
@@ -40,25 +38,19 @@ export async function requestNotificationPermissions() {
 
         const { data: token } = await Notifications.getExpoPushTokenAsync({ projectId });
 
-        // Verifica se o token já foi salvo anteriormente
+        
         const storedToken = await AsyncStorage.getItem('expoPushToken');
         if (storedToken === token) {
             return;
         }
 
-        // Salva o novo token no armazenamento local
+     
         await AsyncStorage.setItem('expoPushToken', token);
 
         console.log(`Novo token: ${token}`);
 
-        const { patient } = usePatient();
-        const patientId = patient?.id;
-        if (!patientId) {
-            console.error('Patient ID is not available.');
-            return;
-        }
-
-        await api.post(`/update_token/${patientId}`, {
+      
+        await api.post(`/update_expo_token/${patientId}/`, {
             expo_push_token: token
         });
 

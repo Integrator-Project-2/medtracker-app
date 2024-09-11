@@ -31,13 +31,13 @@ export default function HomeScreen() {
 
     useEffect(() => {
         if (patientId) {
-            requestNotificationPermissions();
+            requestNotificationPermissions(patientId);
             getUpcomingReminder();
         }
     }, [patientId]);
 
     const getUpcomingReminder = async () => {
-        if (!patientId) return; // Ensure patientId is available
+        if (!patientId) return;
 
         try {
             setLoading(true);

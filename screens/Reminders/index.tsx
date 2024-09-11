@@ -9,7 +9,6 @@ import { CardListContainer, Container, Header } from "@/global/styles/globalStyl
 import { useRouter } from "expo-router";
 import { requestNotificationPermissions } from "@/services/Notifications/notificationPermissionsService";
 import { Reminder } from "@/types/Reminder";
-
 import { getIconName } from "@/global/utils/iconUtils";
 import { isMedication } from "@/global/utils/medicationUtils";
 import { fetchReminders } from "@/services/Reminders/remindersListService";
@@ -28,7 +27,7 @@ export default function RemindersScreen() {
     useEffect(() => {
         const initialize = async () => {
             try {
-                await requestNotificationPermissions();
+                await requestNotificationPermissions(patientId as number);
                 if (patientId) {
                     await loadReminders();
                 } else {
@@ -41,14 +40,15 @@ export default function RemindersScreen() {
         };
 
         initialize();
+        console.log(patientId)
     }, [patientId]);
 
     const loadReminders = async () => {
-        if (patientId === undefined) {
+        if (!patientId) {
             console.error("Patient ID is not available.");
             return;
         }
-    
+
         try {
             setLoading(true);
             const data = await fetchReminders(patientId);
@@ -65,7 +65,6 @@ export default function RemindersScreen() {
             setLoading(false);
         }
     };
-    
 
     const handleDeleteReminder = async (id: number) => {
         try {
@@ -115,9 +114,7 @@ export default function RemindersScreen() {
             <Header>
                 <Title text="Your Reminders" />
                 <TouchableOpacity onPress={handlePress}>
-                    <AvatarComponent
-                        name={patient?.user.name || " "}
-                    />
+                    <AvatarComponent name={patient?.user.name || " "} />
                 </TouchableOpacity>
             </Header>
 

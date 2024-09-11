@@ -11,17 +11,23 @@ import DailyReminderForm from "./dailyReminderForm";
 import SelectDayAndTimeForm from "./selectDayAndTimeForm";
 import { Medication } from "@/types/Medication";
 import { Reminder } from "@/types/Reminder";
-
+import { usePatient } from "@/contexts/PatientContext"; // Import usePatient
 
 export default function TakeMedicationReminderScreen() {
     const router = useRouter();
     const params = useLocalSearchParams<{ medication: string }>();
     const medication: Medication = JSON.parse(decodeURIComponent(params.medication || '{}'));
 
+ 
+    const { patient } = usePatient();
+    const patientId = patient?.id;
+
     const [step, setStep] = useState(1);
+
+
     const methods = useForm<Reminder>({
         defaultValues: {
-            patient: 1,
+            patient: patientId, 
             medication: medication.id,
             reminder_type: 'unique reminder',
             frequency_per_day: 1,
@@ -32,7 +38,6 @@ export default function TakeMedicationReminderScreen() {
     });
 
     const handleNext = methods.handleSubmit(async (data) => {
-
         if (step === 1) {
             console.log("Tipo de lembrete:", data.reminder_type);
             if (data.reminder_type === 'daily reminder') {
@@ -55,19 +60,15 @@ export default function TakeMedicationReminderScreen() {
                 remind_time: !isNaN(remindTimeDate.getTime())
                     ? remindTimeDate.toLocaleTimeString([], { hour12: false })
                     : data.remind_time,
-                    medication_name: medication.name, 
+                medication_name: medication.name,
             };
-            
 
             console.log("Dados formatados para envio:", formattedData);
 
             const queryString = encodeURIComponent(JSON.stringify(formattedData));
-
             router.push(`/reminderConfirmation?data=${queryString}`);
-
         }
     });
-
 
     const handleBack = () => {
         if (step === 1) {

@@ -14,7 +14,7 @@ class NotificationService {
         let medicationName = '';
 
         if (typeof medication === 'number') {
-            const medicationData: Medication | null = await fetchMedicationsById('', medication);
+            const medicationData: Medication | null = await fetchMedicationsById(medication);
 
             if (medicationData) {
                 medicationName = medicationData.name;
@@ -138,6 +138,22 @@ class NotificationService {
             }
         } catch (error) {
             console.error('Erro ao cancelar lembretes:', error);
+        }
+    }
+
+    async cancelAllReminders(): Promise<void> {
+        try {
+            const allScheduledNotifications = await Notifications.getAllScheduledNotificationsAsync();
+            console.log(`Total de notificações agendadas encontradas: ${allScheduledNotifications.length}`);
+
+            for (const notification of allScheduledNotifications) {
+                await Notifications.cancelScheduledNotificationAsync(notification.identifier);
+                console.log(`Notificação com ID ${notification.identifier} cancelada com sucesso.`);
+            }
+
+            console.log('Todas as notificações foram canceladas.');
+        } catch (error) {
+            console.error('Erro ao cancelar todas as notificações:', error);
         }
     }
 }

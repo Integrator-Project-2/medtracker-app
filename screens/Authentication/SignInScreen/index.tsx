@@ -7,18 +7,32 @@ import Title from '@/components/Title';
 import { PrimaryButton } from '@/components/PrimaryButton';
 import SignInForm from './signInForm';
 import { Image } from 'react-native';
-import { useSignInUser } from '@/services/Authentication/signInService';
+import { usePatient } from '@/contexts/PatientContext'; 
+import { signInUserService } from '@/services/Authentication/signInService';
+import * as SecureStore from 'expo-secure-store';
+import { api } from '@/services/api';
 
 export default function SignInScreen() {
     const methods = useForm<UserCredentials>();
     const router = useRouter();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
-    const signInUserService = useSignInUser(); 
+    const { setPatient } = usePatient(); 
+    
 
     async function onSubmit(data: UserCredentials) {
         try {
             const response = await signInUserService(data);
             if (response.status === 200) {
+               
+                const userId = await SecureStore.getItemAsync('userId');
+                if (userId) {
+                    const patientResponse = await api.get(`users/linked_patient/${userId}/`);
+                    const patientData = patientResponse.data;
+
+                    if (setPatient) {
+                        setPatient(patientData); 
+                    }
+                }
                 router.push('/(tabs)');
             } else if (response.status === 400) {
                 setErrorMessage('User does not exist.');

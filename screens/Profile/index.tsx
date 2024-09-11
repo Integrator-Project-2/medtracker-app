@@ -12,6 +12,8 @@ import { getPatientData } from "@/services/Patient/patientService";
 import Loader from "@/components/Loader";
 import { ProfileInfoText } from "@/components/ProfileInfoText";
 import { usePatient } from "@/contexts/PatientContext";
+import { logOut } from "@/services/Authentication/logoutService";
+
 
 export function ProfileScreen() {
     const router = useRouter();
@@ -34,34 +36,39 @@ export function ProfileScreen() {
                     setLoading(false);
                 }
             } else {
-               
                 setLoading(false);
             }
         }
     
         fetchData();
     }, [patientId]);
-    
-    
 
     function handlePress() {
         router.back();
     }
 
     function handleCancel() {
-        setIsFormVisible(false)
+        setIsFormVisible(false);
     }
 
+    const handleLogout = async () => {
+        try {
+            await logOut(() => router.push('/signIn'));
+        } catch (error) {
+            Alert.alert("Erro", "Não foi possível realizar o logout.");
+        }
+    };
+
     const menuOptions = [
-        {
-            label: 'Logout',
-            onPress: () => { }
-        },
         {
             label: 'Edit',
             onPress: () => {
                 setIsFormVisible(true);
             }
+        },
+        {
+            label: 'Logout',
+            onPress: handleLogout  
         }
     ];
 
@@ -95,10 +102,9 @@ export function ProfileScreen() {
                         ) : (
                             <ProfileInfoText data={patientData} />
                         )}
-
                     </ProfileInfoContainer>
                 </ScrollView>
             )}
         </ProfileContainer>
-    )
+    );
 }
