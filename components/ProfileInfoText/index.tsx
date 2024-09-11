@@ -39,19 +39,25 @@ export function ProfileInfoText({ data }: ProfileInfoTextProps) {
 
             </InfoRow>
 
-            <ProfileInfo 
-                label="Email"
-                value={data.user.email || "N/A"}
-            />
-
             <ProfileInfo
-                label="Phone Number"
-                value={data.user.phone || "N/A"}
+                label="Email"
+                value={data.user.email || " "}
             />
+            <InfoRow>
+                <ProfileInfo
+                    label="Phone Number"
+                    value={data.user.phone || " "}
+                />
+                <ProfileInfo
+                    label="CPF"
+                    value={data.cpf || " "}
+                />
+
+            </InfoRow>
 
             <ProfileInfo
                 label="Address"
-                value={data.user.address || "N/A"}
+                value={data.user.address || " "}
             />
 
             <View style={{ alignItems: "flex-start", width: "100%" }} >
@@ -65,18 +71,18 @@ export function ProfileInfoText({ data }: ProfileInfoTextProps) {
             <InfoRow>
                 <ProfileInfo
                     label="Height"
-                    value={data.height ? `${data.height} cm` : "N/A"}
+                    value={data.height ? `${data.height} cm` : " "}
                 />
 
                 <ProfileInfo
                     label="Weight"
-                    value={data.weight ? `${data.weight} kg` : "N/A"}
+                    value={data.weight ? `${data.weight} kg` : " "}
                 />
             </InfoRow>
 
             <ProfileInfo
                 label="Allergies and observations"
-                value={data.allergies_and_observations || "N/A"}
+                value={data.allergies_and_observations || " "}
             />
         </TextInfoContainer>
     );

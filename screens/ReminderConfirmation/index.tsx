@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { Container, FormButtonContainer, Header, ImageContainer } from "@/global/styles/globalStyles";
 import { theme } from "@/global/styles/theme";
 import Title from "@/components/Title";
 import Subtitle from "@/components/Subtitle";
-
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { ReminderClock } from "@/assets/images/svg/ReminderClock";
 import { createMedicationReminder } from "@/services/Reminders/createReminderService";
@@ -17,7 +16,10 @@ export default function ReminderConfirmationScreen() {
     const params = useLocalSearchParams<{ data: string }>();
     const data = JSON.parse(decodeURIComponent(params.data || '{}'));
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const handleConfirm = async () => {
+        setIsSubmitting(true); // Set to true to disable the button
         try {
             console.log('Dados recebidos:', data); 
             const createdReminder = await createMedicationReminder(data);
@@ -26,7 +28,7 @@ export default function ReminderConfirmationScreen() {
                 throw new Error('ID do lembrete não retornado.');
             }
     
-            // atualiza o objeto data com o ID recebido
+            // Atualiza o objeto data com o ID recebido
             const updatedData = { ...data, id: createdReminder.id };
     
             await NotificationService.scheduleReminder(updatedData);
@@ -34,6 +36,8 @@ export default function ReminderConfirmationScreen() {
     
         } catch (error) {
             console.error('Erro ao criar lembrete de medicação:', error);
+        } finally {
+            setIsSubmitting(false); 
         }
     };
 
@@ -82,6 +86,7 @@ export default function ReminderConfirmationScreen() {
                     onPress={handleConfirm}
                     width={148}
                     height={52}
+                    disabled={isSubmitting}
                 />
             </FormButtonContainer>
         </Container>

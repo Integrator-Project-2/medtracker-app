@@ -27,6 +27,7 @@ export default function AuthenticationScreen() {
             gender: 'M',
         },
     });
+    const { handleSubmit, formState: { isSubmitting } } = methods; // Getting isSubmitting from formState
 
     async function validateAndProceed() {
         const isValid = await methods.trigger(); 
@@ -91,6 +92,7 @@ export default function AuthenticationScreen() {
                             width={316}
                             height={52}
                             onPress={validateAndProceed} 
+                            disabled={isSubmitting} 
                         />
                     )}
 
@@ -100,7 +102,8 @@ export default function AuthenticationScreen() {
                             bgColor={theme.colors.navy}
                             width={316}
                             height={52}
-                            onPress={methods.handleSubmit(onSubmit)}
+                            onPress={handleSubmit(onSubmit)}
+                            disabled={isSubmitting} 
                         />
                     )}
                 </FormButtonContainer>

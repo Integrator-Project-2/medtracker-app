@@ -1,5 +1,6 @@
 import { GestureResponderEvent } from "react-native";
 import { StyledPrimaryButton, StyledTextButton } from "./styles";
+import { theme } from "@/global/styles/theme";
 
 interface PrimaryButtonProps {
     text: string;
@@ -12,7 +13,8 @@ interface PrimaryButtonProps {
     borderRadius?: number;
     fontSize?: number;
     onPress: (event: GestureResponderEvent) => void;
-  }
+    disabled?: boolean; // Adiciona a propriedade disabled
+}
 
 export function PrimaryButton({ 
     text,
@@ -25,15 +27,17 @@ export function PrimaryButton({
     borderRadius = 10,
     fontSize = 16,
     onPress,
+    disabled = false, // Valor padrão
  }: PrimaryButtonProps) {
     return (
         <StyledPrimaryButton
-            bgColor={bgColor} 
+            bgColor={disabled ? theme.colors.disabled : bgColor}
             width={width} 
             height={height} 
             border={border}
-            onPress={onPress}
+            onPress={disabled ? undefined : onPress} 
             borderRadius={borderRadius}
+            disabled={disabled} 
         >
             {icon && icon}
 

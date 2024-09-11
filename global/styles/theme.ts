@@ -25,6 +25,7 @@ const theme = {
     lightBlueWithOpacity: 'rgb(232, 239, 254)',
     navy: '#354DB0',
     lightNavy: 'rgba(53, 77, 176, 0.14)',
+    disabled: 'rgba(53, 77, 176, 0.5)',
     lightBlue: '#4D80F9',
     cardLightColor: '#F5F6FB',
     darkBlue: '#212C5B',

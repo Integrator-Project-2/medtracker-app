@@ -14,16 +14,15 @@ import { api } from '@/services/api';
 
 export default function SignInScreen() {
     const methods = useForm<UserCredentials>();
+    const { handleSubmit, formState: { isSubmitting } } = methods; // Getting isSubmitting from formState
     const router = useRouter();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const { setPatient } = usePatient(); 
     
-
     async function onSubmit(data: UserCredentials) {
         try {
             const response = await signInUserService(data);
             if (response.status === 200) {
-               
                 const userId = await SecureStore.getItemAsync('userId');
                 if (userId) {
                     const patientResponse = await api.get(`users/linked_patient/${userId}/`);
@@ -65,22 +64,9 @@ export default function SignInScreen() {
                         bgColor={theme.colors.navy}
                         width={316}
                         height={52}
-                        onPress={methods.handleSubmit(onSubmit)}
+                        onPress={handleSubmit(onSubmit)}
+                        disabled={isSubmitting} 
                     />
-
-                    <PrimaryButton
-                        text="Sign in with Google"
-                        bgColor="transparent"
-                        width={316}
-                        height={52}
-                        textColor="#4D80F9"
-                        icon={
-                            <Image source={require('@/assets/images/devicon_google.png')} style={{ marginRight: 10 }} />
-                        }
-                        border="1px solid #4D80F9"
-                        onPress={() => console.log('Button Pressed')}
-                    />
-
                 </FormButtonContainer>
             </Container>
         </FormProvider>

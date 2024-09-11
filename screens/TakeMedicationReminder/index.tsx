@@ -18,13 +18,10 @@ export default function TakeMedicationReminderScreen() {
     const params = useLocalSearchParams<{ medication: string }>();
     const medication: Medication = JSON.parse(decodeURIComponent(params.medication || '{}'));
 
- 
     const { patient } = usePatient();
     const patientId = patient?.id;
 
     const [step, setStep] = useState(1);
-
-
     const methods = useForm<Reminder>({
         defaultValues: {
             patient: patientId, 
@@ -37,7 +34,9 @@ export default function TakeMedicationReminderScreen() {
         },
     });
 
-    const handleNext = methods.handleSubmit(async (data) => {
+    const { handleSubmit, formState: { isSubmitting } } = methods; // Getting isSubmitting from formState
+
+    const handleNext = handleSubmit(async (data) => {
         if (step === 1) {
             console.log("Tipo de lembrete:", data.reminder_type);
             if (data.reminder_type === 'daily reminder') {
@@ -114,6 +113,7 @@ export default function TakeMedicationReminderScreen() {
                         onPress={handleBack}
                         width={148}
                         height={52}
+                        disabled={isSubmitting} 
                     />
 
                     <PrimaryButton
@@ -122,6 +122,7 @@ export default function TakeMedicationReminderScreen() {
                         onPress={handleNext}
                         width={148}
                         height={52}
+                        disabled={isSubmitting}
                     />
                 </FormButtonContainer>
             </Container>

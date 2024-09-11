@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import Title from "@/components/Title";
 import { Container, FormButtonContainer, FormContainer, Header } from "@/global/styles/globalStyles";
@@ -23,6 +23,8 @@ export default function MedicationStockReminderScreen() {
         ? JSON.parse(decodeURIComponent(params.amountReminder))
         : undefined;
 
+    const [isSubmitting, setIsSubmitting] = useState(false); // State to manage button disable status
+
     const methods = useForm<AmountReminder>({
         defaultValues: {
             medication: medication.id,
@@ -35,6 +37,7 @@ export default function MedicationStockReminderScreen() {
     const { handleSubmit } = methods;
 
     const onSubmit = async (data: AmountReminder) => {
+        setIsSubmitting(true); // Disable the button when submitting
         try {
             if (amountReminder && amountReminder.id !== undefined) {
                 const amountReminderId = amountReminder.id.toString();
@@ -62,6 +65,8 @@ export default function MedicationStockReminderScreen() {
             } else {
                 console.error('Failed to save medication reminder', error);
             }
+        } finally {
+            setIsSubmitting(false); // Re-enable the button when done
         }
     };
 
@@ -125,6 +130,7 @@ export default function MedicationStockReminderScreen() {
                         onPress={handleSubmit(onSubmit)}
                         width={148}
                         height={52}
+                        disabled={isSubmitting}
                     />
                 </FormButtonContainer>
             </Container>

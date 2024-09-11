@@ -20,36 +20,36 @@ export function ProfileScreen() {
     const [isFormVisible, setIsFormVisible] = useState(false);
     const [patientData, setPatientData] = useState<Patient | null>(null);
     const [loading, setLoading] = useState(true);
-
-    const { patient } = usePatient();
+    const { patient, setPatient } = usePatient();
     const patientId = patient?.id;
 
-    useEffect(() => {
-        async function fetchData() {
-            if (patientId !== undefined) {
-                try {
-                    const data = await getPatientData(patientId);
-                    setPatientData(data);
-                } catch (error) {
-                    Alert.alert("Erro", "Não foi possível carregar os dados do paciente.");
-                } finally {
-                    setLoading(false);
-                }
-            } else {
-                setLoading(false);
+    const updatePatientDataInState = async () => {
+        if (patientId !== undefined) {
+            try {
+                const data = await getPatientData(patientId);
+                setPatientData(data);
+                setPatient(data); 
+            } catch (error) {
+                Alert.alert("Erro", "Não foi possível carregar os dados do paciente.");
             }
         }
-    
-        fetchData();
+    };
+
+    useEffect(() => {
+        setLoading(true);
+        updatePatientDataInState().finally(() => setLoading(false));
     }, [patientId]);
+
+    function handleCancel() {
+        setIsFormVisible(false);
+        updatePatientDataInState(); 
+    }
+
 
     function handlePress() {
         router.back();
     }
 
-    function handleCancel() {
-        setIsFormVisible(false);
-    }
 
     const handleLogout = async () => {
         try {
@@ -61,15 +61,15 @@ export function ProfileScreen() {
 
     const menuOptions = [
         {
+            label: 'Logout',
+            onPress: handleLogout  
+        },
+        {
             label: 'Edit',
             onPress: () => {
                 setIsFormVisible(true);
             }
         },
-        {
-            label: 'Logout',
-            onPress: handleLogout  
-        }
     ];
 
     return (
@@ -98,6 +98,7 @@ export function ProfileScreen() {
                                 initialData={patientData}
                                 patientId={patientId as number}
                                 onCancel={handleCancel}
+                                onSuccess={updatePatientDataInState}
                             />
                         ) : (
                             <ProfileInfoText data={patientData} />

@@ -18,11 +18,13 @@ export default function IntegerInput({ label, width, fontSize, labelColor, value
     const decrement = () => onChange(value > 0 ? value - 1 : 0);
 
     const handleChange = (text: string) => {
-        const newValue = text === '' ? 0 : parseInt(text, 10);
+    
+        const newValue = parseInt(text, 10); 
         if (!isNaN(newValue)) {
-            onChange(newValue);
+            onChange(newValue); 
         }
     };
+    
 
     return (
         <View>   
@@ -39,7 +41,7 @@ export default function IntegerInput({ label, width, fontSize, labelColor, value
                 <StyledIntegerInput
                     mode="flat"
                     keyboardType="numeric"
-                    value={value.toString()} // Exibir o valor como string
+                    value={value.toString()}
                     onChangeText={handleChange}
                     outlineColor={theme.colors.lightPurple}
                     textColor={theme.colors.darkBlue}
