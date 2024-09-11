@@ -6,5 +6,6 @@ export interface Prescription {
     description: string;
     dose: string;
     prescription_file: string;
+    prescription_pdf: string;
     date: string;
 }

@@ -12,7 +12,7 @@ import { fetchPrescriptions, fetchDoctorDetails } from "@/services/Prescriptions
 import { Prescription } from "@/types/Prescription";
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
-import base64 from 'base64-js';
+import * as Linking from 'expo-linking';
 import { usePatient } from "@/contexts/PatientContext";
 import Subtitle from "@/components/Subtitle";
 
@@ -24,10 +24,33 @@ export function Prescriptions() {
     const { patient } = usePatient();
     const patientId = patient?.id;
 
+
     const downloadPrescription = async (base64Pdf: string) => {
-        console.log("Iniciando download do PDF...");
-        //TODO: ajust download
+        try {
+            console.log("Iniciando download do PDF...");
+    
+            const fileUri = `${FileSystem.documentDirectory}prescription.pdf`;
+    
+            await FileSystem.writeAsStringAsync(fileUri, base64Pdf, {
+                encoding: FileSystem.EncodingType.Base64,
+            });
+           
+            const isSharingAvailable = await Sharing.isAvailableAsync();
+            if (isSharingAvailable) {
+                console.log("Compartilhamento está disponível.");
+    
+                await Sharing.shareAsync(fileUri);
+            } else {
+                console.log("Compartilhamento não está disponível.");
+    
+                await Linking.openURL(fileUri);
+            }
+        } catch (error) {
+            console.error("Erro ao baixar ou visualizar o PDF:", error);
+            Alert.alert("Erro", "Não foi possível baixar a prescrição.");
+        }
     };
+    
 
     useEffect(() => {
         const loadPrescriptions = async () => {
@@ -86,7 +109,7 @@ export function Prescriptions() {
                 bgColor={theme.colors.cardLightColor}
                 downloadButton
                 downloadPress={() => {
-                    downloadPrescription(item.prescription_file);
+                    downloadPrescription(item.prescription_pdf);
                 }}
                 width={312}
             />
